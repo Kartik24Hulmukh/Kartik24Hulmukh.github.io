@@ -8,13 +8,17 @@ The site preserves the attached ink/paper/orange design. It is plain HTML/CSS/JS
 - Canonical portfolio: `Kartik24Hulmukh/Kartik24Hulmukh.github.io`, deployed from `docs/` using Actions to `https://kartik24hulmukh.github.io/`.
 - Existing profile-repository Pages route can serve the same source as a compatibility URL. Canonical metadata points to the dedicated root site.
 
-The root repository may also contain a self-contained `index.html` bootstrap so its default user-site branch can display the portfolio before Actions deployment finishes. The maintained website source is `docs/`; regenerate the bootstrap when editing the site if retaining it.
+The maintained website source is `docs/`. In the dedicated root repository, `scripts/build_bootstrap.py` mirrors the HTML into a root `index.html` that references the maintained local assets and also copies crawler metadata. This is regenerated whenever the asset-build workflow runs, including after scheduled snapshot updates.
 
 ## Workflow
 
-`pages.yml` validates the exact triggering commit, generates the short play-once README GIF and social PNG, selects Actions publishing for an already-existing Pages site, and uploads only `docs/`. The built-in workflow token is scoped to read source, write Pages and request an identity token. It is not a personal credential and is never embedded in site files. If Pages source configuration is rejected by the workspace/repository policy, select Settings → Pages → GitHub Actions as the owner, then rerun deployment. No access policy should be weakened.
+The dedicated user-site repository keeps its working **branch-based Pages** publishing mode. Its `pages.yml` validates source, generates the short play-once GIF/social PNG, regenerates the homepage mirror, commits generated files through the built-in workflow token, and requests the existing Pages build. This path was deployed successfully; switching the Pages configuration is not required.
 
-`activity.yml` requests metadata only for jittest, Axiom-Grid, AccessDoc and project-xray, updating the README region, static HTML snapshot and local JSON. It explicitly calls deployment because token-generated commits do not ordinarily trigger a second workflow. Repository push dates are freshness, not impact or adoption. API failure preserves the old snapshot. Protected-branch rules may require PR-based snapshot updates instead of bot pushes.
+The profile repository's compatibility site uses its existing **Actions artifact** deployment mode. Its `pages.yml` validates the triggering revision, generates artwork and uploads only `docs/`. The two repositories intentionally have mode-specific Pages workflows; do not overwrite one with the other's workflow blindly.
+
+`activity.yml` runs independently in each maintained repository. It requests metadata only for jittest, Axiom-Grid, AccessDoc and project-xray, updating the marked README region, static HTML snapshot and local JSON. It explicitly invokes the repository's own publication workflow because token-generated commits do not ordinarily trigger a second workflow. The root-site reusable caller grants `contents:write` for generated assets; the profile-site caller needs only source-read plus Pages/id-token permissions.
+
+Push dates are freshness—not adoption. API-fetch failure occurs before source writes; a subsequent validation failure prevents committing/publishing the local changes. Protected-branch rules may require PR-based updates instead of bot pushes. The canonical site is the dedicated root repository; keep its authored content and profile compatibility copy aligned when making editorial changes.
 
 ## Local checks
 
