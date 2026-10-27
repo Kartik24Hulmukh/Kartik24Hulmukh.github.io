@@ -1,0 +1,10 @@
+{
+  "attachment_sha256": "af7601c884833967b2c55cdb5de9c873cd98a2a815cea902a152eab50521dc54",
+  "css_sha256": "8187c13100f721025a07e76e49ba31c8c9f55cc06c2010e92972d093f381aefa",
+  "javascript_sha256": "467a8575ea81352e617a7d522a30fd53b0d12c38c1898ae2777192b39b5aea4a",
+  "stylesheet_identical_to_attachment": true,
+  "javascript_identical_to_attachment": true,
+  "public_projects": 7,
+  "excluded_client_removed": true,
+  "content_replacements": 35
+}
