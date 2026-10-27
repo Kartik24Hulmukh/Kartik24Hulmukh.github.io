@@ -1,4 +1,4 @@
-name: Validate profile package
+name: Validate restored portfolio
 on:
   pull_request:
   push:
@@ -11,4 +11,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: python3 scripts/validate.py
-      - run: node --check docs/app.js
+      - run: node --check docs/attachment.js

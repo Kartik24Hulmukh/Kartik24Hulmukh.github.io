@@ -1,48 +1,13 @@
-name: Refresh public repository snapshot
+name: Check preserved portfolio (manual only)
+# The approved attachment is editorial content. Do not rewrite it on a schedule.
 on:
-  schedule:
-    - cron: '15 2 * * *'
   workflow_dispatch:
 permissions:
   contents: read
-concurrency:
-  group: repository-snapshot
-  cancel-in-progress: false
 jobs:
-  refresh:
-    if: github.repository_owner == 'Kartik24Hulmukh'
+  check:
     runs-on: ubuntu-latest
-    outputs:
-      revision: ${{ steps.snapshot.outputs.revision }}
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: main
-      - name: Refresh and validate
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          python3 scripts/update_activity.py
-          python3 scripts/validate.py
-      - name: Commit only the snapshot files
-        id: snapshot
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add README.md docs/activity.json docs/index.html
-          if ! git diff --cached --quiet; then
-            git commit -m 'chore(profile): refresh public repository snapshot'
-            git push
-          fi
-          echo "revision=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
-  deploy:
-    needs: refresh
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
-    uses: ./.github/workflows/pages.yml
-    with:
-      revision: ${{ needs.refresh.outputs.revision }}
+      - run: python3 scripts/validate.py
+      - run: node --check docs/attachment.js
