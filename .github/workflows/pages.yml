@@ -1,4 +1,4 @@
-name: Validate and publish portfolio
+name: Build portfolio assets and refresh Pages
 on:
   push:
     branches: [main]
@@ -10,42 +10,44 @@ on:
         required: true
         type: string
 permissions:
-  contents: read
+  contents: write
   pages: write
-  id-token: write
 concurrency:
   group: portfolio-pages
   cancel-in-progress: false
 jobs:
-  deploy:
+  build:
     if: github.repository_owner == 'Kartik24Hulmukh'
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
         with:
           ref: ${{ inputs.revision || github.sha }}
+          fetch-depth: 0
       - name: Validate source
         run: |
           python3 scripts/validate.py
           node --check docs/app.js
-      - name: Generate short animated banner and social image
+      - name: Build original profile artwork
         run: |
           python3 -m pip install --disable-pip-version-check Pillow==11.3.0
           python3 scripts/render_assets.py
-      - name: Select Actions publishing for the existing Pages site
+          python3 scripts/build_bootstrap.py
+          cp docs/assets/hero-motion.gif assets/hero-motion.gif
+          cp docs/assets/social.png assets/social.png
+      - name: Commit generated binary assets
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/hero-motion.gif assets/social.png docs/assets/hero-motion.gif docs/assets/social.png index.html robots.txt sitemap.xml
+          if ! git diff --cached --quiet; then
+            git commit -m 'build: render portfolio banner and sharing artwork'
+            git push origin HEAD:main
+          fi
+      - name: Request the existing branch-based Pages build
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          mode=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.build_type')
-          if [ "$mode" != workflow ]; then
-            gh api --method PUT "repos/$GITHUB_REPOSITORY/pages" -f build_type=workflow --silent
+          if ! gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds" --silent; then
+            echo '::warning::Generated assets are committed, but the automatic Pages build request was rejected. A normal authorized source push or owner-requested Pages build is required.'
           fi
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: docs
-      - uses: actions/deploy-pages@v4
-        id: deployment
