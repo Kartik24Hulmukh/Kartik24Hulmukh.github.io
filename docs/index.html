@@ -1,0 +1,342 @@
+<!doctype html>
+
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Kartik Hulmukh — Software that shows its work</title>
+<meta content="Kartik Hulmukh builds verification tools, local-first systems and source-linked workflows. Project notes, status boundaries and inspectable work." name="description"/>
+<meta content="#0d0d0c" name="theme-color"/>
+
+
+
+
+
+<link href="./styles.css" rel="stylesheet"/><script defer="" src="./app.js"></script><link href="./favicon.svg" rel="icon" type="image/svg+xml"/><meta content="Kartik Hulmukh — Software that shows its work" property="og:title"/><meta content="website" property="og:type"/><meta content="Verification tools, local-first systems and source-linked engineering. Explore jittest, Axiom-Grid, AccessDoc and Project X-Ray." property="og:description"/><meta content="https://kartik24hulmukh.github.io/assets/social.png" property="og:image"/><meta content="https://kartik24hulmukh.github.io/" property="og:url"/><link href="https://kartik24hulmukh.github.io/" rel="canonical"/><meta content="dark light" name="color-scheme"/></head>
+<body class="ready">
+<a class="skip" href="#main">Skip to content</a>
+
+<canvas aria-hidden="true" id="gl"></canvas>
+<div aria-hidden="true" class="grain"></div>
+<div aria-hidden="true" class="cur"><div class="cur-ring"><span class="cur-lab"></span></div><div class="cur-dot"></div></div>
+<div aria-hidden="true" class="prog" id="prog"></div>
+<header class="nav">
+<a class="brand" data-cursor="TOP" href="#top"><span class="mark">KH</span><span class="mono">Kartik Hulmukh</span></a>
+
+<nav aria-label="Primary" class="nav-r">
+<div class="nav-links"><a class="mono" href="#work">Work</a><a class="mono" href="#process">Approach</a><a class="mono" href="#contact">Contact</a></div>
+<button aria-pressed="false" class="mono ev-toggle" data-cursor="PROOF" hidden="" id="evt" title="Highlight project source links"><span aria-hidden="true" class="ev-sw"></span><span>Sources</span></button>
+<button aria-pressed="false" class="mono motion-toggle" hidden="" id="motion-toggle" type="button">Pause motion</button></nav>
+</header>
+
+
+<div aria-live="polite" class="sr" id="live"></div>
+
+<main id="main">
+
+<section class="hero" data-title="Index" id="top">
+<div class="h-top mono">
+<span>[ 00 ] Verification infrastructure</span>
+<span>Independent software · Mumbai</span>
+<span>Portfolio — 2026</span>
+</div>
+<h1 aria-label="Kartik Hulmukh" class="name"><span aria-hidden="true" class="row">Kartik</span><span aria-hidden="true" class="row">Hulmukh</span></h1>
+<div class="h-bot">
+<p class="h-tag">I build software<br/>that <em>shows its work.</em></p>
+<div class="h-copy">
+<ul aria-label="Roles" class="roles mono"><li class="on">Verification tools · Human-gated systems</li></ul>
+<p>Computer Engineering student in Mumbai, building tools for AI-written work, local-first automation and better-informed human decisions. I keep the source, the scope and the way to check close to the result.</p>
+</div>
+<a class="mono scroll-cue" data-cursor="SCROLL" href="#work">Explore work <span aria-hidden="true">↓</span></a>
+</div>
+</section>
+
+<section class="man" data-title="Position" id="manifesto">
+<div class="man-in">
+<span class="mono lab">[ 01 ] Position</span>
+<p class="words" id="words">An impressive result is a starting point. <em>A checkable result</em> is something you can build on.</p>
+<span class="mono lab">Useful first. Inspectable always.</span>
+</div>
+</section>
+
+<section class="nums" data-title="Current focus" id="numbers"><div class="nums-h"><h2 class="sec-title sm">Four questions.<br/><em>One through-line.</em></h2><p class="mono lab">[ 02 ] Current focus<br/>Not traction metrics. Problems worth working on.</p></div><div class="grid4"><div class="cell"><span class="mono scope-index">01 / jittest</span><h3>What changed?</h3><p>Compare execution across base and head. Preserve inconclusive outcomes.</p><a class="src" href="https://github.com/Kartik24Hulmukh/jittest">Inspect jittest ↗</a></div><div class="cell"><span class="mono scope-index">02 / Axiom-Grid</span><h3>Who approves?</h3><p>Explore local-first desktop assistance with explicit human gates.</p><a class="src" href="https://github.com/Kartik24Hulmukh/Axiom-Grid">Inspect Axiom-Grid ↗</a></div><div class="cell"><span class="mono scope-index">03 / AccessDoc</span><h3>What was found?</h3><p>Package accessibility findings without turning a scan into certification.</p><a class="src" href="https://github.com/Kartik24Hulmukh/AccessDoc">Inspect AccessDoc ↗</a></div><div class="cell"><span class="mono scope-index">04 / Project X-Ray</span><h3>Where’s the source?</h3><p>Link a claim to its evidence. Keep a human responsible for the conclusion.</p><a class="src" href="https://github.com/Kartik24Hulmukh/project-xray">Inspect Project X-Ray ↗</a></div></div></section>
+
+
+<section class="paper perf work" data-title="Work" id="work">
+<div class="sec-h">
+<span class="mono lab">[ 03 ]</span>
+<h2 class="sec-title">Selected <em>work</em></h2>
+<p class="mono lab right">07 public projects · open to inspect<br/>Scope and limitations stay with the work.</p>
+</div>
+<div class="projs">
+<details class="proj" data-kind="Verification" data-status="Published package · advisory verifier" id="project-jittest">
+<summary class="proj-head">
+<span class="p-idx mono">01</span>
+<span class="p-name">jittest</span>
+<span class="p-line">Advisory differential verification for AI-written changes</span>
+<span class="p-tags mono">Python · Ed25519 · CI</span>
+<span class="p-year mono">2026 —</span>
+<span aria-hidden="true" class="p-plus"></span>
+</summary>
+<div class="proj-body" id="pb1"><div class="proj-inner"><div class="pb">
+<div class="pb-text"><p>Runs test execution across base and head revisions and emits Ed25519-signed receipts. The useful distinction is what ran and what changed—not whether a model sounded confident.</p><p class="note">Published v0.4.1 and newer main-branch work are different surfaces. A signed receipt is inspectable evidence, not a proof that the test or program is correct.</p>
+
+
+<ul class="facts mono"><li>Python</li><li>Apache-2.0</li><li>CI / Ed25519</li></ul>
+<div class="links">
+<a class="lnk" href="https://github.com/Kartik24Hulmukh/jittest" rel="noopener noreferrer" target="_blank">Repository ↗</a>
+<a class="lnk" href="https://github.com/Kartik24Hulmukh/jittest/blob/main/docs/evidence/layer1/REPORT.md" rel="noopener noreferrer" target="_blank">Evidence report ↗</a>
+<a class="lnk" href="https://pypi.org/project/jittest/" rel="noopener noreferrer" target="_blank">PyPI ↗</a>
+</div>
+</div>
+<div aria-label="jittest project note" class="receipt">
+<div class="r-h">Project note · jittest</div>
+
+
+
+
+<div class="r-row"><span>published</span><i></i><b>v0.4.1</b></div><div class="r-row"><span>operating role</span><i></i><b>advisory</b></div><div class="r-row"><span>main branch</span><i></i><b>unreleased safeguards</b></div><div class="r-row"><span>won’t claim</span><i></i><b>signature ≠ correctness</b></div><div class="r-cmd">
+<code>pip install jittest==0.4.1</code>
+<button class="copy" data-copy="" hidden="">COPY</button>
+</div>
+<div class="r-foot">Compare the execution. Keep the uncertainty.</div>
+<a class="src" href="https://github.com/Kartik24Hulmukh/jittest/blob/main/README.md" rel="noopener noreferrer" target="_blank">Read the source ↗</a>
+</div>
+</div></div></div>
+</details>
+<details class="proj" data-kind="Desktop agent" data-status="Technical preview · production scope unresolved" id="project-axiom">
+<summary class="proj-head">
+<span class="p-idx mono">02</span>
+<span class="p-name">Axiom-Grid</span>
+<span class="p-line">Local-first desktop copilot research · technical preview</span>
+<span class="p-tags mono">Rust · Python · Tauri · MCP</span>
+<span class="p-year mono">2026 —</span>
+<span aria-hidden="true" class="p-plus"></span>
+</summary>
+<div class="proj-body" id="pb2"><div class="proj-inner"><div class="pb">
+<div class="pb-text"><p>Document intelligence and signed-receipt research alongside a focused local desktop-runtime preview. The ghost-typing direction keeps propose → approve → execute → verify as its operating model.</p><p class="note">The repository contains multiple product generations and a launch release, while focused-runtime production NO-GO gates remain. This is not universal all-app automation or a claim of cryptographic zero egress.</p>
+
+
+<ul class="facts mono"><li>Rust / Python</li><li>Tauri</li><li>MIT</li></ul>
+<div class="links">
+<a class="lnk" href="https://github.com/Kartik24Hulmukh/Axiom-Grid" rel="noopener noreferrer" target="_blank">Repository ↗</a>
+
+</div>
+</div>
+<div aria-label="Axiom-Grid project note" class="receipt">
+<div class="r-h">Project note · Axiom-Grid</div>
+
+
+
+
+<div class="r-row"><span>scope</span><i></i><b>technical preview</b></div><div class="r-row"><span>production</span><i></i><b>unresolved gates</b></div><div class="r-row"><span>control</span><i></i><b>explicit human approval</b></div><div class="r-row"><span>won’t claim</span><i></i><b>universal readiness</b></div><div class="r-cmd">
+<code>python tools/verify_receipts_external.py redline_output/audit_log.json</code>
+<button class="copy" data-copy="" hidden="">COPY</button>
+</div>
+<div class="r-foot">The approval boundary is part of the product.</div>
+<a class="src" href="https://github.com/Kartik24Hulmukh/Axiom-Grid/blob/main/docs/axiom/LAUNCH-GATES.md" rel="noopener noreferrer" target="_blank">Read the source ↗</a>
+</div>
+</div></div></div>
+</details>
+<details class="proj" data-kind="Accessibility" data-status="Beta / hardening candidate" id="project-accessdoc">
+<summary class="proj-head">
+<span class="p-idx mono">03</span>
+<span class="p-name">AccessDoc</span>
+<span class="p-line">Accessibility scan evidence · beta / hardening candidate</span>
+<span class="p-tags mono">Python · WCAG · in-toto</span>
+<span class="p-year mono">2026 —</span>
+<span aria-hidden="true" class="p-plus"></span>
+</summary>
+<div class="proj-body" id="pb3"><div class="proj-inner"><div class="pb">
+<div class="pb-text"><p>Converts axe-core scan JSON into tamper-evident evidence bundles, with reviewable reports and structured outputs including OpenACR, SARIF, VPAT drafts and in-toto attestations.</p><p class="note">Local attestations are unsigned unless the opt-in signing workflow is used. VPAT output is a draft; automated findings are partial coverage, not WCAG conformance or certification.</p>
+
+
+<ul class="facts mono"><li>Python</li><li>axe-core / in-toto</li><li>MIT</li></ul>
+<div class="links"><a class="lnk" href="https://github.com/Kartik24Hulmukh/AccessDoc" rel="noopener noreferrer" target="_blank">Repository ↗</a></div>
+</div>
+<div aria-label="AccessDoc project note" class="receipt">
+<div class="r-h">Project note · AccessDoc</div>
+
+
+
+
+<div class="r-row"><span>status</span><i></i><b>beta / hardening</b></div><div class="r-row"><span>signing</span><i></i><b>workflow opt-in</b></div><div class="r-row"><span>VPAT</span><i></i><b>human-review draft</b></div><div class="r-row"><span>won’t claim</span><i></i><b>WCAG conformance</b></div><div class="r-cmd">
+<code>python3 cli.py verify dist/bundle.zip</code>
+<button class="copy" data-copy="" hidden="">COPY</button>
+</div>
+<div class="r-foot">Findings, not a compliance verdict.</div>
+<a class="src" href="https://github.com/Kartik24Hulmukh/AccessDoc/blob/main/README.md" rel="noopener noreferrer" target="_blank">Read the source ↗</a>
+</div>
+</div></div></div>
+</details>
+<details class="proj" data-kind="Civic tech" data-status="Controlled synthetic preview" id="project-xray">
+<summary class="proj-head">
+<span class="p-idx mono">04</span>
+<span class="p-name">Project X-Ray</span>
+<span class="p-line">Source-linked investigation · controlled synthetic preview</span>
+<span class="p-tags mono">Python · PostgreSQL · AWS</span>
+<span class="p-year mono">2026 —</span>
+<span aria-hidden="true" class="p-plus"></span>
+</summary>
+<div class="proj-body" id="pb4"><div class="proj-inner"><div class="pb">
+<div class="pb-text"><p>A source-linked public-infrastructure evidence workflow with distinct-reviewer publication controls and draft RTI exports. It supports human investigation and keeps assertions tied to their sources.</p><p class="note">Demonstrated on synthetic records. Production-readiness gates remain pending or partial; this is not authorization for real-case publication and does not determine corruption.</p>
+
+
+<ul class="facts mono"><li>Python / PostgreSQL</li><li>Synthetic preview</li><li>Apache-2.0</li></ul>
+<div class="links"><a class="lnk" href="https://github.com/Kartik24Hulmukh/project-xray" rel="noopener noreferrer" target="_blank">Repository ↗</a></div>
+</div>
+<div aria-label="Project X-Ray project note" class="receipt">
+<div class="r-h">Project note · Project X-Ray</div>
+
+
+
+
+<div class="r-row"><span>data</span><i></i><b>synthetic preview</b></div><div class="r-row"><span>publication</span><i></i><b>human review</b></div><div class="r-row"><span>production</span><i></i><b>pending / partial</b></div><div class="r-row"><span>won’t claim</span><i></i><b>determines corruption</b></div>
+<div class="r-foot">Evidence for people, not verdicts about them.</div>
+<a class="src" href="https://github.com/Kartik24Hulmukh/project-xray/blob/main/ops/production-readiness.yaml" rel="noopener noreferrer" target="_blank">Read the source ↗</a>
+</div>
+</div></div></div>
+</details>
+
+<details class="proj" data-kind="Market intelligence" data-status="Research beta · not market validation" id="project-simultaneity">
+<summary class="proj-head">
+<span class="p-idx mono">05</span>
+<span class="p-name">Simultaneity Index</span>
+<span class="p-line">Public-signal crowding research for builders</span>
+<span class="p-tags mono">TypeScript · Next.js · MCP</span>
+<span class="p-year mono">2026 —</span>
+<span aria-hidden="true" class="p-plus"></span>
+</summary>
+<div class="proj-body" id="pb6"><div class="proj-inner"><div class="pb">
+<div class="pb-text"><p>Evidence-linked crowding research combining public supply signals and discussion heat, with interfaces for builders and agents. The output is a structured starting point for investigation.</p><p class="note">Discussion heat is not verified buyer demand. Scores are not novelty, market validation or investment advice. Production and paid-use gates remain unresolved.</p>
+
+<ul class="facts mono"><li>TypeScript / Next.js</li><li>MCP</li><li>MIT</li></ul>
+<div class="links"><a class="lnk" href="https://github.com/Kartik24Hulmukh/frontier-oss-ideas" rel="noopener noreferrer" target="_blank">Repository ↗</a></div>
+</div>
+<div aria-label="Simultaneity Index project note" class="receipt">
+<div class="r-h">Project note · Simultaneity Index</div>
+
+
+
+<div class="r-row"><span>status</span><i></i><b>research beta</b></div><div class="r-row"><span>signals</span><i></i><b>public supply + discussion</b></div><div class="r-row"><span>paid production</span><i></i><b>NO-GO gates</b></div><div class="r-row"><span>won’t claim</span><i></i><b>verified buyer demand</b></div>
+<div class="r-foot">A signal is an invitation to look closer.</div>
+<a class="src" href="https://github.com/Kartik24Hulmukh/frontier-oss-ideas/blob/main/README.md" rel="noopener noreferrer" target="_blank">Read the source ↗</a>
+</div>
+</div></div></div>
+</details>
+<details class="proj" data-kind="Finance" data-status="Local technical-evaluation release candidate" id="project-ledgermatch">
+<summary class="proj-head">
+<span class="p-idx mono">06</span>
+<span class="p-name">LedgerMatch</span>
+<span class="p-line">Review-first reconciliation with explicit ambiguity</span>
+<span class="p-tags mono">Python · stdlib only</span>
+<span class="p-year mono">2026</span>
+<span aria-hidden="true" class="p-plus"></span>
+</summary>
+<div class="proj-body" id="pb7"><div class="proj-inner"><div class="pb">
+<div class="pb-text"><p>A local bank-deposit and invoice-matching tool that preserves equally valid allocations as exceptions for human review. Runs emit deterministic, tamper-evident evidence bundles.</p><p class="note">A local evaluation candidate, not an accounting system of record, bank integration or hosted production service. A hash is not immutability when both the record and its head can be rewritten.</p>
+
+<ul class="facts mono"><li>Python standard library</li><li>Local evaluation</li><li>MIT</li></ul>
+<div class="links"><a class="lnk" href="https://github.com/Kartik24Hulmukh/Ledgermatch" rel="noopener noreferrer" target="_blank">Repository ↗</a></div>
+</div>
+<div aria-label="LedgerMatch project note" class="receipt">
+<div class="r-h">Project note · LedgerMatch</div>
+
+
+
+<div class="r-row"><span>status</span><i></i><b>evaluation candidate</b></div><div class="r-row"><span>ambiguity</span><i></i><b>kept for review</b></div><div class="r-row"><span>execution</span><i></i><b>local</b></div><div class="r-row"><span>won’t claim</span><i></i><b>system of record</b></div><div class="r-cmd">
+<code>python3 -m unittest discover -s tests -p 'test_*.py'</code>
+<button class="copy" data-copy="" hidden="">COPY</button>
+</div>
+<div class="r-foot">Ambiguity is preserved, not silently resolved.</div>
+<a class="src" href="https://github.com/Kartik24Hulmukh/Ledgermatch/blob/main/README.md" rel="noopener noreferrer" target="_blank">Read the source ↗</a>
+</div>
+</div></div></div>
+</details>
+<details class="proj" data-kind="Product" data-status="Campus resource platform · implementation preview" id="project-rozgar">
+<summary class="proj-head">
+<span class="p-idx mono">07</span>
+<span class="p-name">RGIT Rozgar</span>
+<span class="p-line">A campus resource platform for people nearby</span>
+<span class="p-tags mono">React · Fastify · Postgres</span>
+<span class="p-year mono">2025 —</span>
+<span aria-hidden="true" class="p-plus"></span>
+</summary>
+<div class="proj-body" id="pb8"><div class="proj-inner"><div class="pb">
+<div class="pb-text"><p>A campus resource exchange for accommodation, resale, academics, food and local directories. The repository combines a TypeScript frontend with a Fastify, Prisma and PostgreSQL backend.</p><p class="note">Repository implementation is not evidence of institutional endorsement, measured adoption or current production service health. Operational readiness must be evaluated separately.</p>
+
+<ul class="facts mono"><li>React / TypeScript</li><li>Fastify / Prisma</li><li>PostgreSQL</li></ul>
+<div class="links"><a class="lnk" href="https://github.com/Kartik24Hulmukh/unified-experience" rel="noopener noreferrer" target="_blank">Repository ↗</a></div>
+</div>
+<div aria-label="RGIT Rozgar project note" class="receipt">
+<div class="r-h">Project note · RGIT Rozgar</div>
+
+
+
+<div class="r-row"><span>focus</span><i></i><b>campus resources</b></div><div class="r-row"><span>surface</span><i></i><b>full-stack implementation</b></div><div class="r-row"><span>operations</span><i></i><b>evaluate separately</b></div><div class="r-row"><span>won’t claim</span><i></i><b>institutional endorsement</b></div><div class="r-foot">Software for the people nearby.</div>
+<a class="src" href="https://github.com/Kartik24Hulmukh/unified-experience/blob/main/README.md" rel="noopener noreferrer" target="_blank">Read the source ↗</a>
+</div>
+</div></div></div>
+</details>
+</div>
+</section>
+
+<section class="bounds" data-title="Boundaries" id="bounds">
+<div class="bounds-h">
+<h2 class="sec-title md">What it<br/><em>won't</em> claim.</h2>
+<p data-reveal="">A useful tool states its boundary. These are engineering commitments—not certifications or claims of production readiness.</p>
+</div>
+<table class="btable" data-reveal="">
+<thead><tr><th scope="col">Project</th><th scope="col">It will</th><th scope="col">It won't</th></tr></thead>
+<tbody>
+<tr><td>jittest</td><td>Run the test on both revisions and sign what actually happened</td><td class="no">Treat a valid signature as proof of correctness</td></tr>
+<tr><td>Axiom-Grid</td><td>Propose an action, wait for you, and record that you approved</td><td class="no">Let the model grade its own output</td></tr>
+<tr><td>AccessDoc</td><td>Document what a scan found, with coverage limits</td><td class="no">Claim WCAG conformance</td></tr>
+<tr><td>LedgerMatch</td><td>Keep equally valid allocations as exceptions for a human</td><td class="no">Silently pick one</td></tr>
+<tr><td>Project X-Ray</td><td>Link every claim to its source for human review</td><td class="no">Determine corruption</td></tr>
+</tbody>
+</table>
+<div class="links" style="margin-top:28px">
+<a class="lnk" data-cursor="CHALLENGE" href="https://github.com/Kartik24Hulmukh/Kartik24Hulmukh/issues/new?template=challenge.yml" rel="noopener noreferrer" target="_blank">Challenge a statement ↗</a>
+<a class="lnk" href="https://github.com/Kartik24Hulmukh/Kartik24Hulmukh/issues/new?template=reproduction.yml" rel="noopener noreferrer" target="_blank">Submit a reproduction ↗</a>
+</div>
+</section>
+
+<section class="proc" data-title="Process" id="process">
+<div class="proc-l">
+<span class="mono lab">[ 05 ] Process</span>
+<h2 class="sec-title md">How a<br/>claim <em>earns</em><br/>its place.</h2>
+<p>The working loop is simple: define the claim, build something testable, look for failure, and leave a way for someone else to inspect the result.</p>
+</div>
+<div class="proc-r">
+<div class="step"><span class="mono">01</span><div><h3>State the claim</h3><p>Write down exactly what will be true — and what won't. The boundary is part of the spec, not a disclaimer added later.</p></div></div>
+<div class="step"><span class="mono">02</span><div><h3>Build the harness</h3><p>Tests, fixtures, frozen cohorts, pinned images. If it can't be measured, it doesn't ship as a claim.</p></div></div>
+<div class="step"><span class="mono">03</span><div><h3>Try to break it</h3><p>Premortems, stress and chaos runs, adversarial payloads, tampered receipts. The tool gets turned on its own history.</p></div></div>
+<div class="step"><span class="mono">04</span><div><h3>Ship the receipt</h3><p>Signed, hash-chained output and one command a stranger can run in about a minute — or a signed refusal when the evidence isn't there.</p></div></div>
+</div>
+</section>
+
+
+
+<section class="ledger" data-title="Ledger" id="ledger"><div class="ledger-h"><div><span class="mono lab">[ 06 ] Public repository snapshot</span><h2 class="sec-title md" style="margin-top:24px">Still <em>building.</em></h2></div><p class="mono lab" id="snapshot-asof">Metadata checked 2026-10-27 · push dates are not impact</p></div><div class="l-list" id="repo-snapshot"><a class="l-item" href="https://github.com/Kartik24Hulmukh/jittest"><span class="mono d">2026-10-25</span><span class="mono repo">jittest</span><span class="t">Repository metadata · Python</span><span class="arr" aria-hidden="true">↗</span></a><a class="l-item" href="https://github.com/Kartik24Hulmukh/project-xray"><span class="mono d">2026-10-24</span><span class="mono repo">project-xray</span><span class="t">Repository metadata · Python</span><span class="arr" aria-hidden="true">↗</span></a><a class="l-item" href="https://github.com/Kartik24Hulmukh/AccessDoc"><span class="mono d">2026-10-20</span><span class="mono repo">AccessDoc</span><span class="t">Repository metadata · Python</span><span class="arr" aria-hidden="true">↗</span></a><a class="l-item" href="https://github.com/Kartik24Hulmukh/Axiom-Grid"><span class="mono d">2026-10-13</span><span class="mono repo">Axiom-Grid</span><span class="t">Repository metadata · Python</span><span class="arr" aria-hidden="true">↗</span></a></div><p class="ledger-note mono">A dated, allowlisted snapshot. No browser API token, contribution farming, or invented traction.</p></section>
+
+<section class="contact" data-title="Contact" id="contact">
+<span class="mono lab">[ 07 ] Open to internships, research and thoughtful collaborations</span>
+<h2 class="c-big">Worth building?<br/><em>Let’s make it hold up.</em></h2>
+<div class="c-row">
+<div class="c-btns">
+<a class="btn red mag" data-cursor="WRITE" href="mailto:kartikhulmukh24@gmail.com?subject=Hi%20Kartik">kartikhulmukh24@gmail.com</a>
+<button class="btn mag" data-copy="" data-text="kartikhulmukh24@gmail.com" hidden="">Copy email</button>
+</div>
+<div class="c-btns">
+<a class="btn mag" href="https://github.com/Kartik24Hulmukh" rel="noopener noreferrer" target="_blank">GitHub ↗</a>
+<a class="btn mag" href="https://www.linkedin.com/in/kartik-hulmukh-74081236a/" rel="noopener noreferrer" target="_blank">LinkedIn ↗</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="mono"><span>© 2026 Kartik Hulmukh · Mumbai</span><span>Page-text fingerprint: <code id="digest">Requires JavaScript</code><small>Fingerprint only—not a signature or authenticity proof.</small></span><span>Source-linked work. No trackers.</span></footer>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+name: Validate and publish portfolio
+on:
+  push:
+    branches: [main]
+    paths: ['docs/**', 'scripts/**', 'assets/**', '.github/workflows/pages.yml']
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      revision:
+        required: true
+        type: string
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: portfolio-pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    if: github.repository_owner == 'Kartik24Hulmukh'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.revision || github.sha }}
+      - name: Validate source
+        run: |
+          python3 scripts/validate.py
+          node --check docs/app.js
+      - name: Generate short animated banner and social image
+        run: |
+          python3 -m pip install --disable-pip-version-check Pillow==11.3.0
+          python3 scripts/render_assets.py
+      - name: Select Actions publishing for the existing Pages site
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mode=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.build_type')
+          if [ "$mode" != workflow ]; then
+            gh api --method PUT "repos/$GITHUB_REPOSITORY/pages" -f build_type=workflow --silent
+          fi
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+      - uses: actions/deploy-pages@v4
+        id: deployment
