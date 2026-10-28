@@ -1,0 +1,50 @@
+/* Rebalanced identity composition. Changes are scoped to the hero only. */
+.hero{padding-top:110px;padding-bottom:34px;row-gap:0}
+.hero>.h-top,.hero>.h-bot,.hero>.hero-stage{width:100%;max-width:1080px;justify-self:center}
+.hero-stage{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:clamp(40px,6vw,88px);align-items:center;align-self:center;margin:48px 0}
+.hero .name{font-size:clamp(76px,11.5vw,166px);line-height:.88;letter-spacing:-.025em;margin:0;font-weight:800;min-width:0}
+.hero .name .row{padding-top:.04em;overflow:visible}
+.hero .name .row:nth-child(2){padding-left:0}
+.hero-portrait{position:relative;inset:auto;width:100%;margin:0;align-self:center;pointer-events:none}
+.hero-portrait img{display:block;width:100%;height:auto;object-fit:contain}
+.hero .h-bot{grid-template-columns:1.05fr 1fr auto;gap:32px;padding-top:28px;border-top:1px solid var(--line)}
+.hero .h-tag{font-size:clamp(30px,2.9vw,44px)}
+.hero .h-copy{max-width:43ch}
+@media(max-width:1100px){
+ .hero-stage{grid-template-columns:minmax(0,1fr) 280px;gap:36px}
+ .hero .name{font-size:clamp(76px,11.2vw,132px)}
+}
+@media(max-width:980px){
+ .hero{padding-top:104px}
+ .hero-stage{grid-template-columns:minmax(0,1fr) 240px;gap:24px;margin:44px 0}
+ .hero .name{font-size:clamp(68px,10.4vw,104px)}
+ .hero .h-bot{grid-template-columns:1fr auto;gap:24px 32px;align-items:start}
+ .hero .h-copy{grid-column:1;grid-row:2;max-width:52ch}
+ .hero .scroll-cue{grid-column:2;grid-row:2;align-self:end}
+}
+@media(max-width:640px){
+ .hero{padding-top:100px;padding-bottom:28px}
+ .hero>.h-top{font-size:10px;gap:16px}
+ .hero>.h-top span:nth-child(2){display:none}
+ .hero-stage{max-width:440px;grid-template-columns:minmax(0,1fr) clamp(112px,33.8vw,164px);gap:20px;margin:42px 0;align-items:center}
+ .hero .name{font-size:clamp(42px,13.3vw,62px);line-height:.94;letter-spacing:-.025em}
+ .hero-portrait{align-self:center;width:100%}
+ .hero .h-bot{grid-template-columns:1fr;gap:24px;padding-top:24px}
+ .hero .h-tag{font-size:34px}
+ .hero .h-copy{grid-column:1;grid-row:auto;gap:12px}
+ .hero .scroll-cue{grid-column:1;grid-row:auto}
+}
+@media(max-width:360px){
+ .hero-stage{grid-template-columns:minmax(0,1fr) 112px;gap:12px}
+ .hero-portrait{width:112px}
+ .hero .name{font-size:clamp(40px,13.3vw,48px)}
+ .hero .h-tag{font-size:30px}
+}
+
+/* Refinement: continuous portrait/type sizing above mobile, quieter edge, clear next step. */
+@media(min-width:641px){
+ .hero-stage{grid-template-columns:minmax(0,1fr) clamp(208px,26.5vw,340px);gap:clamp(24px,4.8vw,64px)}
+ .hero .name{font-size:clamp(76px,11.5vw,166px)}
+}
+.hero .scroll-cue{border-color:rgba(255,74,28,.48);gap:18px}
+.hero .scroll-cue:hover{background:var(--red);border-color:var(--red);color:var(--ink)}
