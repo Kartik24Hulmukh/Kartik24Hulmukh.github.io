@@ -1,470 +1,446 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>Kartik Hulmukh — Software that shows its work</title>
-<meta name="description" content="Kartik Hulmukh builds verification infrastructure for AI-generated work — jittest, Axiom-Grid, AccessDoc, Project X-Ray. Source-linked tools, explicit limits, and independently checkable results.">
-<meta name="theme-color" content="#0d0d0c">
-<link rel="canonical" href="https://kartik24hulmukh.github.io/">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<meta content="Kartik Hulmukh builds verification infrastructure for AI-generated work — jittest, Axiom-Grid, AccessDoc, Project X-Ray. Source-linked tools, explicit limits, and independently checkable results." name="description"/>
+<meta content="#0d0d0c" name="theme-color"/>
+<link href="https://kartik24hulmukh.github.io/" rel="canonical"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
 <script>document.documentElement.classList.add('js');</script>
-<link rel="stylesheet" href="./attachment.css">
+<link href="./attachment.css" rel="stylesheet"/>
+<link href="./portrait-refined.css" rel="stylesheet"/>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-
-<div id="loader" aria-hidden="true">
-  <div class="l-row mono"><span>KH / 26</span><span>Loading portfolio</span></div>
-  <div class="l-mid">
-    <div class="l-count" id="lcount">000</div>
-    <div class="l-hash mono" id="lhash">&nbsp;</div>
-    <div class="mono l-skip" id="lstat">hashing this page's text with SHA-256…</div>
-  </div>
-  <div class="l-row mono"><span>Proof or silence</span><span>Click to skip</span></div>
+<div aria-hidden="true" id="loader">
+<div class="l-row mono"><span>KH / 26</span><span>Loading portfolio</span></div>
+<div class="l-mid">
+<div class="l-count" id="lcount">000</div>
+<div class="l-hash mono" id="lhash"> </div>
+<div class="mono l-skip" id="lstat">hashing this page's text with SHA-256…</div>
 </div>
-
-<canvas id="gl" aria-hidden="true"></canvas>
-<div class="grain" aria-hidden="true"></div>
-<div class="cur" aria-hidden="true"><div class="cur-ring"><span class="cur-lab"></span></div><div class="cur-dot"></div></div>
-<div class="prog" id="prog" aria-hidden="true"></div>
-
+<div class="l-row mono"><span>Proof or silence</span><span>Click to skip</span></div>
+</div>
+<canvas aria-hidden="true" id="gl"></canvas>
+<div aria-hidden="true" class="grain"></div>
+<div aria-hidden="true" class="cur"><div class="cur-ring"><span class="cur-lab"></span></div><div class="cur-dot"></div></div>
+<div aria-hidden="true" class="prog" id="prog"></div>
 <header class="nav">
-  <a href="#top" class="brand" data-cursor="TOP"><span class="mark">KH</span><span class="mono">Kartik Hulmukh</span></a>
-  <div class="mono clock" aria-label="Local time in Mumbai"><span class="live" aria-hidden="true"></span>Mumbai · <span id="clock">--:--:--</span> IST</div>
-  <nav class="nav-r" aria-label="Primary">
-    <div class="nav-links">
-      <a class="mono scr" href="#work">Work</a>
-      <a class="mono scr" href="#bounds">Boundaries</a>
-      <a class="mono scr" href="#process">Process</a>
-      <a class="mono scr" href="#contact">Contact</a>
-    </div>
-    <button class="mono ev-toggle" id="evt" aria-pressed="false" data-cursor="PROOF" title="Show the source behind every figure (shortcut: E)"><span class="ev-sw" aria-hidden="true"></span><span>Evidence</span></button>
-  </nav>
+<a class="brand" data-cursor="TOP" href="#top"><span class="mark">KH</span><span class="mono">Kartik Hulmukh</span></a>
+<div aria-label="Local time in Mumbai" class="mono clock"><span aria-hidden="true" class="live"></span>Mumbai · <span id="clock">--:--:--</span> IST</div>
+<nav aria-label="Primary" class="nav-r">
+<div class="nav-links">
+<a class="mono scr" href="#work">Work</a>
+<a class="mono scr" href="#bounds">Boundaries</a>
+<a class="mono scr" href="#process">Process</a>
+<a class="mono scr" href="#contact">Contact</a>
+</div>
+<button aria-pressed="false" class="mono ev-toggle" data-cursor="PROOF" id="evt" title="Show the source behind every figure (shortcut: E)"><span aria-hidden="true" class="ev-sw"></span><span>Evidence</span></button>
+</nav>
 </header>
-<div class="secind mono" id="secind" aria-hidden="true">[00/07] Index</div>
-<div class="ev-banner" aria-hidden="true">Evidence mode — every figure shows its source</div>
-<div class="sr" id="live" aria-live="polite"></div>
-
-<div class="peek" id="peek" aria-hidden="true">
-  <div class="pk-top"><span class="pk-k"></span><span>receipt</span></div>
-  <div class="pk-n"></div>
-  <div class="pk-s"></div>
-  <div class="pk-c"></div>
-  <div class="pk-f">Click to open the full receipt</div>
+<div aria-hidden="true" class="secind mono" id="secind">[00/07] Index</div>
+<div aria-hidden="true" class="ev-banner">Evidence mode — every figure shows its source</div>
+<div aria-live="polite" class="sr" id="live"></div>
+<div aria-hidden="true" class="peek" id="peek">
+<div class="pk-top"><span class="pk-k"></span><span>receipt</span></div>
+<div class="pk-n"></div>
+<div class="pk-s"></div>
+<div class="pk-c"></div>
+<div class="pk-f">Click to open the full receipt</div>
 </div>
-
 <main id="main">
-
 <!-- 00 HERO -->
-<section class="hero" id="top" data-title="Index">
-  <div class="h-top mono">
-    <span>[ 00 ] Verification infrastructure</span>
-    <span>19.07° N, 72.87° E</span>
-    <span>Portfolio — 2026</span>
-  </div>
-  <h1 class="name" aria-label="Kartik Hulmukh"><span class="row" aria-hidden="true">Kartik</span><span class="row" aria-hidden="true">Hulmukh</span></h1>
-  <div class="h-bot">
-    <p class="h-tag">I build software<br>that <em>shows its work.</em></p>
-    <div class="h-copy">
-      <ul class="roles mono" aria-label="Roles">
-        <li class="on">Verification engineer</li>
-        <li>Systems builder</li>
-        <li>Design-minded full-stack</li>
-      </ul>
-      <p>Computer Engineering student in Mumbai, building local-first tools for the age of AI-written code. I keep the source, the scope and the way to check a result close to the work.</p>
-    </div>
-    <a href="#manifesto" class="mono scroll-cue" data-cursor="SCROLL">Scroll <span aria-hidden="true">↓</span></a>
-  </div>
-</section>
-
-<!-- 01 MANIFESTO -->
-<section class="man" id="manifesto" data-title="Position">
-  <div class="man-in">
-    <span class="mono lab">[ 01 ] Position</span>
-    <p class="words" id="words">Most software tells you it worked. I build toward a <em>receipt</em> — source-linked, checkable, with its limits close to the result. And when the evidence isn't there, it <em>refuses to guess.</em></p>
-    <span class="mono lab">Proof or silence.</span>
-  </div>
-</section>
-
-<!-- 02 NUMBERS -->
-<section class="nums" id="numbers" data-title="Denominators">
-  <div class="nums-h">
-    <h2 class="sec-title sm">I publish<br>the <em>denominator.</em></h2>
-    <p class="mono lab">[ 02 ] jittest Layer-1 sweep · frozen cohort of 83 historical pull requests across Flask, requests and youtube-dl · zero LLM calls · as published Oct 2026</p>
-  </div>
-  <div class="grid4">
-    <div class="cell" data-reveal>
-      <div class="big"><span class="num" data-to="83">0</span><small>/83</small></div>
-      <p>Rows attempted — every single one with a signed receipt.</p>
-      <a class="src" href="https://github.com/Kartik24Hulmukh/jittest/blob/39e07bf33d6efed8842a9723c34c665ed4641926/docs/evidence/layer1/REPORT.md" target="_blank" rel="noopener">src ↗ jittest · layer1/REPORT.md</a>
-    </div>
-    <div class="cell" data-reveal>
-      <div class="big"><span class="num" data-to="5">0</span><small>/11</small></div>
-      <p>Executed bug rows caught with signed proof (proven_catch).</p>
-      <a class="src" href="https://github.com/Kartik24Hulmukh/jittest#the-measured-status--we-publish-our-denominator" target="_blank" rel="noopener">src ↗ jittest README</a>
-    </div>
-    <div class="cell" data-reveal>
-      <div class="big"><span class="num" data-to="0">0</span><small>/13</small></div>
-      <p>Executed control rows that false-fired.</p>
-      <a class="src" href="https://github.com/Kartik24Hulmukh/jittest#the-measured-status--we-publish-our-denominator" target="_blank" rel="noopener">src ↗ jittest README</a>
-    </div>
-    <div class="cell" data-reveal>
-      <div class="big"><span class="num" data-to="59">0</span></div>
-      <p>Signed refusals. Counted as results, never hidden.</p>
-      <a class="src" href="https://github.com/Kartik24Hulmukh/jittest/blob/39e07bf33d6efed8842a9723c34c665ed4641926/docs/evidence/layer1/REPORT.md" target="_blank" rel="noopener">src ↗ jittest · layer1/REPORT.md</a>
-    </div>
-  </div>
-</section>
-
-<div class="marq" aria-label="Selected historical repository changes">
-  <div class="marq-skew" id="marq">
-    <div class="marq-track">
-      <span class="marq-item">fix: fail-closed wallet evidence accounting</span>
-      <span class="marq-item">fix: pin sandbox image and clear entrypoints</span>
-      <span class="marq-item">fix(1.6.3): proof integrity is not issuer authentication</span>
-      <span class="marq-item">fix: enforce absolute native deadlines on macOS</span>
-      <span class="marq-item">feat(security): AES-256-GCM memory export, fail-closed enterprise auth</span>
-      <span class="marq-item">test: fail closed on incomplete launch evidence</span>
-      <span class="marq-item">fix(router): cap per-model deadline at total_timeout</span>
-      <span class="marq-item">fix(security): patch Next.js 16.3.8 and clear six audit advisories</span>
-      <span class="marq-item" aria-hidden="true">fix: fail-closed wallet evidence accounting</span>
-      <span class="marq-item" aria-hidden="true">fix: pin sandbox image and clear entrypoints</span>
-      <span class="marq-item" aria-hidden="true">fix(1.6.3): proof integrity is not issuer authentication</span>
-      <span class="marq-item" aria-hidden="true">fix: enforce absolute native deadlines on macOS</span>
-      <span class="marq-item" aria-hidden="true">feat(security): AES-256-GCM memory export, fail-closed enterprise auth</span>
-      <span class="marq-item" aria-hidden="true">test: fail closed on incomplete launch evidence</span>
-      <span class="marq-item" aria-hidden="true">fix(router): cap per-model deadline at total_timeout</span>
-      <span class="marq-item" aria-hidden="true">fix(security): patch Next.js 16.3.8 and clear six audit advisories</span>
-    </div>
-  </div>
+<section class="hero" data-title="Index" id="top">
+<div class="h-top mono">
+<span>[ 00 ] Verification infrastructure</span>
+<span>19.07° N, 72.87° E</span>
+<span>Portfolio — 2026</span>
 </div>
-
+<div class="hero-stage"><h1 aria-label="Kartik Hulmukh" class="name"><span aria-hidden="true" class="row">Kartik</span><span aria-hidden="true" class="row">Hulmukh</span></h1><figure class="hero-portrait clean"><img alt="Illustrated portrait of Kartik Hulmukh" decoding="async" fetchpriority="high" height="271" src="../assets/kartik-portrait.svg" width="276"/></figure></div>
+<div class="h-bot">
+<p class="h-tag">I build software<br/>that <em>shows its work.</em></p>
+<div class="h-copy">
+<ul aria-label="Roles" class="roles mono">
+<li class="on">Verification engineer</li>
+<li>Systems builder</li>
+<li>Design-minded full-stack</li>
+</ul>
+<p>Computer Engineering student in Mumbai, building local-first tools for the age of AI-written code. I keep the source, the scope and the way to check a result close to the work.</p>
+</div>
+<a class="mono scroll-cue" data-cursor="WORK" href="#work">Explore work <span aria-hidden="true">↘</span></a>
+</div>
+</section>
+<!-- 01 MANIFESTO -->
+<section class="man" data-title="Position" id="manifesto">
+<div class="man-in">
+<span class="mono lab">[ 01 ] Position</span>
+<p class="words" id="words">Most software tells you it worked. I build toward a <em>receipt</em> — source-linked, checkable, with its limits close to the result. And when the evidence isn't there, it <em>refuses to guess.</em></p>
+<span class="mono lab">Proof or silence.</span>
+</div>
+</section>
+<!-- 02 NUMBERS -->
+<section class="nums" data-title="Denominators" id="numbers">
+<div class="nums-h">
+<h2 class="sec-title sm">I publish<br/>the <em>denominator.</em></h2>
+<p class="mono lab">[ 02 ] jittest Layer-1 sweep · frozen cohort of 83 historical pull requests across Flask, requests and youtube-dl · zero LLM calls · as published Oct 2026</p>
+</div>
+<div class="grid4">
+<div class="cell" data-reveal="">
+<div class="big"><span class="num" data-to="83">0</span><small>/83</small></div>
+<p>Rows attempted — every single one with a signed receipt.</p>
+<a class="src" href="https://github.com/Kartik24Hulmukh/jittest/blob/39e07bf33d6efed8842a9723c34c665ed4641926/docs/evidence/layer1/REPORT.md" rel="noopener" target="_blank">src ↗ jittest · layer1/REPORT.md</a>
+</div>
+<div class="cell" data-reveal="">
+<div class="big"><span class="num" data-to="5">0</span><small>/11</small></div>
+<p>Executed bug rows caught with signed proof (proven_catch).</p>
+<a class="src" href="https://github.com/Kartik24Hulmukh/jittest#the-measured-status--we-publish-our-denominator" rel="noopener" target="_blank">src ↗ jittest README</a>
+</div>
+<div class="cell" data-reveal="">
+<div class="big"><span class="num" data-to="0">0</span><small>/13</small></div>
+<p>Executed control rows that false-fired.</p>
+<a class="src" href="https://github.com/Kartik24Hulmukh/jittest#the-measured-status--we-publish-our-denominator" rel="noopener" target="_blank">src ↗ jittest README</a>
+</div>
+<div class="cell" data-reveal="">
+<div class="big"><span class="num" data-to="59">0</span></div>
+<p>Signed refusals. Counted as results, never hidden.</p>
+<a class="src" href="https://github.com/Kartik24Hulmukh/jittest/blob/39e07bf33d6efed8842a9723c34c665ed4641926/docs/evidence/layer1/REPORT.md" rel="noopener" target="_blank">src ↗ jittest · layer1/REPORT.md</a>
+</div>
+</div>
+</section>
+<div aria-label="Selected historical repository changes" class="marq">
+<div class="marq-skew" id="marq">
+<div class="marq-track">
+<span class="marq-item">fix: fail-closed wallet evidence accounting</span>
+<span class="marq-item">fix: pin sandbox image and clear entrypoints</span>
+<span class="marq-item">fix(1.6.3): proof integrity is not issuer authentication</span>
+<span class="marq-item">fix: enforce absolute native deadlines on macOS</span>
+<span class="marq-item">feat(security): AES-256-GCM memory export, fail-closed enterprise auth</span>
+<span class="marq-item">test: fail closed on incomplete launch evidence</span>
+<span class="marq-item">fix(router): cap per-model deadline at total_timeout</span>
+<span class="marq-item">fix(security): patch Next.js 16.3.8 and clear six audit advisories</span>
+<span aria-hidden="true" class="marq-item">fix: fail-closed wallet evidence accounting</span>
+<span aria-hidden="true" class="marq-item">fix: pin sandbox image and clear entrypoints</span>
+<span aria-hidden="true" class="marq-item">fix(1.6.3): proof integrity is not issuer authentication</span>
+<span aria-hidden="true" class="marq-item">fix: enforce absolute native deadlines on macOS</span>
+<span aria-hidden="true" class="marq-item">feat(security): AES-256-GCM memory export, fail-closed enterprise auth</span>
+<span aria-hidden="true" class="marq-item">test: fail closed on incomplete launch evidence</span>
+<span aria-hidden="true" class="marq-item">fix(router): cap per-model deadline at total_timeout</span>
+<span aria-hidden="true" class="marq-item">fix(security): patch Next.js 16.3.8 and clear six audit advisories</span>
+</div>
+</div>
+</div>
 <!-- 03 WORK -->
-<section class="paper perf work" id="work" data-title="Work">
-  <div class="sec-h">
-    <span class="mono lab">[ 03 ]</span>
-    <h2 class="sec-title">Selected <em>work</em></h2>
-    <p class="mono lab right">07 entries · click a row to open<br>each one ships a way to check it</p>
-  </div>
-
-  <div class="projs">
-
-    <article class="proj" data-status="v0.4.1 published on PyPI" data-kind="Verification">
-      <button class="proj-head" aria-expanded="false" aria-controls="pb1" data-cursor="OPEN">
-        <span class="p-idx mono">01</span>
-        <span class="p-name">jittest</span>
-        <span class="p-line">Advisory differential verification for AI-written pull requests</span>
-        <span class="p-tags mono">Python · Ed25519 · CI</span>
-        <span class="p-year mono">2026 —</span>
-        <span class="p-plus" aria-hidden="true"></span>
-      </button>
-      <div class="proj-body" id="pb1"><div class="proj-inner"><div class="pb">
-        <div class="pb-text">
-          <p>jittest doesn't read your diff and guess. It runs the same test on the base revision and the head revision in isolated environments, then issues one of six verdicts — from <em>proven_catch</em> to a loud <em>inconclusive</em> — as an Ed25519-signed receipt anyone can re-verify offline.</p>
-          <p>On a frozen cohort of 83 historical pull requests it reached a definitive verdict on 24 and signed a refusal on the other 59, rather than manufacture an answer.</p>
-          <ul class="facts mono"><li>Creator &amp; maintainer</li><li>Apache-2.0</li><li>Advisory verifier</li><li>Zero runtime dependencies</li></ul>
-          <div class="links">
-            <a class="lnk" href="https://github.com/Kartik24Hulmukh/jittest" target="_blank" rel="noopener">Repository ↗</a>
-            <a class="lnk" href="https://github.com/Kartik24Hulmukh/jittest/blob/39e07bf33d6efed8842a9723c34c665ed4641926/docs/evidence/layer1/REPORT.md" target="_blank" rel="noopener">Evidence report ↗</a>
-            <a class="lnk" href="https://pypi.org/project/jittest/" target="_blank" rel="noopener">PyPI ↗</a>
-          </div>
-        </div>
-        <div class="receipt">
-          <div class="r-h"><span>Receipt · jittest</span><span>№ 01</span></div>
-          <div class="r-row"><span>published</span><i></i><b>v0.4.1</b></div>
-          <div class="r-row"><span>main branch</span><i></i><b>unpublished candidate</b></div>
-          <div class="r-row"><span>verdict types</span><i></i><b>6</b></div>
-          <div class="r-row"><span>won't claim</span><i></i><b class="v">signature ≠ correctness</b></div>
-          <div class="r-cmd">
-            <code>pip install jittest==0.4.1
+<section class="paper perf work" data-title="Work" id="work">
+<div class="sec-h">
+<span class="mono lab">[ 03 ]</span>
+<h2 class="sec-title">Selected <em>work</em></h2>
+<p class="mono lab right">07 entries · click a row to open<br/>each one ships a way to check it</p>
+</div>
+<div class="projs">
+<article class="proj" data-kind="Verification" data-status="v0.4.1 published on PyPI">
+<button aria-controls="pb1" aria-expanded="false" class="proj-head" data-cursor="OPEN">
+<span class="p-idx mono">01</span>
+<span class="p-name">jittest</span>
+<span class="p-line">Advisory differential verification for AI-written pull requests</span>
+<span class="p-tags mono">Python · Ed25519 · CI</span>
+<span class="p-year mono">2026 —</span>
+<span aria-hidden="true" class="p-plus"></span>
+</button>
+<div class="proj-body" id="pb1"><div class="proj-inner"><div class="pb">
+<div class="pb-text">
+<p>jittest doesn't read your diff and guess. It runs the same test on the base revision and the head revision in isolated environments, then issues one of six verdicts — from <em>proven_catch</em> to a loud <em>inconclusive</em> — as an Ed25519-signed receipt anyone can re-verify offline.</p>
+<p>On a frozen cohort of 83 historical pull requests it reached a definitive verdict on 24 and signed a refusal on the other 59, rather than manufacture an answer.</p>
+<ul class="facts mono"><li>Creator &amp; maintainer</li><li>Apache-2.0</li><li>Advisory verifier</li><li>Zero runtime dependencies</li></ul>
+<div class="links">
+<a class="lnk" href="https://github.com/Kartik24Hulmukh/jittest" rel="noopener" target="_blank">Repository ↗</a>
+<a class="lnk" href="https://github.com/Kartik24Hulmukh/jittest/blob/39e07bf33d6efed8842a9723c34c665ed4641926/docs/evidence/layer1/REPORT.md" rel="noopener" target="_blank">Evidence report ↗</a>
+<a class="lnk" href="https://pypi.org/project/jittest/" rel="noopener" target="_blank">PyPI ↗</a>
+</div>
+</div>
+<div class="receipt">
+<div class="r-h"><span>Receipt · jittest</span><span>№ 01</span></div>
+<div class="r-row"><span>published</span><i></i><b>v0.4.1</b></div>
+<div class="r-row"><span>main branch</span><i></i><b>unpublished candidate</b></div>
+<div class="r-row"><span>verdict types</span><i></i><b>6</b></div>
+<div class="r-row"><span>won't claim</span><i></i><b class="v">signature ≠ correctness</b></div>
+<div class="r-cmd">
+<code>pip install jittest==0.4.1
 # Download the example receipt from the README first.
 jittest verify-receipt bug_flask_01_evidence.json \
   --expected-signer 4059d799af91096f --strict-signer --json</code>
-            <button class="copy" data-copy>COPY</button>
-          </div>
-          <div class="r-foot">Run it instead of believing this page.</div>
-          <a class="src" href="https://github.com/Kartik24Hulmukh/jittest#try-it-in-60-seconds--no-keys-no-setup" target="_blank" rel="noopener">src ↗ jittest README · quickstart</a>
-        </div>
-      </div></div></div>
-    </article>
-
-    <article class="proj" data-status="Technical preview · ghost-typing production NO-GO" data-kind="Desktop agent">
-      <button class="proj-head" aria-expanded="false" aria-controls="pb2" data-cursor="OPEN">
-        <span class="p-idx mono">02</span>
-        <span class="p-name">Axiom-Grid</span>
-        <span class="p-line">Local-first copilot research · ghost-typing technical preview</span>
-        <span class="p-tags mono">Rust · Python · Tauri · MCP</span>
-        <span class="p-year mono">2026 —</span>
-        <span class="p-plus" aria-hidden="true"></span>
-      </button>
-      <div class="proj-body" id="pb2"><div class="proj-inner"><div class="pb">
-        <div class="pb-text">
-          <p>Local-first document intelligence and desktop-copilot research. The ghost-typing direction follows <em>propose → approve → execute → verify</em>, with explicit human approval. Signed-receipt and document-grounding work sit alongside a focused local runtime preview—not a claim of all-app production readiness.</p>
-          <p>The repository spans document Q&A, receipt verification and redlining experiments. Readiness varies by component; ghost-typing production gates remain NO-GO.</p>
-          <ul class="facts mono"><li>Lead builder</li><li>MIT</li><li>Technical preview</li><li>Human-gated design</li></ul>
-          <div class="links">
-            <a class="lnk" href="https://github.com/Kartik24Hulmukh/Axiom-Grid" target="_blank" rel="noopener">Repository ↗</a>
-            <a class="lnk" href="https://github.com/Kartik24Hulmukh/Kairo-Phantom" target="_blank" rel="noopener">Kairo-Phantom (predecessor) ↗</a>
-          </div>
-        </div>
-        <div class="receipt">
-          <div class="r-h"><span>Receipt · Axiom-Grid</span><span>№ 02</span></div>
-          <div class="r-row"><span>status</span><i></i><b>technical preview</b></div>
-          <div class="r-row"><span>launch gate</span><i></i><b class="v">NO-GO (its own checks)</b></div>
-          <div class="r-row"><span>human gate</span><i></i><b>explicit approval</b></div>
-          <div class="r-row"><span>won't claim</span><i></i><b class="v">AI grading its own work</b></div>
-          <div class="r-cmd">
-            <code>python tools/verify_receipts_external.py \
+<button class="copy" data-copy="">COPY</button>
+</div>
+<div class="r-foot">Run it instead of believing this page.</div>
+<a class="src" href="https://github.com/Kartik24Hulmukh/jittest#try-it-in-60-seconds--no-keys-no-setup" rel="noopener" target="_blank">src ↗ jittest README · quickstart</a>
+</div>
+</div></div></div>
+</article>
+<article class="proj" data-kind="Desktop agent" data-status="Technical preview · ghost-typing production NO-GO">
+<button aria-controls="pb2" aria-expanded="false" class="proj-head" data-cursor="OPEN">
+<span class="p-idx mono">02</span>
+<span class="p-name">Axiom-Grid</span>
+<span class="p-line">Local-first copilot research · ghost-typing technical preview</span>
+<span class="p-tags mono">Rust · Python · Tauri · MCP</span>
+<span class="p-year mono">2026 —</span>
+<span aria-hidden="true" class="p-plus"></span>
+</button>
+<div class="proj-body" id="pb2"><div class="proj-inner"><div class="pb">
+<div class="pb-text">
+<p>Local-first document intelligence and desktop-copilot research. The ghost-typing direction follows <em>propose → approve → execute → verify</em>, with explicit human approval. Signed-receipt and document-grounding work sit alongside a focused local runtime preview—not a claim of all-app production readiness.</p>
+<p>The repository spans document Q&amp;A, receipt verification and redlining experiments. Readiness varies by component; ghost-typing production gates remain NO-GO.</p>
+<ul class="facts mono"><li>Lead builder</li><li>MIT</li><li>Technical preview</li><li>Human-gated design</li></ul>
+<div class="links">
+<a class="lnk" href="https://github.com/Kartik24Hulmukh/Axiom-Grid" rel="noopener" target="_blank">Repository ↗</a>
+<a class="lnk" href="https://github.com/Kartik24Hulmukh/Kairo-Phantom" rel="noopener" target="_blank">Kairo-Phantom (predecessor) ↗</a>
+</div>
+</div>
+<div class="receipt">
+<div class="r-h"><span>Receipt · Axiom-Grid</span><span>№ 02</span></div>
+<div class="r-row"><span>status</span><i></i><b>technical preview</b></div>
+<div class="r-row"><span>launch gate</span><i></i><b class="v">NO-GO (its own checks)</b></div>
+<div class="r-row"><span>human gate</span><i></i><b>explicit approval</b></div>
+<div class="r-row"><span>won't claim</span><i></i><b class="v">AI grading its own work</b></div>
+<div class="r-cmd">
+<code>python tools/verify_receipts_external.py \
   redline_output/audit_log.json</code>
-            <button class="copy" data-copy>COPY</button>
-          </div>
-          <div class="r-foot">Refusing to ship is also a result.</div>
-          <a class="src" href="https://github.com/Kartik24Hulmukh/Axiom-Grid/pull/33" target="_blank" rel="noopener">src ↗ Axiom-Grid PR #33</a>
-        </div>
-      </div></div></div>
-    </article>
-
-    <article class="proj" data-status="Open-source beta" data-kind="Accessibility">
-      <button class="proj-head" aria-expanded="false" aria-controls="pb3" data-cursor="OPEN">
-        <span class="p-idx mono">03</span>
-        <span class="p-name">AccessDoc</span>
-        <span class="p-line">The receipt printer for accessibility</span>
-        <span class="p-tags mono">Python · WCAG · in-toto</span>
-        <span class="p-year mono">2026 —</span>
-        <span class="p-plus" aria-hidden="true"></span>
-      </button>
-      <div class="proj-body" id="pb3"><div class="proj-inner"><div class="pb">
-        <div class="pb-text">
-          <p>Turns raw axe-core scan output into a tamper-evident evidence bundle in the formats procurement already accepts: a PDF report, EN 301 549-mapped OpenACR, SARIF, a VPAT draft, and an in-toto attestation whose digests cover every file. Sigstore signing is opt-in, in your own workflow.</p>
-          <p class="note">Automated tools detect only part of WCAG issues, so AccessDoc documents what a scan found — with explicit coverage limits — and never claims conformance.</p>
-          <ul class="facts mono"><li>Creator &amp; maintainer</li><li>MIT</li><li>OpenACR · SARIF · VPAT</li></ul>
-          <div class="links"><a class="lnk" href="https://github.com/Kartik24Hulmukh/AccessDoc" target="_blank" rel="noopener">Repository ↗</a></div>
-        </div>
-        <div class="receipt">
-          <div class="r-h"><span>Receipt · AccessDoc</span><span>№ 03</span></div>
-          <div class="r-row"><span>status</span><i></i><b>open-source beta</b></div>
-          <div class="r-row"><span>outputs</span><i></i><b>5 formats</b></div>
-          <div class="r-row"><span>tamper check</span><i></i><b>exit 0 / exit 1</b></div>
-          <div class="r-row"><span>won't claim</span><i></i><b class="v">WCAG conformance</b></div>
-          <div class="r-cmd">
-            <code>python3 cli.py bundle axe.json --out dist/bundle.zip
+<button class="copy" data-copy="">COPY</button>
+</div>
+<div class="r-foot">Refusing to ship is also a result.</div>
+<a class="src" href="https://github.com/Kartik24Hulmukh/Axiom-Grid/pull/33" rel="noopener" target="_blank">src ↗ Axiom-Grid PR #33</a>
+</div>
+</div></div></div>
+</article>
+<article class="proj" data-kind="Accessibility" data-status="Open-source beta">
+<button aria-controls="pb3" aria-expanded="false" class="proj-head" data-cursor="OPEN">
+<span class="p-idx mono">03</span>
+<span class="p-name">AccessDoc</span>
+<span class="p-line">The receipt printer for accessibility</span>
+<span class="p-tags mono">Python · WCAG · in-toto</span>
+<span class="p-year mono">2026 —</span>
+<span aria-hidden="true" class="p-plus"></span>
+</button>
+<div class="proj-body" id="pb3"><div class="proj-inner"><div class="pb">
+<div class="pb-text">
+<p>Turns raw axe-core scan output into a tamper-evident evidence bundle in the formats procurement already accepts: a PDF report, EN 301 549-mapped OpenACR, SARIF, a VPAT draft, and an in-toto attestation whose digests cover every file. Sigstore signing is opt-in, in your own workflow.</p>
+<p class="note">Automated tools detect only part of WCAG issues, so AccessDoc documents what a scan found — with explicit coverage limits — and never claims conformance.</p>
+<ul class="facts mono"><li>Creator &amp; maintainer</li><li>MIT</li><li>OpenACR · SARIF · VPAT</li></ul>
+<div class="links"><a class="lnk" href="https://github.com/Kartik24Hulmukh/AccessDoc" rel="noopener" target="_blank">Repository ↗</a></div>
+</div>
+<div class="receipt">
+<div class="r-h"><span>Receipt · AccessDoc</span><span>№ 03</span></div>
+<div class="r-row"><span>status</span><i></i><b>open-source beta</b></div>
+<div class="r-row"><span>outputs</span><i></i><b>5 formats</b></div>
+<div class="r-row"><span>tamper check</span><i></i><b>exit 0 / exit 1</b></div>
+<div class="r-row"><span>won't claim</span><i></i><b class="v">WCAG conformance</b></div>
+<div class="r-cmd">
+<code>python3 cli.py bundle axe.json --out dist/bundle.zip
 python3 cli.py verify dist/bundle.zip   # 0 = intact, 1 = tampered</code>
-            <button class="copy" data-copy>COPY</button>
-          </div>
-          <div class="r-foot">Findings, not verdicts.</div>
-          <a class="src" href="https://github.com/Kartik24Hulmukh/AccessDoc" target="_blank" rel="noopener">src ↗ AccessDoc README</a>
-        </div>
-      </div></div></div>
-    </article>
-
-    <article class="proj" data-status="Synthetic-preview release candidate" data-kind="Civic tech">
-      <button class="proj-head" aria-expanded="false" aria-controls="pb4" data-cursor="OPEN">
-        <span class="p-idx mono">04</span>
-        <span class="p-name">Project X-Ray</span>
-        <span class="p-line">Source-linked claims about public infrastructure</span>
-        <span class="p-tags mono">Python · PostgreSQL · AWS</span>
-        <span class="p-year mono">2026 —</span>
-        <span class="p-plus" aria-hidden="true"></span>
-      </button>
-      <div class="proj-body" id="pb4"><div class="proj-inner"><div class="pb">
-        <div class="pb-text">
-          <p>A review tool for claims about public infrastructure: every assertion stays linked to its source so a human investigator can check it. It supports review — it does not determine corruption, and its own one-line description says exactly that.</p>
-          <p class="note">A controlled synthetic technical preview, with CI, container scanning and infrastructure checks. Target-environment production gates remain open; this is not authorization to publish real cases.</p>
-          <ul class="facts mono"><li>Builder</li><li>Apache-2.0</li><li>Synthetic preview</li><li>OpenTofu · Grype · Trivy</li></ul>
-          <div class="links"><a class="lnk" href="https://github.com/Kartik24Hulmukh/project-xray" target="_blank" rel="noopener">Repository ↗</a></div>
-        </div>
-        <div class="receipt">
-          <div class="r-h"><span>Receipt · X-Ray</span><span>№ 04</span></div>
-          <div class="r-row"><span>status</span><i></i><b>preview RC</b></div>
-          <div class="r-row"><span>preview data</span><i></i><b>synthetic</b></div>
-          <div class="r-row"><span>who decides</span><i></i><b>a human</b></div>
-          <div class="r-row"><span>won't claim</span><i></i><b class="v">"this is corruption"</b></div>
-          <div class="r-cmd">
-            <code># evaluation steps live in the repository README</code>
-          </div>
-          <div class="r-foot">Evidence for people, not verdicts about them.</div>
-          <a class="src" href="https://github.com/Kartik24Hulmukh/project-xray" target="_blank" rel="noopener">src ↗ project-xray</a>
-        </div>
-      </div></div></div>
-    </article>
-
-<article class="proj" data-status="Active development · v1.6.x" data-kind="Market intelligence">
-      <button class="proj-head" aria-expanded="false" aria-controls="pb6" data-cursor="OPEN">
-        <span class="p-idx mono">05</span>
-        <span class="p-name">Simultaneity Index</span>
-        <span class="p-line">How crowded is this idea, right now?</span>
-        <span class="p-tags mono">TypeScript · Next.js · MCP</span>
-        <span class="p-year mono">2026 —</span>
-        <span class="p-plus" aria-hidden="true"></span>
-      </button>
-      <div class="proj-body" id="pb6"><div class="proj-inner"><div class="pb">
-        <div class="pb-text">
-          <p>Evidence-linked crowding intelligence for builders and agents. It combines package-registry supply with discussion heat to estimate how crowded an idea is, exposes the result over MCP, and attaches verifiable receipts — with eight paced supply adapters, the latest being crates.io.</p>
-          <ul class="facts mono"><li>Builder</li><li>MIT</li><li>MCP server</li></ul>
-          <div class="links"><a class="lnk" href="https://github.com/Kartik24Hulmukh/frontier-oss-ideas" target="_blank" rel="noopener">Repository ↗</a></div>
-        </div>
-        <div class="receipt">
-          <div class="r-h"><span>Receipt · Simultaneity</span><span>№ 05</span></div>
-          <div class="r-row"><span>status</span><i></i><b>active · v1.6.x</b></div>
-          <div class="r-row"><span>supply adapters</span><i></i><b>8</b></div>
-          <div class="r-row"><span>won't claim</span><i></i><b class="v">integrity = authentication</b></div>
-          <div class="r-cmd"><code># verify steps live in the repository README</code></div>
-          <div class="r-foot">Proof integrity is not issuer authentication.</div>
-          <a class="src" href="https://github.com/Kartik24Hulmukh/frontier-oss-ideas/pull/39" target="_blank" rel="noopener">src ↗ frontier-oss-ideas PR #39</a>
-        </div>
-      </div></div></div>
-    </article>
-
-    <article class="proj" data-status="Release candidate" data-kind="Finance">
-      <button class="proj-head" aria-expanded="false" aria-controls="pb7" data-cursor="OPEN">
-        <span class="p-idx mono">06</span>
-        <span class="p-name">LedgerMatch</span>
-        <span class="p-line">Bank reconciliation that refuses to guess</span>
-        <span class="p-tags mono">Python · stdlib only</span>
-        <span class="p-year mono">2026</span>
-        <span class="p-plus" aria-hidden="true"></span>
-      </button>
-      <div class="proj-body" id="pb7"><div class="proj-inner"><div class="pb">
-        <div class="pb-text">
-          <p>A local, review-first engine that matches bank deposits to open invoices. When two allocations are equally valid it keeps the ambiguity as an exception for a human instead of silently choosing, and every run emits a deterministic, tamper-evident Reconciliation Evidence Bundle.</p>
-          <ul class="facts mono"><li>Builder</li><li>MIT</li><li>Nothing to install</li></ul>
-          <div class="links"><a class="lnk" href="https://github.com/Kartik24Hulmukh/Ledgermatch" target="_blank" rel="noopener">Repository ↗</a></div>
-        </div>
-        <div class="receipt">
-          <div class="r-h"><span>Receipt · LedgerMatch</span><span>№ 06</span></div>
-          <div class="r-row"><span>status</span><i></i><b>release candidate</b></div>
-          <div class="r-row"><span>dependencies</span><i></i><b>0</b></div>
-          <div class="r-row"><span>won't claim</span><i></i><b class="v">system of record</b></div>
-          <div class="r-cmd">
-            <code>python3 -m unittest discover -s tests -p 'test_*.py'
+<button class="copy" data-copy="">COPY</button>
+</div>
+<div class="r-foot">Findings, not verdicts.</div>
+<a class="src" href="https://github.com/Kartik24Hulmukh/AccessDoc" rel="noopener" target="_blank">src ↗ AccessDoc README</a>
+</div>
+</div></div></div>
+</article>
+<article class="proj" data-kind="Civic tech" data-status="Synthetic-preview release candidate">
+<button aria-controls="pb4" aria-expanded="false" class="proj-head" data-cursor="OPEN">
+<span class="p-idx mono">04</span>
+<span class="p-name">Project X-Ray</span>
+<span class="p-line">Source-linked claims about public infrastructure</span>
+<span class="p-tags mono">Python · PostgreSQL · AWS</span>
+<span class="p-year mono">2026 —</span>
+<span aria-hidden="true" class="p-plus"></span>
+</button>
+<div class="proj-body" id="pb4"><div class="proj-inner"><div class="pb">
+<div class="pb-text">
+<p>A review tool for claims about public infrastructure: every assertion stays linked to its source so a human investigator can check it. It supports review — it does not determine corruption, and its own one-line description says exactly that.</p>
+<p class="note">A controlled synthetic technical preview, with CI, container scanning and infrastructure checks. Target-environment production gates remain open; this is not authorization to publish real cases.</p>
+<ul class="facts mono"><li>Builder</li><li>Apache-2.0</li><li>Synthetic preview</li><li>OpenTofu · Grype · Trivy</li></ul>
+<div class="links"><a class="lnk" href="https://github.com/Kartik24Hulmukh/project-xray" rel="noopener" target="_blank">Repository ↗</a></div>
+</div>
+<div class="receipt">
+<div class="r-h"><span>Receipt · X-Ray</span><span>№ 04</span></div>
+<div class="r-row"><span>status</span><i></i><b>preview RC</b></div>
+<div class="r-row"><span>preview data</span><i></i><b>synthetic</b></div>
+<div class="r-row"><span>who decides</span><i></i><b>a human</b></div>
+<div class="r-row"><span>won't claim</span><i></i><b class="v">"this is corruption"</b></div>
+<div class="r-cmd">
+<code># evaluation steps live in the repository README</code>
+</div>
+<div class="r-foot">Evidence for people, not verdicts about them.</div>
+<a class="src" href="https://github.com/Kartik24Hulmukh/project-xray" rel="noopener" target="_blank">src ↗ project-xray</a>
+</div>
+</div></div></div>
+</article>
+<article class="proj" data-kind="Market intelligence" data-status="Active development · v1.6.x">
+<button aria-controls="pb6" aria-expanded="false" class="proj-head" data-cursor="OPEN">
+<span class="p-idx mono">05</span>
+<span class="p-name">Simultaneity Index</span>
+<span class="p-line">How crowded is this idea, right now?</span>
+<span class="p-tags mono">TypeScript · Next.js · MCP</span>
+<span class="p-year mono">2026 —</span>
+<span aria-hidden="true" class="p-plus"></span>
+</button>
+<div class="proj-body" id="pb6"><div class="proj-inner"><div class="pb">
+<div class="pb-text">
+<p>Evidence-linked crowding intelligence for builders and agents. It combines package-registry supply with discussion heat to estimate how crowded an idea is, exposes the result over MCP, and attaches verifiable receipts — with eight paced supply adapters, the latest being crates.io.</p>
+<ul class="facts mono"><li>Builder</li><li>MIT</li><li>MCP server</li></ul>
+<div class="links"><a class="lnk" href="https://github.com/Kartik24Hulmukh/frontier-oss-ideas" rel="noopener" target="_blank">Repository ↗</a></div>
+</div>
+<div class="receipt">
+<div class="r-h"><span>Receipt · Simultaneity</span><span>№ 05</span></div>
+<div class="r-row"><span>status</span><i></i><b>active · v1.6.x</b></div>
+<div class="r-row"><span>supply adapters</span><i></i><b>8</b></div>
+<div class="r-row"><span>won't claim</span><i></i><b class="v">integrity = authentication</b></div>
+<div class="r-cmd"><code># verify steps live in the repository README</code></div>
+<div class="r-foot">Proof integrity is not issuer authentication.</div>
+<a class="src" href="https://github.com/Kartik24Hulmukh/frontier-oss-ideas/pull/39" rel="noopener" target="_blank">src ↗ frontier-oss-ideas PR #39</a>
+</div>
+</div></div></div>
+</article>
+<article class="proj" data-kind="Finance" data-status="Release candidate">
+<button aria-controls="pb7" aria-expanded="false" class="proj-head" data-cursor="OPEN">
+<span class="p-idx mono">06</span>
+<span class="p-name">LedgerMatch</span>
+<span class="p-line">Bank reconciliation that refuses to guess</span>
+<span class="p-tags mono">Python · stdlib only</span>
+<span class="p-year mono">2026</span>
+<span aria-hidden="true" class="p-plus"></span>
+</button>
+<div class="proj-body" id="pb7"><div class="proj-inner"><div class="pb">
+<div class="pb-text">
+<p>A local, review-first engine that matches bank deposits to open invoices. When two allocations are equally valid it keeps the ambiguity as an exception for a human instead of silently choosing, and every run emits a deterministic, tamper-evident Reconciliation Evidence Bundle.</p>
+<ul class="facts mono"><li>Builder</li><li>MIT</li><li>Nothing to install</li></ul>
+<div class="links"><a class="lnk" href="https://github.com/Kartik24Hulmukh/Ledgermatch" rel="noopener" target="_blank">Repository ↗</a></div>
+</div>
+<div class="receipt">
+<div class="r-h"><span>Receipt · LedgerMatch</span><span>№ 06</span></div>
+<div class="r-row"><span>status</span><i></i><b>release candidate</b></div>
+<div class="r-row"><span>dependencies</span><i></i><b>0</b></div>
+<div class="r-row"><span>won't claim</span><i></i><b class="v">system of record</b></div>
+<div class="r-cmd">
+<code>python3 -m unittest discover -s tests -p 'test_*.py'
 python3 -m app.validate out_demo/evidence.json \
   --checksum out_demo/evidence.sha256</code>
-            <button class="copy" data-copy>COPY</button>
-          </div>
-          <div class="r-foot">Ambiguity is preserved, not resolved.</div>
-          <a class="src" href="https://github.com/Kartik24Hulmukh/Ledgermatch" target="_blank" rel="noopener">src ↗ Ledgermatch</a>
-        </div>
-      </div></div></div>
-    </article>
-
-    <article class="proj" data-status="Founder · campus platform" data-kind="Product">
-      <button class="proj-head" aria-expanded="false" aria-controls="pb8" data-cursor="OPEN">
-        <span class="p-idx mono">07</span>
-        <span class="p-name">RGIT Rozgar</span>
-        <span class="p-line">Everything a student needs near campus</span>
-        <span class="p-tags mono">React · Fastify · Postgres</span>
-        <span class="p-year mono">2025 —</span>
-        <span class="p-plus" aria-hidden="true"></span>
-      </button>
-      <div class="proj-body" id="pb8"><div class="proj-inner"><div class="pb">
-        <div class="pb-text">
-          <p>A campus resource platform for RGIT students — accommodation, resale, academics, food and nearby healthcare — with college-email verification and role-based access. I own the full lifecycle: discovery, UX, deployment, documentation and support.</p>
-          <ul class="facts mono"><li>Founder &amp; full-stack</li><li>React · TypeScript · Vite</li><li>Fastify · Prisma · PostgreSQL</li><li>Docker · Nginx</li></ul>
-          <div class="links"><a class="lnk" href="https://github.com/Kartik24Hulmukh/unified-experience" target="_blank" rel="noopener">Repository ↗</a></div>
-        </div>
-        <div class="receipt">
-          <div class="r-h"><span>Receipt · Rozgar</span><span>№ 07</span></div>
-          <div class="r-row"><span>role</span><i></i><b>founder</b></div>
-          <div class="r-row"><span>access</span><i></i><b>college email + RBAC</b></div>
-          <div class="r-row"><span>since</span><i></i><b>Aug 2025</b></div>
-          <div class="r-foot">Software for people nearby.</div>
-          <a class="src" href="https://github.com/Kartik24Hulmukh/unified-experience" target="_blank" rel="noopener">src ↗ unified-experience</a>
-        </div>
-      </div></div></div>
-    </article>
-
-  </div>
+<button class="copy" data-copy="">COPY</button>
+</div>
+<div class="r-foot">Ambiguity is preserved, not resolved.</div>
+<a class="src" href="https://github.com/Kartik24Hulmukh/Ledgermatch" rel="noopener" target="_blank">src ↗ Ledgermatch</a>
+</div>
+</div></div></div>
+</article>
+<article class="proj" data-kind="Product" data-status="Founder · campus platform">
+<button aria-controls="pb8" aria-expanded="false" class="proj-head" data-cursor="OPEN">
+<span class="p-idx mono">07</span>
+<span class="p-name">RGIT Rozgar</span>
+<span class="p-line">Everything a student needs near campus</span>
+<span class="p-tags mono">React · Fastify · Postgres</span>
+<span class="p-year mono">2025 —</span>
+<span aria-hidden="true" class="p-plus"></span>
+</button>
+<div class="proj-body" id="pb8"><div class="proj-inner"><div class="pb">
+<div class="pb-text">
+<p>A campus resource platform for RGIT students — accommodation, resale, academics, food and nearby healthcare — with college-email verification and role-based access. I own the full lifecycle: discovery, UX, deployment, documentation and support.</p>
+<ul class="facts mono"><li>Founder &amp; full-stack</li><li>React · TypeScript · Vite</li><li>Fastify · Prisma · PostgreSQL</li><li>Docker · Nginx</li></ul>
+<div class="links"><a class="lnk" href="https://github.com/Kartik24Hulmukh/unified-experience" rel="noopener" target="_blank">Repository ↗</a></div>
+</div>
+<div class="receipt">
+<div class="r-h"><span>Receipt · Rozgar</span><span>№ 07</span></div>
+<div class="r-row"><span>role</span><i></i><b>founder</b></div>
+<div class="r-row"><span>access</span><i></i><b>college email + RBAC</b></div>
+<div class="r-row"><span>since</span><i></i><b>Aug 2025</b></div>
+<div class="r-foot">Software for people nearby.</div>
+<a class="src" href="https://github.com/Kartik24Hulmukh/unified-experience" rel="noopener" target="_blank">src ↗ unified-experience</a>
+</div>
+</div></div></div>
+</article>
+</div>
 </section>
-
 <!-- 04 BOUNDARIES -->
-<section class="bounds" id="bounds" data-title="Boundaries">
-  <div class="bounds-h">
-    <h2 class="sec-title md">What it<br><em>won't</em> claim.</h2>
-    <p data-reveal>Most software advertises what it can do. These projects also publish what they refuse to say. If a statement doesn't reproduce on your machine, that's a bug in the statement — report it.</p>
-  </div>
-  <table class="btable" data-reveal>
-    <thead><tr><th scope="col">Project</th><th scope="col">It will</th><th scope="col">It won't</th></tr></thead>
-    <tbody>
-      <tr><td>jittest</td><td>Run the test on both revisions and sign what actually happened</td><td class="no">Treat a valid signature as proof of correctness</td></tr>
-      <tr><td>Axiom-Grid</td><td>Propose an action, wait for you, and record that you approved</td><td class="no">Let the model grade its own output</td></tr>
-      <tr><td>AccessDoc</td><td>Document what a scan found, with coverage limits</td><td class="no">Claim WCAG conformance</td></tr>
-      <tr><td>LedgerMatch</td><td>Keep equally valid allocations as exceptions for a human</td><td class="no">Silently pick one</td></tr>
-      <tr><td>Project X-Ray</td><td>Link every claim to its source for human review</td><td class="no">Determine corruption</td></tr>
-    </tbody>
-  </table>
-  <div style="margin-top:28px" class="links">
-    <a class="lnk" href="https://github.com/Kartik24Hulmukh/Kartik24Hulmukh/issues/new?template=challenge.yml" target="_blank" rel="noopener" data-cursor="CHALLENGE">Challenge a statement ↗</a>
-    <a class="lnk" href="https://github.com/Kartik24Hulmukh/Kartik24Hulmukh/issues/new?template=reproduction.yml" target="_blank" rel="noopener">Submit a reproduction ↗</a>
-  </div>
+<section class="bounds" data-title="Boundaries" id="bounds">
+<div class="bounds-h">
+<h2 class="sec-title md">What it<br/><em>won't</em> claim.</h2>
+<p data-reveal="">Most software advertises what it can do. These projects also publish what they refuse to say. If a statement doesn't reproduce on your machine, that's a bug in the statement — report it.</p>
+</div>
+<table class="btable" data-reveal="">
+<thead><tr><th scope="col">Project</th><th scope="col">It will</th><th scope="col">It won't</th></tr></thead>
+<tbody>
+<tr><td>jittest</td><td>Run the test on both revisions and sign what actually happened</td><td class="no">Treat a valid signature as proof of correctness</td></tr>
+<tr><td>Axiom-Grid</td><td>Propose an action, wait for you, and record that you approved</td><td class="no">Let the model grade its own output</td></tr>
+<tr><td>AccessDoc</td><td>Document what a scan found, with coverage limits</td><td class="no">Claim WCAG conformance</td></tr>
+<tr><td>LedgerMatch</td><td>Keep equally valid allocations as exceptions for a human</td><td class="no">Silently pick one</td></tr>
+<tr><td>Project X-Ray</td><td>Link every claim to its source for human review</td><td class="no">Determine corruption</td></tr>
+</tbody>
+</table>
+<div class="links" style="margin-top:28px">
+<a class="lnk" data-cursor="CHALLENGE" href="https://github.com/Kartik24Hulmukh/Kartik24Hulmukh/issues/new?template=challenge.yml" rel="noopener" target="_blank">Challenge a statement ↗</a>
+<a class="lnk" href="https://github.com/Kartik24Hulmukh/Kartik24Hulmukh/issues/new?template=reproduction.yml" rel="noopener" target="_blank">Submit a reproduction ↗</a>
+</div>
 </section>
-
 <!-- 05 PROCESS -->
-<section class="proc" id="process" data-title="Process">
-  <div class="proc-l">
-    <span class="mono lab">[ 05 ] Process</span>
-    <h2 class="sec-title md">How a<br>claim <em>earns</em><br>its place.</h2>
-    <p>The working loop: state the claim, build the harness, try to break it, and leave a way for someone else to inspect the result.</p>
-  </div>
-  <div class="proc-r">
-    <div class="step"><span class="mono">01</span><div><h3>State the claim</h3><p>Write down exactly what will be true — and what won't. The boundary is part of the spec, not a disclaimer added later.</p></div></div>
-    <div class="step"><span class="mono">02</span><div><h3>Build the harness</h3><p>Tests, fixtures, frozen cohorts, pinned images. If it can't be measured, it doesn't ship as a claim.</p></div></div>
-    <div class="step"><span class="mono">03</span><div><h3>Try to break it</h3><p>Premortems, stress and chaos runs, adversarial payloads, tampered receipts. The tool gets turned on its own history.</p></div></div>
-    <div class="step"><span class="mono">04</span><div><h3>Ship the receipt</h3><p>A source, a reproducible command or a reviewable artifact—with signing where supported, and an explicit limitation when the evidence is not there.</p></div></div>
-  </div>
+<section class="proc" data-title="Process" id="process">
+<div class="proc-l">
+<span class="mono lab">[ 05 ] Process</span>
+<h2 class="sec-title md">How a<br/>claim <em>earns</em><br/>its place.</h2>
+<p>The working loop: state the claim, build the harness, try to break it, and leave a way for someone else to inspect the result.</p>
+</div>
+<div class="proc-r">
+<div class="step"><span class="mono">01</span><div><h3>State the claim</h3><p>Write down exactly what will be true — and what won't. The boundary is part of the spec, not a disclaimer added later.</p></div></div>
+<div class="step"><span class="mono">02</span><div><h3>Build the harness</h3><p>Tests, fixtures, frozen cohorts, pinned images. If it can't be measured, it doesn't ship as a claim.</p></div></div>
+<div class="step"><span class="mono">03</span><div><h3>Try to break it</h3><p>Premortems, stress and chaos runs, adversarial payloads, tampered receipts. The tool gets turned on its own history.</p></div></div>
+<div class="step"><span class="mono">04</span><div><h3>Ship the receipt</h3><p>A source, a reproducible command or a reviewable artifact—with signing where supported, and an explicit limitation when the evidence is not there.</p></div></div>
+</div>
 </section>
-
 <!-- 06 STUDIO -->
 <!-- 07 LEDGER -->
-<section class="ledger" id="ledger" data-title="Ledger">
-  <div class="ledger-h">
-    <div>
-      <span class="mono lab">[ 06 ] Ledger — historical snapshot 26 Oct 2026</span>
-      <h2 class="sec-title md" style="margin-top:18px">Selected <em>entries.</em></h2>
-    </div>
-    <div class="stat">
-      <b class="num" data-to="7">0</b>
-      <span class="mono lab">public projects featured here</span>
-      <a class="src" href="https://github.com/Kartik24Hulmukh" target="_blank" rel="noopener">src ↗ github.com/Kartik24Hulmukh</a>
-    </div>
-  </div>
-  <div class="l-list">
-    <a class="l-item" href="https://github.com/Kartik24Hulmukh/frontier-oss-ideas/pull/57" target="_blank" rel="noopener" data-cursor="READ"><span class="mono d">Oct 16</span><span class="mono repo">frontier-oss-ideas</span><span class="t">fix(security): patch Next.js 16.3.8 and clear six audit advisories</span><span class="arr">↗</span></a>
-    <a class="l-item" href="https://github.com/Kartik24Hulmukh/Axiom-Grid/pull/33" target="_blank" rel="noopener" data-cursor="READ"><span class="mono d">Oct 12</span><span class="mono repo">Axiom-Grid</span><span class="t">Draft: V8.8 platform claim guard fix; production launch remains NO-GO</span><span class="arr">↗</span></a>
-    <a class="l-item" href="https://github.com/Kartik24Hulmukh/jittest/pull/254" target="_blank" rel="noopener" data-cursor="READ"><span class="mono d">Oct 06</span><span class="mono repo">jittest</span><span class="t">fix: give the settled-merge pilot its own modern runtime image</span><span class="arr">↗</span></a>
-    <a class="l-item" href="https://github.com/Kartik24Hulmukh/jittest/pull/247" target="_blank" rel="noopener" data-cursor="READ"><span class="mono d">Oct 04</span><span class="mono repo">jittest</span><span class="t">fix: fail-closed wallet evidence accounting</span><span class="arr">↗</span></a>
-    <a class="l-item" href="https://github.com/Kartik24Hulmukh/AccessDoc/pull/100" target="_blank" rel="noopener" data-cursor="READ"><span class="mono d">Oct 04</span><span class="mono repo">AccessDoc</span><span class="t">fix: enforce absolute native deadlines on macOS</span><span class="arr">↗</span></a>
-    <a class="l-item" href="https://github.com/Kartik24Hulmukh/jittest/pull/245" target="_blank" rel="noopener" data-cursor="READ"><span class="mono d">Oct 02</span><span class="mono repo">jittest</span><span class="t">fix: pin sandbox image and clear entrypoints</span><span class="arr">↗</span></a>
-    <a class="l-item" href="https://github.com/Kartik24Hulmukh/frontier-oss-ideas/pull/39" target="_blank" rel="noopener" data-cursor="READ"><span class="mono d">Oct 02</span><span class="mono repo">frontier-oss-ideas</span><span class="t">fix(1.6.3): proof integrity is not issuer authentication</span><span class="arr">↗</span></a>
-  </div>
+<section class="ledger" data-title="Ledger" id="ledger">
+<div class="ledger-h">
+<div>
+<span class="mono lab">[ 06 ] Ledger — historical snapshot 26 Oct 2026</span>
+<h2 class="sec-title md" style="margin-top:18px">Selected <em>entries.</em></h2>
+</div>
+<div class="stat">
+<b class="num" data-to="7">0</b>
+<span class="mono lab">public projects featured here</span>
+<a class="src" href="https://github.com/Kartik24Hulmukh" rel="noopener" target="_blank">src ↗ github.com/Kartik24Hulmukh</a>
+</div>
+</div>
+<div class="l-list">
+<a class="l-item" data-cursor="READ" href="https://github.com/Kartik24Hulmukh/frontier-oss-ideas/pull/57" rel="noopener" target="_blank"><span class="mono d">Oct 16</span><span class="mono repo">frontier-oss-ideas</span><span class="t">fix(security): patch Next.js 16.3.8 and clear six audit advisories</span><span class="arr">↗</span></a>
+<a class="l-item" data-cursor="READ" href="https://github.com/Kartik24Hulmukh/Axiom-Grid/pull/33" rel="noopener" target="_blank"><span class="mono d">Oct 12</span><span class="mono repo">Axiom-Grid</span><span class="t">Draft: V8.8 platform claim guard fix; production launch remains NO-GO</span><span class="arr">↗</span></a>
+<a class="l-item" data-cursor="READ" href="https://github.com/Kartik24Hulmukh/jittest/pull/254" rel="noopener" target="_blank"><span class="mono d">Oct 06</span><span class="mono repo">jittest</span><span class="t">fix: give the settled-merge pilot its own modern runtime image</span><span class="arr">↗</span></a>
+<a class="l-item" data-cursor="READ" href="https://github.com/Kartik24Hulmukh/jittest/pull/247" rel="noopener" target="_blank"><span class="mono d">Oct 04</span><span class="mono repo">jittest</span><span class="t">fix: fail-closed wallet evidence accounting</span><span class="arr">↗</span></a>
+<a class="l-item" data-cursor="READ" href="https://github.com/Kartik24Hulmukh/AccessDoc/pull/100" rel="noopener" target="_blank"><span class="mono d">Oct 04</span><span class="mono repo">AccessDoc</span><span class="t">fix: enforce absolute native deadlines on macOS</span><span class="arr">↗</span></a>
+<a class="l-item" data-cursor="READ" href="https://github.com/Kartik24Hulmukh/jittest/pull/245" rel="noopener" target="_blank"><span class="mono d">Oct 02</span><span class="mono repo">jittest</span><span class="t">fix: pin sandbox image and clear entrypoints</span><span class="arr">↗</span></a>
+<a class="l-item" data-cursor="READ" href="https://github.com/Kartik24Hulmukh/frontier-oss-ideas/pull/39" rel="noopener" target="_blank"><span class="mono d">Oct 02</span><span class="mono repo">frontier-oss-ideas</span><span class="t">fix(1.6.3): proof integrity is not issuer authentication</span><span class="arr">↗</span></a>
+</div>
 </section>
-
 <!-- 08 CONTACT -->
-<section class="contact" id="contact" data-title="Contact">
-  <span class="mono lab">[ 07 ] Contact — open to internships, research and collaborations</span>
-  <h2 class="c-big">Got a claim?<br>Let's <em>check it.</em></h2>
-  <div class="c-row">
-    <div class="c-btns">
-      <a class="btn red mag" href="mailto:kartikhulmukh24@gmail.com?subject=Hi%20Kartik" data-cursor="WRITE">kartikhulmukh24@gmail.com</a>
-      <button class="btn mag" data-copy data-text="kartikhulmukh24@gmail.com">Copy email</button>
-    </div>
-    <div class="c-btns">
-      <a class="btn mag" href="https://github.com/Kartik24Hulmukh" target="_blank" rel="noopener">GitHub ↗</a>
-      <a class="btn mag" href="https://www.linkedin.com/in/kartik-hulmukh-74081236a/" target="_blank" rel="noopener">LinkedIn ↗</a>
-    </div>
-  </div>
+<section class="contact" data-title="Contact" id="contact">
+<span class="mono lab">[ 07 ] Contact — open to internships, research and collaborations</span>
+<h2 class="c-big">Got a claim?<br/>Let's <em>check it.</em></h2>
+<div class="c-row">
+<div class="c-btns">
+<a class="btn red mag" data-cursor="WRITE" href="mailto:kartikhulmukh24@gmail.com?subject=Hi%20Kartik">kartikhulmukh24@gmail.com</a>
+<button class="btn mag" data-copy="" data-text="kartikhulmukh24@gmail.com">Copy email</button>
+</div>
+<div class="c-btns">
+<a class="btn mag" href="https://github.com/Kartik24Hulmukh" rel="noopener" target="_blank">GitHub ↗</a>
+<a class="btn mag" href="https://www.linkedin.com/in/kartik-hulmukh-74081236a/" rel="noopener" target="_blank">LinkedIn ↗</a>
+</div>
+</div>
 </section>
-
 </main>
-
 <footer class="mono">
-  <span>© 2026 Kartik Hulmukh · Mumbai</span>
-  <span>Page-text SHA-256 fingerprint (not a signature): <code id="digest">computing…</code></span>
-  <span>One file · no trackers · press E for evidence</span>
+<span>© 2026 Kartik Hulmukh · Mumbai</span>
+<span>Page-text SHA-256 fingerprint (not a signature): <code id="digest">computing…</code></span>
+<span>One file · no trackers · press E for evidence</span>
 </footer>
-
 <script src="./attachment.js"></script>
 </body>
 </html>
