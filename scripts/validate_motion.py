@@ -33,7 +33,7 @@ hero = (R / 'docs/hero3d.js').read_text()
 assert 'setAnimationLoop' not in hero
 assert hero.count('new T.WebGLRenderer(') == 1
 assert 'ticket===epoch' in hero and 'meshCache' in hero and 'valid(rec,ticket)' in hero
-for id_ in ['work-guard', 'process-guard']:
+for id_ in ['work-guard', 'process-guard', 'contact-guard']:
     assert len(re.findall(r'id="' + id_ + '"', s)) == 1, id_
 assert 'data-portrait="false"' in s
 for poster in ['front-man.cover.svg', 'pink-soldier.full.svg', 'unknown.full.svg']:
@@ -41,7 +41,7 @@ for poster in ['front-man.cover.svg', 'pink-soldier.full.svg', 'unknown.full.svg
 assert 'character-select' not in s
 assert 'accordion-ready' in engine
 assert 'focusin' not in (R / 'docs/experience.js').read_text()
-print('PASS: three locations, mask-first identity, one renderer and atomic disclosures.')
+print('PASS: four character locations, mask-first identity, one renderer and atomic disclosures.')
 
 # Restored contour background and readable interaction polish have independent fallbacks.
 for f in ['atmosphere.js', 'atmosphere.css', 'interaction-polish.js', 'interaction-polish.css', 'assets/contour-field.svg']:

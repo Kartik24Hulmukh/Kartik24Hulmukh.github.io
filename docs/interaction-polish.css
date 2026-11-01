@@ -7,9 +7,14 @@ html[data-motion=on] .words em .w.scroll-lit{color:#ff9bc1}
 .hero-identity .portrait-baseline{transform:perspective(700px) translate3d(var(--identity-x,0px),var(--identity-y,0px),0) rotateX(var(--identity-rx,0deg)) rotateY(var(--identity-ry,0deg));transform-origin:50% 65%;transition:transform .16s ease-out}
 .hero-identity .mask-surface{transform:translate3d(var(--identity-x,0px),var(--identity-y,0px),0);transition:transform .16s ease-out}
 /* Mask and portrait are mutually exclusive even while transforms transition. */
-.hero-identity[data-portrait=true] .mask-surface{visibility:hidden!important}
-.hero-identity:not([data-portrait=true]) .portrait-baseline{opacity:0!important}
+html.stage-ready .hero-identity[data-portrait=true] .mask-surface{visibility:hidden!important}
+html.stage-ready .hero-identity:not([data-portrait=true]) .portrait-baseline{opacity:0!important}
 html[data-motion=off] .hero-identity .portrait-baseline,html[data-motion=off] .hero-identity .mask-surface{transform:none}
 @media(prefers-reduced-motion:reduce){.hero-identity .portrait-baseline,.hero-identity .mask-surface{transform:none!important}.words .w{background-image:none!important}}
 
 @media(hover:none),(pointer:coarse){.hero-identity .portrait-baseline,.hero-identity .mask-surface{transform:none!important}}
+
+/* Velocity is already eased in JS; a second CSS easing made wheel feedback lag. */
+html[data-motion=on] .marq-skew{transition:none}
+/* Hover feedback must not move the letter beneath its own pointer hit area. */
+.name .ch.stretch{transform:none}

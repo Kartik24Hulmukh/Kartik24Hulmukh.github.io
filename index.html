@@ -12,9 +12,10 @@
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
 <script>document.documentElement.classList.add('js');</script>
-<link href="./docs/attachment.css" rel="stylesheet"/>
-<link href="./docs/portrait-refined.css" rel="stylesheet"/>
-<link href="./docs/experience.css" rel="stylesheet"/><link href="./docs/hero3d.css" rel="stylesheet"/><link href="./docs/atmosphere.css" rel="stylesheet"/><link href="./docs/interaction-polish.css" rel="stylesheet"/><script>try{document.documentElement.dataset.motion=(matchMedia('(prefers-reduced-motion: reduce)').matches||localStorage.getItem('kh-motion')==='off')?'off':'on';}catch(e){document.documentElement.dataset.motion=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on';}</script><script>setTimeout(function(){if(window.__portfolioEngineReady)return;document.documentElement.classList.add('engine-fallback');document.body.classList.remove('lock','has-cursor');document.body.classList.add('ready');var l=document.getElementById('loader');if(l)l.remove();document.querySelectorAll('.ch').forEach(function(n){n.textContent=n.dataset.ch||n.textContent;});document.querySelectorAll('.proj-body').forEach(function(n){n.inert=false;});},1200);</script></head>
+<link href="./docs/font-display.css?v=eb0810f9098f" rel="stylesheet"/>
+<link href="./docs/attachment.css?v=8187c13100f7" rel="stylesheet"/>
+<link href="./docs/portrait-refined.css?v=26132e7a6c1b" rel="stylesheet"/>
+<link href="./docs/experience.css?v=e169fd329108" rel="stylesheet"/><link href="./docs/hero3d.css?v=141c09ba0275" rel="stylesheet"/><link href="./docs/atmosphere.css?v=cd2ba91652e1" rel="stylesheet"/><link href="./docs/interaction-polish.css?v=921f3f69876f" rel="stylesheet"/><script>try{document.documentElement.dataset.motion=(matchMedia('(prefers-reduced-motion: reduce)').matches||localStorage.getItem('kh-motion')==='off')?'off':'on';}catch(e){document.documentElement.dataset.motion=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on';}</script><script>setTimeout(function(){if(window.__portfolioEngineReady)return;document.documentElement.classList.add('engine-fallback');document.body.classList.remove('lock','has-cursor');document.body.classList.add('ready');var l=document.getElementById('loader');if(l)l.remove();document.querySelectorAll('.ch').forEach(function(n){n.textContent=n.dataset.ch||n.textContent;});document.querySelectorAll('.proj-body').forEach(function(n){n.inert=false;});},1200);</script></head>
 <body class="play-mode">
 <a class="skip" href="#main">Skip to content</a>
 <canvas aria-hidden="true" id="gl"></canvas>
@@ -443,7 +444,15 @@ python3 -m app.validate out_demo/evidence.json \
 <!-- 08 CONTACT -->
 <section class="contact" data-title="Contact" id="contact">
 <span class="mono lab">[ 07 ] Contact — open to internships, research and collaborations</span>
+<div class="contact-scene">
 <h2 class="c-big">Got a claim?<br/>Let's <em>check it.</em></h2>
+<figure aria-label="Pink Soldier contact checkpoint" class="character-stage full-stage contact-guard" data-character="pink-soldier" data-framing="full" id="contact-guard">
+<div class="stage-topline mono"><span>04 / YOUR MOVE</span><span aria-hidden="true">○</span></div>
+<div class="stage-visual" aria-hidden="true"><span class="stage-ring"></span><span class="stage-floor"></span><img alt="" class="stage-poster" decoding="async" height="960" loading="lazy" src="./docs/models/pink-soldier.full.svg" width="768"/><span class="stage-surface"></span><span class="stage-crosshair">+</span></div>
+<figcaption><span>Pink Soldier</span><button aria-label="Turn pink soldier model by 90 degrees" aria-pressed="false" class="stage-turn" type="button">Turn 90° ↗</button></figcaption>
+<p class="stage-status">Character study · scroll or hover</p>
+</figure>
+</div>
 <div class="c-row">
 <div class="c-btns">
 <a class="btn red mag" data-cursor="WRITE" href="mailto:kartikhulmukh24@gmail.com?subject=Hi%20Kartik">kartikhulmukh24@gmail.com</a>
@@ -461,6 +470,6 @@ python3 -m app.validate out_demo/evidence.json \
 <span>Page-text SHA-256 fingerprint (not a signature): <code id="digest">computing…</code></span>
 <span>Static site · no analytics trackers · sources visible · E highlights evidence</span>
 </footer>
-<script src="./docs/motion-controller.js"></script><script src="./docs/motion-engine.js"></script>
-<audio data-src="./docs/assets/pink-soldiers.mp3.b64" hidden="" id="portfolio-audio" loop="" preload="none"></audio><script src="./docs/experience.js"></script><script defer="" src="./docs/hero3d.js"></script><script defer="" src="./docs/atmosphere.js"></script><script defer="" src="./docs/interaction-polish.js"></script></body>
+<script src="./docs/motion-controller.js?v=d4365d7502b9"></script><script src="./docs/motion-engine.js?v=e68966b0df20"></script>
+<audio data-src="./docs/assets/pink-soldiers.mp3.b64" hidden="" id="portfolio-audio" loop="" preload="none"></audio><script src="./docs/experience.js?v=533d8b0c9b1d"></script><script defer="" src="./docs/hero3d.js?v=ff701551bc00"></script><script defer="" src="./docs/atmosphere.js?v=7ffb00b6dff5"></script><script defer="" src="./docs/interaction-polish.js?v=7e41d8bd41a6"></script></body>
 </html>

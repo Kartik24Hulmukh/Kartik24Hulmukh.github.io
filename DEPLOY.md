@@ -8,7 +8,7 @@ The site preserves the approved ink/paper/orange composition with an optional ge
 - Canonical portfolio: `Kartik24Hulmukh/Kartik24Hulmukh.github.io`, maintained in `docs/` and mirrored at the root for existing branch-based Pages to `https://kartik24hulmukh.github.io/`.
 - Existing profile-repository Pages route can serve the same source as a compatibility URL. Canonical metadata points to the dedicated root site.
 
-The maintained website source is `docs/`. In the dedicated root repository, `scripts/build_bootstrap.py` mirrors the HTML into a root `index.html` that references the maintained local assets and also copies crawler metadata. This is regenerated whenever the asset-build workflow runs, including after scheduled snapshot updates.
+The maintained website source is `docs/`. In the dedicated root repository, `scripts/build_bootstrap.py` mirrors the HTML into a root `index.html` that references the maintained local assets and also copies crawler metadata. This is regenerated whenever the asset-build workflow runs, including after scheduled snapshot updates. The builder also stamps local CSS/JS URLs with content hashes; run it after changing those assets. Validation rejects stale hash URLs to prevent mixed cached releases.
 
 ## Workflow
 

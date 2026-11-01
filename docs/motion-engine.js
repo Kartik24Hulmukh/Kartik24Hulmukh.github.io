@@ -114,12 +114,6 @@
     $$('[data-reveal]').forEach(function (el) { io.observe(el); });
     $$('.num').forEach(function (el) { if (!el.closest('[data-reveal]')) io.observe(el); });
 
-    var steps = $$('.step');
-    var io3 = new IntersectionObserver(function (es) {
-      es.forEach(function (en) { if (en.isIntersecting) { steps.forEach(function (s) { s.classList.remove('on'); }); en.target.classList.add('on'); } });
-    }, { rootMargin: '-25% 0px -35% 0px' });
-    steps.forEach(function (s) { io3.observe(s); });
-    if (steps[0]) steps[0].classList.add('on');
 
     var secs = $$('[data-title]'), si = $('#secind'), total = secs.length - 1;
     var io2 = new IntersectionObserver(function (es) {
@@ -137,21 +131,24 @@
   }
 
   /* ---------- 11. scroll-driven loop ---------- */
-  var prog = $('#prog'), marq = $('#marq'), man = $('#manifesto');
-  var lastY = window.scrollY, skew = 0, ticking = false, skewFrame = 0;
-  function easeSkew() {
-    skewFrame = 0;
-    if (RM || !marq) return;
-    skew *= 0.85;
-    if (Math.abs(skew) < 0.05) skew = 0;
-    marq.style.setProperty('--skew', skew + 'deg');
-    if (skew) skewFrame = Motion.raf(easeSkew);
-  }
+  var prog = $('#prog'), marq = $('#marq'), steps = $$('.step'), activeStep = null;
+  var ticking = false;
   function onScroll() {
     var y = window.scrollY, H = document.documentElement.scrollHeight - window.innerHeight;
-    if (prog) prog.style.transform = 'scaleX(' + (H > 0 ? y / H : 0) + ')';
-    // Native scrolling keeps every word readable; character stages own choreography.
-    lastY = y; ticking = false;
+    if (prog) prog.style.transform = 'scaleX(' + (H > 0 ? clamp(y / H, 0, 1) : 0) + ')';
+    // Select from current geometry, not observer entry order (which reverses poorly).
+    var nearest = null, distance = Infinity;
+    steps.forEach(function (step) {
+      var r = step.getBoundingClientRect();
+      if (r.bottom <= 0 || r.top >= window.innerHeight) return;
+      var d = Math.abs((r.top + r.bottom) / 2 - window.innerHeight * 0.45);
+      if (d < distance) { nearest = step; distance = d; }
+    });
+    if (nearest && nearest !== activeStep) {
+      activeStep = nearest;
+      steps.forEach(function (step) { step.classList.toggle('on', step === nearest); });
+    }
+    ticking = false;
   }
   window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
   window.addEventListener('resize', onScroll, { passive: true });
@@ -168,15 +165,26 @@
   }
   window.addEventListener('scroll', stopPeek, { passive: true });
   window.addEventListener('blur', stopPeek);
+  window.addEventListener('resize', stopPeek, { passive: true });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' || e.key === 'Tab') stopPeek();
+  });
+  function peekTarget() {
+    var width = peek.offsetWidth, height = peek.offsetHeight;
+    // Prefer beside the pointer; flip at the right edge and measure actual content.
+    var x = MX + 30;
+    if (x + width > window.innerWidth - 10) x = MX - width - 30;
+    return { x: clamp(x, 10, Math.max(10, window.innerWidth - width - 10)),
+      y: clamp(MY - 60, 10, Math.max(10, window.innerHeight - height - 10)) };
+  }
   function movePeek() {
     peekFrame = 0;
     if (RM || !FINE || !peekOn || !peek) return;
-    var tx = clamp(MX + 30, 10, Math.max(10, window.innerWidth - 290));
-    var ty = clamp(MY - 60, 10, Math.max(10, window.innerHeight - 260));
+    var target = peekTarget(), tx = target.x, ty = target.y;
     var dx = tx - px, dy = ty - py;
     px += dx * 0.14; py += dy * 0.14;
     var moving = Math.abs(dx) + Math.abs(dy) > 0.2;
-    peek.style.transform = 'translate3d(' + px + 'px,' + py + 'px,0) rotate(' + (moving ? clamp(dx * 0.05, -9, 9) : 0) + 'deg)';
+    peek.style.transform = 'translate3d(' + px + 'px,' + py + 'px,0)';
     if (moving) peekFrame = Motion.raf(movePeek);
   }
   window.addEventListener('mousemove', function () {
@@ -206,7 +214,14 @@
       stopPeek();
     });
     if (peek) {
-      h.addEventListener('mouseenter', function () { if (RM || !FINE || p.classList.contains('open')) return; fillPeek(p); peek.classList.add('on'); peekOn = true; if (!peekFrame) peekFrame = Motion.raf(movePeek); });
+      h.addEventListener('mouseenter', function (e) {
+        if (RM || !FINE || p.classList.contains('open')) return;
+        MX = e.clientX; MY = e.clientY;
+        fillPeek(p);
+        var target = peekTarget(); px = target.x; py = target.y;
+        peek.style.transform = 'translate3d(' + px + 'px,' + py + 'px,0)';
+        peek.classList.add('on'); peekOn = true;
+      });
       h.addEventListener('mouseleave', stopPeek);
     }
   });
@@ -292,7 +307,6 @@
     RM = !state.active;
     syncPointer();
     ticking = false;
-    if (skewFrame) Motion.cancel(skewFrame); skewFrame = 0;
     if (RM) {
       var loader = $('#loader'); if (loader) loader.remove();
       document.body.classList.remove('lock');
@@ -305,7 +319,7 @@
       roles.forEach(function(el,i){el.classList.remove('off');el.classList.toggle('on',i===ri);});
       stopPeek();
       $$('.mag').forEach(function(el){el.style.transform='';el.classList.remove('pointer-lit');});
-      if(marq){skew=0;marq.style.setProperty('--skew','0deg');}
+      if(marq)marq.style.setProperty('--skew','0deg');
     }
     onScroll();
   });

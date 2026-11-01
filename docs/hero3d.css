@@ -10,7 +10,7 @@ html{scroll-behavior:auto;overflow-x:clip;scroll-padding-top:152px;scroll-paddin
 .hero-identity{pointer-events:auto;position:relative;isolation:isolate;min-width:0;align-self:center;margin:0}
 .identity-topline,.stage-topline{display:flex;justify-content:space-between;gap:12px;margin-bottom:10px;font-size:14px;line-height:1.5;color:#cfcac0;letter-spacing:.04em}
 .identity-topline span:last-child,.stage-topline span:last-child{color:#f05a94}
-.identity-aperture{display:block;position:relative;width:100%;aspect-ratio:1/1.04;overflow:hidden;border:1px solid #615d55;background:linear-gradient(150deg,#242127,#101011 56%,#1c2224);touch-action:pan-y;isolation:isolate}
+.identity-aperture{display:block;position:relative;width:100%;aspect-ratio:1/1.04;overflow:hidden;border:1px solid #615d55;background:linear-gradient(150deg,#242127,#101011 56%,#1c2224);touch-action:pan-y pinch-zoom;isolation:isolate}
 .identity-aperture:hover,.identity-aperture:focus-visible{border-color:#f05a94}
 .identity-aperture:focus-visible,.stage-turn:focus-visible,.stage-enable:focus-visible{outline:2px solid #f05a94;outline-offset:4px}
 .identity-grid{position:absolute;inset:0;background:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:28px 28px;opacity:.6}
@@ -47,7 +47,7 @@ html[data-motion=on] .hero-identity[data-visible=true] .identity-halo i:first-ch
 .work-intro>.sec-h{display:grid;grid-template-columns:1fr;gap:18px;margin:0;align-content:center}
 .work-intro .sec-h .right{text-align:left;max-width:45ch}
 .full-stage{position:relative;isolation:isolate;margin:0;width:100%;max-width:280px;justify-self:end}
-.stage-visual{position:relative;aspect-ratio:4/5;width:100%;overflow:hidden;perspective:900px;touch-action:pan-y;background:radial-gradient(ellipse at 50% 52%,#f05a9412,transparent 66%)}
+.stage-visual{position:relative;aspect-ratio:4/5;width:100%;overflow:hidden;perspective:900px;touch-action:pan-y pinch-zoom;background:radial-gradient(ellipse at 50% 52%,#f05a9412,transparent 66%)}
 .full-stage .stage-poster{transform:translateY(var(--stage-lift,0px)) rotateY(var(--poster-turn,0deg));transform-origin:50% 50%;transition:transform .12s linear}
 .stage-ring{position:absolute;width:78%;height:72%;left:11%;top:8%;border:1px solid #f05a9455;border-radius:50%;transform:rotateX(12deg) rotateZ(var(--ring-turn,-20deg));pointer-events:none}
 .stage-floor{position:absolute;width:82%;height:18%;left:9%;bottom:4%;border:1px solid #64c6b388;border-radius:50%;transform:rotateX(55deg);background:radial-gradient(ellipse,#64c6b315,transparent 65%)}
@@ -140,3 +140,32 @@ body{overflow-x:clip}
 /* Section hashes already reserve the header; avoid adding a second viewport gap. */
 .proc{padding-block:88px}
 @media(max-width:640px){.proc{padding-block:56px}}
+
+/* Final checkpoint: the invitation leads; the reused soldier closes the story. */
+@media(min-width:641px){.contact{min-height:calc(100svh - 122px);padding-top:clamp(64px,10vh,100px)}}
+.contact .contact-scene{display:grid;grid-template-columns:minmax(0,1fr) clamp(180px,18vw,250px);align-items:center;gap:clamp(24px,4vw,64px)}
+.contact .c-big{font-size:clamp(66px,11vw,180px);line-height:.94;min-width:0}
+.contact .contact-guard{width:100%;max-width:250px;align-self:center}
+.contact .contact-guard .stage-visual{aspect-ratio:4/4.5}
+.contact .contact-guard .stage-ring{opacity:.45;transition:opacity .25s,border-color .25s}
+.contact .contact-guard:hover .stage-ring,.contact .contact-guard:focus-within .stage-ring{opacity:1;border-color:#f05a94}
+.contact .contact-guard .stage-turn{display:inline-flex;align-items:center;justify-content:center;min-width:60px;min-height:44px}
+.contact .contact-guard .stage-status{max-width:26ch}
+@media(max-width:900px) and (min-width:641px){
+ .contact .contact-scene{grid-template-columns:minmax(0,1fr) 180px;gap:24px}
+ .contact .c-big{font-size:clamp(66px,10vw,100px)}
+}
+@media(max-width:640px){
+ .contact{min-height:0;padding-top:64px;gap:28px;grid-template-rows:auto}
+ .contact>.lab{order:0;line-height:1.6}
+ .contact .contact-scene{display:contents}
+ .contact .c-big{order:1;font-size:clamp(60px,16vw,96px);line-height:1.02}
+ .contact .c-row{order:2;gap:16px}
+ .contact .c-btns{width:100%;gap:10px}
+ .contact .c-btns .btn{min-height:48px;max-width:100%;padding-inline:14px;letter-spacing:.035em;font-size:14px}
+ .contact .contact-guard{order:3;width:180px;justify-self:end;margin-top:8px}
+ .contact .contact-guard .stage-topline{font-size:14px;letter-spacing:0}
+}
+
+/* Local condensed face preserves the identity layout when external fonts are blocked. */
+.hero .name{font-family:"Archivo Display",var(--display)}
