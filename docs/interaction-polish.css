@@ -1,0 +1,15 @@
+/* All words remain legible before, during and after the reading emphasis. */
+html[data-motion=on] .words .w{color:#cbc6bd;opacity:1!important;transition:color .22s,background-size .22s;background-image:linear-gradient(#f05a9466,#f05a9466);background-repeat:no-repeat;background-position:left 97%;background-size:0% .055em}
+html[data-motion=on] .words .w.scroll-lit{color:#fff;background-size:100% .055em}
+html[data-motion=on] .words em .w{color:#f05a94}
+html[data-motion=on] .words em .w.scroll-lit{color:#ff9bc1}
+/* The aperture/button does not move: only the artwork receives bounded depth. */
+.hero-identity .portrait-baseline{transform:perspective(700px) translate3d(var(--identity-x,0px),var(--identity-y,0px),0) rotateX(var(--identity-rx,0deg)) rotateY(var(--identity-ry,0deg));transform-origin:50% 65%;transition:transform .16s ease-out}
+.hero-identity .mask-surface{transform:translate3d(var(--identity-x,0px),var(--identity-y,0px),0);transition:transform .16s ease-out}
+/* Mask and portrait are mutually exclusive even while transforms transition. */
+.hero-identity[data-portrait=true] .mask-surface{visibility:hidden!important}
+.hero-identity:not([data-portrait=true]) .portrait-baseline{opacity:0!important}
+html[data-motion=off] .hero-identity .portrait-baseline,html[data-motion=off] .hero-identity .mask-surface{transform:none}
+@media(prefers-reduced-motion:reduce){.hero-identity .portrait-baseline,.hero-identity .mask-surface{transform:none!important}.words .w{background-image:none!important}}
+
+@media(hover:none),(pointer:coarse){.hero-identity .portrait-baseline,.hero-identity .mask-surface{transform:none!important}}

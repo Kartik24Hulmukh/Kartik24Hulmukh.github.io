@@ -88,6 +88,13 @@
  }
  function schedule(){if(disposed||suspended||document.hidden||frame)return;frame=requestAnimationFrame(tick);}
  function enable(rec){if(disposed)return;rec.userEnabled=true;rec.failed=false;if(rec.enable){rec.enable.setAttribute('aria-pressed','true');rec.enable.textContent='Enable 3D';}schedule();}
+ function resetIdentityDepth(){['--identity-x','--identity-y','--identity-rx','--identity-ry'].forEach(function(k){hero.style.removeProperty(k);});}
+ on(heroButton,'pointermove',function(e){
+  if(!motion()||!fine.matches||e.pointerType==='touch'){resetIdentityDepth();return;}
+  var r=heroButton.getBoundingClientRect(),x=clamp((e.clientX-r.left)/r.width*2-1,-1,1),y=clamp((e.clientY-r.top)/r.height*2-1,-1,1);
+  hero.style.setProperty('--identity-x',(x*3).toFixed(2)+'px');hero.style.setProperty('--identity-y',(y*2).toFixed(2)+'px');hero.style.setProperty('--identity-rx',(-y*2).toFixed(2)+'deg');hero.style.setProperty('--identity-ry',(x*3).toFixed(2)+'deg');
+ });
+ on(heroButton,'pointerleave',resetIdentityDepth);
  on(heroButton,'pointerenter',function(e){if(e.pointerType==='touch')return;hovered=true;forcedMask=false;syncHero();});
  on(heroButton,'pointerleave',function(){hovered=false;syncHero();});
  on(heroButton,'focus',function(){focused=true;forcedMask=false;syncHero();});
@@ -99,15 +106,15 @@
   if(rec.turn)on(rec.turn,'click',function(){rec.turned=!rec.turned;rec.turn.setAttribute('aria-pressed',String(rec.turned));rec.turn.textContent=rec.turned?'Reset ↗':'Turn ↗';rec.turn.setAttribute('aria-label',(rec.turned?'Reset ':'Turn ')+rec.character.replace('-',' ')+' model');enable(rec);});
   if(rec.full){on(rec.viewport,'pointermove',function(e){if(!motion()||!fine.matches||e.pointerType==='touch')return;var r=rec.viewport.getBoundingClientRect();rec.x=clamp((e.clientX-r.left)/r.width*2-1,-1,1);rec.y=clamp((e.clientY-r.top)/r.height*2-1,-1,1);schedule();});on(rec.viewport,'pointerleave',function(){rec.x=rec.y=0;schedule();});}
  });
- on(fine,'change',function(){syncHero();schedule();});
+ on(fine,'change',function(){resetIdentityDepth();syncHero();schedule();});
  on(window,'scroll',schedule,{passive:true});on(window,'resize',schedule,{passive:true});
  if('IntersectionObserver'in window){observer=new IntersectionObserver(schedule,{threshold:0});records.forEach(function(r){observer.observe(r.viewport);});}
  if('ResizeObserver'in window){resize=new ResizeObserver(schedule);records.forEach(function(r){resize.observe(r.viewport);});resize.observe(document.getElementById('main'));}
- if(M)unsubscribe=M.onChange(function(){if(disposed)return;cancelLoad();if(document.hidden)return;records.forEach(function(r){r.x=r.y=0;});schedule();});
- on(document,'visibilitychange',function(){if(document.hidden){if(frame)cancelAnimationFrame(frame);frame=0;cancelLoad();records.forEach(function(r){live(r,false);});}else schedule();});
- on(window,'pagehide',function(e){suspended=true;if(frame)cancelAnimationFrame(frame);frame=0;cancelLoad();records.forEach(function(r){live(r,false);});if(!e.persisted)dispose();});
+ if(M)unsubscribe=M.onChange(function(){if(disposed)return;resetIdentityDepth();cancelLoad();if(document.hidden)return;records.forEach(function(r){r.x=r.y=0;});schedule();});
+ on(document,'visibilitychange',function(){if(document.hidden){resetIdentityDepth();if(frame)cancelAnimationFrame(frame);frame=0;cancelLoad();records.forEach(function(r){live(r,false);});}else schedule();});
+ on(window,'pagehide',function(e){resetIdentityDepth();suspended=true;if(frame)cancelAnimationFrame(frame);frame=0;cancelLoad();records.forEach(function(r){live(r,false);});if(!e.persisted)dispose();});
  on(window,'pageshow',function(){if(disposed)return;suspended=false;schedule();});
- function dispose(){if(disposed)return;disposed=true;if(frame)cancelAnimationFrame(frame);frame=0;cancelLoad();removers.splice(0).forEach(function(off){off();});if(observer)observer.disconnect();if(resize)resize.disconnect();if(unsubscribe)unsubscribe();records.forEach(function(r){live(r,false);});meshCache.forEach(disposeMesh);meshCache.clear();dataCache.clear();if(renderer){renderer.dispose();renderer.domElement.remove();}renderer=null;scene=null;group=null;camera=null;active=null;attached=null;}
+ function dispose(){if(disposed)return;resetIdentityDepth();disposed=true;if(frame)cancelAnimationFrame(frame);frame=0;cancelLoad();removers.splice(0).forEach(function(off){off();});if(observer)observer.disconnect();if(resize)resize.disconnect();if(unsubscribe)unsubscribe();records.forEach(function(r){live(r,false);});meshCache.forEach(disposeMesh);meshCache.clear();dataCache.clear();if(renderer){renderer.dispose();renderer.domElement.remove();}renderer=null;scene=null;group=null;camera=null;active=null;attached=null;}
  window.PortfolioStages={state:function(){return {active:active?active.id:null,portrait:portrait,portraitPinned:portraitPinned,contextLost:lost,disposed:disposed,suspended:suspended,pending:!!frame,degraded:degraded,meshCache:meshCache.size,dataCache:dataCache.size,stats:JSON.parse(JSON.stringify(stats)),stages:records.map(function(r){return {id:r.id,character:r.character,full:r.full,visible:r.visible,loading:r.loading,loaded:meshCache.has(r.character),live:r.painted,userEnabled:r.userEnabled,failed:r.failed,angle:r.angle,progress:r.progress};})};},dispose:dispose};
  document.documentElement.classList.add('stage-ready');
  helper.textContent=fine.matches?'Hover or focus to meet Kartik':'Tap to meet Kartik';

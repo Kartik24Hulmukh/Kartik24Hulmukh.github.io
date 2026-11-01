@@ -14,7 +14,7 @@
 <script>document.documentElement.classList.add('js');</script>
 <link href="./attachment.css" rel="stylesheet"/>
 <link href="./portrait-refined.css" rel="stylesheet"/>
-<link href="./experience.css" rel="stylesheet"/><link href="./hero3d.css" rel="stylesheet"/><script>try{document.documentElement.dataset.motion=(matchMedia('(prefers-reduced-motion: reduce)').matches||localStorage.getItem('kh-motion')==='off')?'off':'on';}catch(e){document.documentElement.dataset.motion=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on';}</script><script>setTimeout(function(){if(window.__portfolioEngineReady)return;document.documentElement.classList.add('engine-fallback');document.body.classList.remove('lock','has-cursor');document.body.classList.add('ready');var l=document.getElementById('loader');if(l)l.remove();document.querySelectorAll('.ch').forEach(function(n){n.textContent=n.dataset.ch||n.textContent;});document.querySelectorAll('.proj-body').forEach(function(n){n.inert=false;});},1200);</script></head>
+<link href="./experience.css" rel="stylesheet"/><link href="./hero3d.css" rel="stylesheet"/><link href="./atmosphere.css" rel="stylesheet"/><link href="./interaction-polish.css" rel="stylesheet"/><script>try{document.documentElement.dataset.motion=(matchMedia('(prefers-reduced-motion: reduce)').matches||localStorage.getItem('kh-motion')==='off')?'off':'on';}catch(e){document.documentElement.dataset.motion=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on';}</script><script>setTimeout(function(){if(window.__portfolioEngineReady)return;document.documentElement.classList.add('engine-fallback');document.body.classList.remove('lock','has-cursor');document.body.classList.add('ready');var l=document.getElementById('loader');if(l)l.remove();document.querySelectorAll('.ch').forEach(function(n){n.textContent=n.dataset.ch||n.textContent;});document.querySelectorAll('.proj-body').forEach(function(n){n.inert=false;});},1200);</script></head>
 <body class="play-mode">
 <a class="skip" href="#main">Skip to content</a>
 <canvas aria-hidden="true" id="gl"></canvas>
@@ -68,7 +68,7 @@
 <img alt="Illustrated portrait of Kartik Hulmukh" class="portrait-baseline" decoding="async" height="271" src="../assets/kartik-portrait.svg" width="276"/>
 <span aria-hidden="true" class="identity-crosshair">+</span>
 </button>
-<figcaption class="identity-caption"><span id="identity-label">Front Man</span><span id="identity-help">Hover or tap to meet Kartik ↗</span></figcaption>
+<figcaption class="identity-caption"><span id="identity-label">Front Man</span><span id="identity-help">Meet the maker ↗</span></figcaption>
 <div class="stage-controls"><button aria-pressed="false" class="stage-enable" type="button">Enable 3D</button><span class="stage-status" id="identity-status">Character study · hover reveals the maker</span></div>
 <p class="identity-credit">Models by @jaeysart · non-commercial use</p>
 </figure><ol aria-label="How I build: claim, source, boundary" class="proof-rail"><li><span aria-hidden="true" class="rail-shape circle"></span>Claim</li><li><span aria-hidden="true" class="rail-shape triangle"></span>Source</li><li><span aria-hidden="true" class="rail-shape square"></span>Boundary</li></ol></div>
@@ -462,5 +462,5 @@ python3 -m app.validate out_demo/evidence.json \
 <span>Static site · no analytics trackers · sources visible · E highlights evidence</span>
 </footer>
 <script src="./motion-controller.js"></script><script src="./motion-engine.js"></script>
-<audio data-src="./assets/pink-soldiers.mp3.b64" hidden="" id="portfolio-audio" loop="" preload="none"></audio><script src="./experience.js"></script><script defer="" src="./hero3d.js"></script></body>
+<audio data-src="./assets/pink-soldiers.mp3.b64" hidden="" id="portfolio-audio" loop="" preload="none"></audio><script src="./experience.js"></script><script defer="" src="./hero3d.js"></script><script defer="" src="./atmosphere.js"></script><script defer="" src="./interaction-polish.js"></script></body>
 </html>

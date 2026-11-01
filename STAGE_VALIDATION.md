@@ -42,3 +42,7 @@ CHROMIUM_PATH=/path/to/chromium QA_URL=http://127.0.0.1:8771 node scripts/test_s
 ## Evidence limits and rights
 
 Tests used headless Chromium and software WebGL, not physical iOS/Android, real Safari, real GPU FPS/memory or a screen-reader certification. Actual BFCache navigation, audible playback and production traffic improvement are not certified by these checks. First-paint correctness is supported by default markup/CSS and no-JavaScript inspection, not an earliest-paint filmstrip benchmark. Artwork remains restricted by @jaeysart's personal/non-commercial-use notice; obtain broader rights or replace it before commercial use.
+
+## Subsequent background/interaction release
+
+The mask-first/full-body behavior above remains. The supplied reference contour shader and bounded interaction polish were restored afterward; the background now intentionally owns a separate lightweight WebGL context while character rendering still uses one shared Three.js renderer. See BACKGROUND_VALIDATION.md for the newer clean 101-check acceptance run and actual pixel-proof fallback validation. Earlier stage-only counts are historical, not a claim that the background has no context.

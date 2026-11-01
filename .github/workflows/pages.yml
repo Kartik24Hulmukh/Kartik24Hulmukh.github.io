@@ -22,6 +22,8 @@ jobs:
       - run: node --check docs/motion-engine.js
       - run: node --check docs/experience.js
       - run: node --check docs/hero3d.js
+      - run: node --check docs/atmosphere.js
+      - run: node --check docs/interaction-polish.js
       - name: Request existing branch-based Pages build
         env:
           GH_TOKEN: ${{ github.token }}

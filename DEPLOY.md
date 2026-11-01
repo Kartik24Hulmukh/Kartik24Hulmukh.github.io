@@ -66,3 +66,11 @@ Only visible eligible geometry is loaded. Three models are cached with bounded a
 Build: `python3 scripts/build_bootstrap.py`; run both validators and JS syntax checks. Browser regressions are in `scripts/test_stages.cjs` and `scripts/test_stage_retry.cjs`; they require Playwright and Chromium. Set `QA_URL`, `QA_OUT`, and `CHROMIUM_PATH` as needed. Serve the repository root locally so both `/` and `/docs/` can be tested. See `STAGE_VALIDATION.md` for release evidence and limits.
 
 Models are credited to @jaeysart. The archive previews restrict the artwork to personal/non-commercial use. No broader rights or franchise endorsement are asserted; obtain permission or replace these assets before commercial use. Retain `docs/models/README.md`, source manifest and software licenses.
+
+## Restored reference background and responsive interaction polish
+
+`atmosphere.js/css` restore the contour shader from the supplied HTML, with pink/teal light and an exact shader-derived static fallback. It owns one small background WebGL context; `hero3d.js` still owns exactly one shared character renderer. Do not interpret the intentional background context as duplicate model rendering. Background work is capped at 24 draws/sec during finite input bursts; coarse/save-data resolution is lower. Pause, hidden-page, paper-cover and context-loss paths are bounded. No endless ambient field loop is retained.
+
+`interaction-polish.js/css` add readable scroll emphasis, bounded decaying marquee skew, and artwork-only hero depth. Buttons and neighboring name letters stay physically stable. The background poster remains visible without JavaScript/WebGL and under reduced motion. Original project claims and model rights notices are unchanged.
+
+See `BACKGROUND_VALIDATION.md` for the clean 101-check run and pixel-proof fallback comparison. Portable new regressions: `scripts/test_background.cjs`, `scripts/test_interaction_polish.cjs`, `scripts/test_background_fallback.cjs`; set CHROMIUM_PATH, QA_URL and QA_OUT as appropriate. The background test accepts a full page URL, so run it for root and `/docs/` separately (use distinct QA_TAG values). The polish/fallback tests take the root base URL and construct their routes. CI syntax-checks both new runtime files.

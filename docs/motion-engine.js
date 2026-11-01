@@ -84,9 +84,9 @@
   if (loader) loader.remove();
   document.body.classList.remove('lock');
 
-  /* ---------- 6. static field: no context, shaders, resize work, or RAF ---------- */
+  /* ---------- 6. independent contour-field enhancement with static fallback ---------- */
   var canvas = $('#gl');
-  if (canvas) canvas.classList.add('nogl'); // Existing CSS supplies the paper/ink field.
+  if (canvas) canvas.classList.add('nogl'); // atmosphere.js owns the optional field lifecycle.
 
   /* ---------- 7. native cursor; no cursor overlay or animation ---------- */
   document.body.classList.remove('has-cursor');
@@ -166,6 +166,8 @@
     peekFrame = 0;
     if (peek) peek.classList.remove('on');
   }
+  window.addEventListener('scroll', stopPeek, { passive: true });
+  window.addEventListener('blur', stopPeek);
   function movePeek() {
     peekFrame = 0;
     if (RM || !FINE || !peekOn || !peek) return;
@@ -265,9 +267,11 @@
         if (RM || !FINE) return;
         var r = el.getBoundingClientRect();
         var x = e.clientX - r.left - r.width / 2, y = e.clientY - r.top - r.height / 2;
-        el.style.transform = 'translate(' + (x * 0.22) + 'px,' + (y * 0.32) + 'px)';
+        el.style.setProperty('--hotspot-x', (e.clientX-r.left) + 'px');
+        el.style.setProperty('--hotspot-y', (e.clientY-r.top) + 'px');
+        el.classList.add('pointer-lit');
       });
-      el.addEventListener('mouseleave', function () { el.style.transform = ''; });
+      el.addEventListener('mouseleave', function () { el.style.transform = ''; el.classList.remove('pointer-lit'); });
     });
   }
 
@@ -275,7 +279,7 @@
     document.body.classList.remove('has-cursor');
     if (RM || !FINE) {
       stopPeek();
-      $$('.mag').forEach(function (el) { el.style.transform = ''; });
+      $$('.mag').forEach(function (el) { el.style.transform = ''; el.classList.remove('pointer-lit'); });
     }
   }
   function pointerChanged() { FINE = fineQuery.matches; syncPointer(); }
@@ -300,7 +304,7 @@
       words.forEach(function(el){el.classList.add('on');});
       roles.forEach(function(el,i){el.classList.remove('off');el.classList.toggle('on',i===ri);});
       stopPeek();
-      $$('.mag').forEach(function(el){el.style.transform='';});
+      $$('.mag').forEach(function(el){el.style.transform='';el.classList.remove('pointer-lit');});
       if(marq){skew=0;marq.style.setProperty('--skew','0deg');}
     }
     onScroll();

@@ -1,0 +1,24 @@
+/* The attached portfolio's ink-and-contour field, with pink/teal light instead of orange. */
+#gl,#gl.nogl{pointer-events:none;filter:none;background:radial-gradient(ellipse at 72% 38%,#f05a9414,transparent 46%),#0d0d0c;background-image:url('./assets/contour-field.svg');background-size:cover;background-position:center}
+.play-mode #gl{filter:none}
+html[data-motion=off] #gl{visibility:visible}
+@media(prefers-reduced-motion:reduce){#gl{visibility:visible}}
+/* Keep fine contours and print texture, not a visibly shaking layer over project text. */
+.grain{opacity:.035;animation:none}
+.hero::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#0d0d0c36,transparent 65%);z-index:-1}
+.hero-identity .identity-grid{opacity:.3}
+
+/* React to the pointer without moving the actual link/hit target. */
+.btn.mag{position:relative;isolation:isolate;overflow:hidden;font-size:14px;transform:none!important}
+.btn.mag::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;background:radial-gradient(90px circle at var(--hotspot-x,50%) var(--hotspot-y,50%),#f05a9445,transparent 85%);transition:opacity .2s}
+.btn.mag.pointer-lit::before{opacity:1}
+.btn.mag:hover{background:transparent;color:var(--paper);border-color:#f05a94}
+/* Variable-width font hover caused neighboring letters to reflow. Keep the name stable. */
+.name .ch{font-variation-settings:'wdth' 62;transition:transform .2s ease,color .2s ease}
+.name .ch.stretch{font-variation-settings:'wdth' 62;transform:translateY(-3px) scaleY(1.025);color:#f05a94}
+html[data-motion=off] .btn.mag::before{opacity:0!important}
+
+/* Keep small editorial labels legible across the reactive light, not just on pure black. */
+section:not(.paper) .lab,section:not(.paper) .src,.hero .h-top{color:#bdb7ad}
+.hero .arrival-signature,.hero .roles,.identity-caption,.hero-identity .stage-controls,.identity-credit,.proc-l .full-stage figcaption{background:#0d0d0cf2}
+.hero .arrival-signature{color:#f05a94}

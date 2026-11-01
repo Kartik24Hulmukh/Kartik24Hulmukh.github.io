@@ -42,3 +42,14 @@ assert 'character-select' not in s
 assert 'accordion-ready' in engine
 assert 'focusin' not in (R / 'docs/experience.js').read_text()
 print('PASS: three locations, mask-first identity, one renderer and atomic disclosures.')
+
+# Restored contour background and readable interaction polish have independent fallbacks.
+for f in ['atmosphere.js', 'atmosphere.css', 'interaction-polish.js', 'interaction-polish.css', 'assets/contour-field.svg']:
+    assert (R / 'docs' / f).is_file(), f
+    assert f in s or f == 'assets/contour-field.svg', f
+field = (R / 'docs/atmosphere.js').read_text()
+assert "cv.getContext('webgl'" in field and '24' in field
+assert 'smoothstep(0.42,0.0' not in field and 'smoothstep(1.25,0.25' not in field
+assert 'pointer-events:none' in (R / 'docs/atmosphere.css').read_text()
+assert 'data:image/webp;base64,' in (R / 'docs/assets/contour-field.svg').read_text()
+print('PASS: reference contour field, static poster and readable interaction modules.')

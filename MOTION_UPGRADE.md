@@ -33,3 +33,7 @@ Premortem: don't confuse attractive animation with verified results; keep the hu
 ## Distributed-stage follow-up
 
 The hero is now mask-first, revealing the existing illustrated portrait through hover/focus/tap/keyboard. Real full-body Pink Soldier and Unknown meshes are placed in Work and Process, with lightweight render-derived posters. Scroll affects the artwork rather than hijacking native navigation. The sticky manifesto runway, delayed-engine/inert disclosure race, paper-scene caption contrast, renderer-init retry failure and hover-only Escape dismissal were addressed. One renderer and a bounded model cache are retained. See STAGE_VALIDATION.md; visual effects do not constitute proof of traffic or conversion gains.
+
+## Reference-background restoration and observed-motion acceptance
+
+The supplied portfolio's reactive domain-warped contour field is restored with pink/teal light, replacing the static gradient substitution. The controller uses finite capped input bursts and a shader-derived fallback, not the original perpetual background loop. Native scroll gains readable word emphasis and signed decaying marquee skew; hero pointer depth moves only the artwork. Moving magnetic hitboxes and variable-width-letter layout jitter are removed, and hover previews clear on scroll/blur. See BACKGROUND_VALIDATION.md for 101/101 clean serial checks and the separate pixel-identical context-loss fallback test. No physical-device FPS or traffic uplift is claimed.
