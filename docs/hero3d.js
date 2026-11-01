@@ -1,155 +1,115 @@
-/* Real supplied meshes, one bounded renderer, no page-wide GPU loop. */
+/* Three locations, one renderer. Posters are immediate; geometry is on demand. */
 (function(){
  'use strict';
- var owner=document.getElementById('hero-identity');if(!owner)return;
- var base=new URL('.',document.currentScript.src),hero=owner.closest('.hero'),button=document.getElementById('portrait-reveal'),surface=document.getElementById('hero-model-surface');
- var status=document.getElementById('identity-status'),label=document.getElementById('identity-label'),retry=document.getElementById('model-retry');
- var M=window.PortfolioMotion,fine=matchMedia('(hover:hover) and (pointer:fine)'),selects=Array.from(owner.querySelectorAll('[data-character]'));
- var names={'front-man':'Front Man','pink-soldier':'Pink Soldier','unknown':'Unknown'};
- var poster=document.createElement('img');poster.className='model-poster';poster.alt='';poster.setAttribute('aria-hidden','true');surface.appendChild(poster);
- var fallbackActive=false,fallbackGeneration=0,failed=false;
- var removers=[];function on(target,type,fn,options){target.addEventListener(type,fn,options);removers.push(function(){target.removeEventListener(type,fn,options);});}
- var T=null,renderer=null,scene=null,camera=null,group=null,mesh=null,contextLost=false,loading=false,ready=false;
- var selected='front-man',loaded=null,hovered=false,focused=false,pinned=false,forcedPortrait=false,intro=false,introConsumed=false;
- var inView=false,suspended=false,disposed=false,generation=0,abort=null,runtimePromise=null,cache=new Map();
- var raf=0,staticRaf=0,idle=0,introTimer=0,timeout=0,unsubscribe=null,resizeObserver=null,observer=null;
- var targetX=0,targetY=0,angleX=0,angleY=0,lastTime=0,deadline=0,dirty=false,firstPaint=false,degraded=false;
- var stats={rendererCreations:0,renders:0,animationCallbacks:0,staticPaints:0,loads:0,triangles:0,drawCalls:0,maxFrameMs:0,steadyFrames:[]};
- function active(){return !!(M&&M.state().active);}
- function canPaint(){return !disposed&&!suspended&&!document.hidden&&inView&&renderer&&ready&&!contextLost;}
- function wantsReveal(){return !forcedPortrait&&(pinned||intro||(active()&&(hovered||focused)));}
- function message(t){if(!disposed)status.textContent=t;}
- function ui(){
-  if(disposed)return;var show=!!(loaded===selected&&ready&&firstPaint&&!contextLost&&wantsReveal());owner.dataset.fallback=String(fallbackActive&&wantsReveal());owner.dataset.revealed=String(show);
-  button.setAttribute('aria-pressed',String(pinned));button.setAttribute('aria-label',pinned?'Show Kartik portrait':'Reveal '+names[selected]+' 3D model');
-  label.textContent=show?names[selected]+' · 3D study':(fallbackActive&&wantsReveal())?names[selected]+' · static preview':'Kartik Hulmukh';
-  owner.querySelector('.identity-topline span:last-child').textContent=String(selects.findIndex(function(b){return b.dataset.character===selected;})+1).padStart(2,'0')+' / 03';
-  selects.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.character===selected));});
+ var script=document.currentScript,base=new URL('.',script.src),M=window.PortfolioMotion;
+ var fine=matchMedia('(hover:hover) and (pointer:fine)'),removers=[],disposed=false,suspended=false,frame=0,epoch=0,abort=null,timer=0;
+ var T=null,runtime=null,renderer=null,scene=null,camera=null,group=null,active=null,attached=null,lost=false;
+ var dataCache=new Map(),meshCache=new Map(),resize=null,observer=null,unsubscribe=null,lastSize='',degraded=false;
+ var hero=document.getElementById('hero-identity'),heroButton=document.getElementById('portrait-reveal'),heroLabel=document.getElementById('identity-label');
+ var helper=document.getElementById('identity-help');
+ var portraitPinned=false,hovered=false,focused=false,forcedMask=false,portrait=false;
+ var stats={rendererCreations:0,renders:0,loads:0,aborts:0,handoffs:0,frames:0,drawCalls:0,triangles:0,maxRenderMs:0};
+ var records=Array.from(document.querySelectorAll('.character-stage')).map(function(node){return {id:node.id,node:node,character:node.dataset.character,full:node.dataset.framing==='full',viewport:node.querySelector('.stage-visual,.identity-aperture'),surface:node.querySelector('.stage-surface'),status:node.querySelector('.stage-status'),enable:node.querySelector('.stage-enable'),turn:node.querySelector('.stage-turn'),visible:false,userEnabled:false,loading:false,failed:false,painted:false,progress:.5,paintKey:'',x:0,y:0,turned:false,angle:0};});
+ if(!records.length)return;
+ function on(target,type,fn,options){target.addEventListener(type,fn,options);removers.push(function(){target.removeEventListener(type,fn,options);});}
+ function motion(){return !!(M&&M.state().active);}
+ function auto(){return motion()&&!(navigator.connection&&navigator.connection.saveData);}
+ function clamp(n,a,b){return Math.max(a,Math.min(b,n));}
+ function text(rec,value){if(!disposed&&rec.status.textContent!==value)rec.status.textContent=value;}
+ function live(rec,value){rec.painted=value;rec.node.dataset.live=String(value);}
+ function syncHero(){
+  if(disposed)return;portrait=!forcedMask&&(portraitPinned||hovered||focused);hero.dataset.portrait=String(portrait);
+  heroButton.setAttribute('aria-pressed',String(portraitPinned));heroButton.setAttribute('aria-label',portraitPinned?'Restore Front Man mask':"Reveal Kartik's portrait");
+  heroLabel.textContent=portrait?'Kartik Hulmukh':'Front Man';helper.textContent=portrait?(fine.matches?'Leave to restore mask':'Tap to restore mask'):(fine.matches?'Hover or focus to meet Kartik':'Tap to meet Kartik');
+  if(portrait)text(records[0],'Portrait revealed');else text(records[0],records[0].painted?'Live 3D mask':'Character study');schedule();
  }
- function cancelAnimation(){if(raf&&M)M.cancel(raf);raf=0;lastTime=0;}
- function cancelStatic(){if(staticRaf)cancelAnimationFrame(staticRaf);staticRaf=0;}
- function neutral(){targetX=targetY=angleX=angleY=0;button.style.setProperty('--card-x','0deg');button.style.setProperty('--card-y','0deg');if(group)group.rotation.set(0,0,0);}
- function paint(isStatic){
-  if(!canPaint())return;var start=performance.now();group.rotation.set(angleX,angleY,0);renderer.render(scene,camera);
-  var ms=performance.now()-start;stats.renders++;if(isStatic)stats.staticPaints++;stats.triangles=renderer.info.render.triangles;stats.drawCalls=renderer.info.render.calls;
-  stats.maxFrameMs=Math.max(stats.maxFrameMs,ms);stats.steadyFrames.push(ms);if(stats.steadyFrames.length>90)stats.steadyFrames.shift();
-  if(stats.renders>8&&ms>24&&!degraded){degraded=true;renderer.setPixelRatio(1);size();}
-  dirty=false;firstPaint=true;ui();
- }
- function staticPaint(){dirty=true;if(!canPaint()||staticRaf)return;staticRaf=requestAnimationFrame(function(){staticRaf=0;if(canPaint())paint(true);});}
- function animate(time){
-  raf=0;stats.animationCallbacks++;if(!canPaint()||!active()||!wantsReveal())return;
-  var dt=lastTime?Math.min(.05,(time-lastTime)/1000):1/60;lastTime=time;var ease=1-Math.exp(-dt*10);
-  angleX+=(targetX-angleX)*ease;angleY+=(targetY-angleY)*ease;paint(false);
-  var unsettled=Math.abs(targetX-angleX)+Math.abs(targetY-angleY)>.001;
-  if(unsettled&&performance.now()<deadline&&!degraded)raf=M.raf(animate);else{angleX=targetX;angleY=targetY;paint(false);}
- }
- function animateTo(x,y,duration){
-  targetX=x;targetY=y;deadline=performance.now()+(duration||900);
-  if(!canPaint())return;if(!active()){neutral();staticPaint();return;}
-  if(!raf)raf=M.raf(animate);
- }
- function stopIntro(){clearTimeout(introTimer);introTimer=0;intro=false;}
- function refresh(){
-  if(!active()||!inView||document.hidden||suspended){cancelAnimation();cancelStatic();stopIntro();neutral();}
-  if(canPaint()&&wantsReveal()){if(active())animateTo(targetX,targetY);else staticPaint();}
-  ui();
- }
- var lastWidth=0,lastHeight=0,lastDPR=0;
- function size(){
-  if(disposed)return;dirty=true;
-  if(!renderer||!camera||!inView||document.hidden||suspended||contextLost)return;
-  var r=button.getBoundingClientRect();if(r.width<1||r.height<1)return;
-  var dpr=degraded?1:Math.min(devicePixelRatio||1,fine.matches?1.5:1.25);
-  if(r.width!==lastWidth||r.height!==lastHeight||dpr!==lastDPR){
-   lastWidth=r.width;lastHeight=r.height;lastDPR=dpr;renderer.setPixelRatio(dpr);renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix();
-  }
-  if(canPaint())staticPaint();
- }
- function disposeMesh(m){if(!m)return;m.geometry.dispose();if(m.material.map)m.material.map.dispose();m.material.dispose();}
- function bytes(text){var s=atob(text),a=new Uint8Array(s.length);for(var i=0;i<s.length;i++)a[i]=s.charCodeAt(i);return a;}
+ function bytes(str){var raw=atob(str),out=new Uint8Array(raw.length);for(var i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i);return out;}
  async function decode(data){
-  if(data.format!=='squid-quantized-mesh-v1'||data.vertexCount>65000||data.triangleCount>80000)throw Error('Unsupported model format');
+  if(data.format!=='squid-quantized-mesh-v1'||data.vertexCount>65000||data.triangleCount>80000)throw Error('Unsupported model');
   var packed=JSON.parse(T.strFromU8(T.gunzipSync(bytes(data.geometry))));
-  var p=new Int16Array(bytes(packed.positions).buffer),n=new Int8Array(bytes(packed.normals).buffer),uv=new Uint16Array(bytes(packed.uvs).buffer),ix=new Uint16Array(bytes(packed.indices).buffer);
-  var lo=data.bounds.min,hi=data.bounds.max;
+  var p=new Int16Array(bytes(packed.positions).buffer),n=new Int8Array(bytes(packed.normals).buffer),uv=new Uint16Array(bytes(packed.uvs).buffer),ix=new Uint16Array(bytes(packed.indices).buffer),lo=data.bounds.min,hi=data.bounds.max;
   if(p.length!==data.vertexCount*3||n.length!==p.length||uv.length!==data.vertexCount*2||ix.length!==data.triangleCount*3||!lo.concat(hi).every(Number.isFinite))throw Error('Invalid mesh buffers');
   for(var k=0;k<ix.length;k++)if(ix[k]>=data.vertexCount)throw Error('Invalid mesh index');
-  var positions=new Float32Array(p.length);
-  for(var i=0;i<p.length;i++){var c=i%3;positions[i]=lo[c]+(p[i]/32767+1)*.5*(hi[c]-lo[c]);}
-  var geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.BufferAttribute(positions,3));geometry.setAttribute('normal',new T.BufferAttribute(n,3,true));geometry.setAttribute('uv',new T.BufferAttribute(uv,2,true));geometry.setIndex(new T.BufferAttribute(ix,1));geometry.computeBoundingSphere();
-  var texture=null;try{texture=await new T.TextureLoader().loadAsync(data.texture);texture.colorSpace=T.SRGBColorSpace;texture.flipY=data.textureFlipY;texture.anisotropy=1;
-   var material=new T.MeshStandardMaterial({map:texture,roughness:data.material.roughness,metalness:data.material.metalness});return new T.Mesh(geometry,material);
-  }catch(e){geometry.dispose();if(texture)texture.dispose();throw e;}
+  var positions=new Float32Array(p.length);for(var i=0;i<p.length;i++){var c=i%3;positions[i]=lo[c]+(p[i]/32767+1)*.5*(hi[c]-lo[c]);}
+  var geometry=new T.BufferGeometry(),texture=null;geometry.setAttribute('position',new T.BufferAttribute(positions,3));geometry.setAttribute('normal',new T.BufferAttribute(n,3,true));geometry.setAttribute('uv',new T.BufferAttribute(uv,2,true));geometry.setIndex(new T.BufferAttribute(ix,1));geometry.computeBoundingSphere();
+  try{texture=await new T.TextureLoader().loadAsync(data.texture);texture.colorSpace=T.SRGBColorSpace;texture.flipY=data.textureFlipY;texture.anisotropy=1;return new T.Mesh(geometry,new T.MeshStandardMaterial({map:texture,roughness:data.material.roughness,metalness:data.material.metalness}));}
+  catch(e){geometry.dispose();if(texture)texture.dispose();throw e;}
  }
+ function disposeMesh(mesh){mesh.geometry.dispose();if(mesh.material.map)mesh.material.map.dispose();mesh.material.dispose();}
  function createRenderer(){
-  if(renderer)return;
-  var canvas=document.createElement('canvas');canvas.setAttribute('aria-hidden','true');
+  if(renderer)return;var canvas=document.createElement('canvas');canvas.id='portfolio-stage-canvas';canvas.setAttribute('aria-hidden','true');
   renderer=new T.WebGLRenderer({canvas:canvas,alpha:true,antialias:true,powerPreference:'low-power'});stats.rendererCreations++;
-  renderer.setPixelRatio(Math.min(devicePixelRatio||1,fine.matches?1.5:1.25));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.25;
-  renderer.setClearColor(0x000000,0);scene=new T.Scene();camera=new T.PerspectiveCamera(28,1,.1,20);camera.position.set(0,.5,2.4);camera.lookAt(0,.5,0);
-  scene.add(new T.HemisphereLight(0xe8efff,0x858099,2));
+  renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.25;renderer.setClearColor(0x000000,0);
+  scene=new T.Scene();camera=new T.PerspectiveCamera(28,1,.1,50);group=new T.Group();scene.add(group);scene.add(new T.HemisphereLight(0xe8efff,0x858099,2));
   [[0xffffff,4,3,4,5],[0xe65a89,2,-3,2,1],[0xb2d5ff,4,2,3,-4]].forEach(function(l){var light=new T.DirectionalLight(l[0],l[1]);light.position.set(l[2],l[3],l[4]);scene.add(light);});
-  group=new T.Group();scene.add(group);surface.appendChild(canvas);
-  on(canvas,'webglcontextlost',function(e){e.preventDefault();contextLost=true;failed=true;fallbackGeneration++;cancelAnimation();cancelStatic();stopIntro();ui();retry.hidden=false;message('3D paused by the browser. Your portrait remains available.');fallback();});
-  on(canvas,'webglcontextrestored',function(){if(disposed)return;contextLost=false;failed=false;fallbackGeneration++;fallbackActive=false;firstPaint=false;neutral();size();if(canPaint())staticPaint();message('3D scene restored.');retry.hidden=true;});
-  size();
+  on(canvas,'webglcontextlost',function(e){e.preventDefault();lost=true;cancelLoad();records.forEach(function(r){live(r,false);text(r,'Static preview · 3D temporarily unavailable');});});
+  on(canvas,'webglcontextrestored',function(){if(disposed)return;lost=false;lastSize='';records.forEach(function(r){r.failed=false;});schedule();});
  }
- async function loadModel(id){
-  if(disposed||suspended)return;if(loaded===id&&ready&&!contextLost){ui();if(wantsReveal())staticPaint();return;}
-  var ticket=++generation;if(abort)abort.abort();clearTimeout(timeout);loading=true;ready=false;firstPaint=false;fallbackActive=false;failed=false;fallbackGeneration++;ui();retry.hidden=true;message('Preparing '+names[id]+'… your portrait stays available.');
-  timeout=setTimeout(function(){if(ticket!==generation)return;generation++;if(abort)abort.abort();loading=false;ready=false;failed=true;ui();retry.hidden=false;message('The 3D scene took too long. Try again; the portfolio is ready.');fallback();},15000);
-  var next=null;
+ function eligible(rec){return rec.visible&&!(rec.node===hero&&portrait)&&(auto()||rec.userEnabled);}
+ function valid(rec,ticket){return !disposed&&!suspended&&!document.hidden&&!lost&&ticket===epoch&&active===rec&&eligible(rec);}
+ function cancelLoad(){epoch++;if(abort){abort.abort();abort=null;stats.aborts++;}clearTimeout(timer);timer=0;records.forEach(function(r){r.loading=false;});}
+ function attach(rec){
+  if(!renderer||!meshCache.has(rec.character))return;
+  if(attached!==rec){if(attached)live(attached,false);if(group.children.length)group.remove(group.children[0]);group.add(meshCache.get(rec.character));rec.surface.appendChild(renderer.domElement);attached=rec;rec.paintKey='';stats.handoffs++;lastSize='';}
+ }
+ function render(rec){
+  if(disposed||suspended||document.hidden||lost||active!==rec||!eligible(rec)||!renderer||!meshCache.has(rec.character))return;
+  attach(rec);var rect=rec.viewport.getBoundingClientRect();if(rect.width<1||rect.height<1)return;
+  var dpr=degraded?1:Math.min(devicePixelRatio||1,fine.matches?1.5:1.25),key=[rect.width,rect.height,dpr,rec.full].join(':');
+  if(key!==lastSize){renderer.setPixelRatio(dpr);renderer.setSize(rect.width,rect.height,false);camera.aspect=rect.width/rect.height;camera.position.set(0,rec.full?0:.5,rec.full?5.65:2.4);camera.lookAt(0,rec.full?0:.5,0);camera.updateProjectionMatrix();lastSize=key;}
+  rec.angle=motion()?(rec.full?clamp((rec.progress-.5)*.5+rec.x*.12+(rec.turned?.45:0),-.4,.55):0):(rec.turned?.55:0);
+  var pitch=motion()?-rec.y*.08:0,paintKey=key+':'+pitch.toFixed(4)+':'+rec.angle.toFixed(4);
+  if(rec.painted&&rec.paintKey===paintKey)return;rec.paintKey=paintKey;
+  group.rotation.set(pitch,rec.angle,0);var start=performance.now();renderer.render(scene,camera);var ms=performance.now()-start;
+  stats.renders++;stats.maxRenderMs=Math.max(stats.maxRenderMs,ms);stats.drawCalls=renderer.info.render.calls;stats.triangles=renderer.info.render.triangles;
+  if(stats.renders>8&&ms>28&&!degraded){degraded=true;lastSize='';}
+  live(rec,true);text(rec,rec.full&&rec.viewport.clientWidth<220?(motion()?'Live 3D':'Static 3D view'):(motion()?(rec.full?(fine.matches?'Live 3D · scroll or hover':'Live 3D · scroll to turn'):'Live 3D mask'):'Static 3D view · motion is paused'));
+  if(rec.enable){rec.enable.textContent='3D enabled';rec.enable.setAttribute('aria-pressed','true');}
+ }
+ async function load(rec){
+  if(rec.loading||rec.failed||lost)return;var ticket=epoch;rec.loading=true;text(rec,rec.full&&rec.viewport.clientWidth<220?'Preparing 3D':'Preparing 3D · preview stays visible');var next=null;
+  timer=setTimeout(function(){if(!valid(rec,ticket))return;cancelLoad();rec.failed=true;text(rec,'Static preview · use the control to retry 3D');if(rec.enable){rec.enable.textContent='Retry 3D';rec.enable.setAttribute('aria-pressed','false');}},12000);
   try{
-   if(!runtimePromise)runtimePromise=import(new URL('./vendor/hero-three.js',base).href).catch(function(e){runtimePromise=null;throw e;});
-   T=await runtimePromise;if(ticket!==generation||disposed)return;
-   var data=cache.get(id);if(!data){abort=new AbortController();stats.loads++;var response=await fetch(new URL('./models/'+id+'.model.json',base),{signal:abort.signal});if(!response.ok)throw Error('Model unavailable');data=await response.json();if(ticket!==generation||disposed||selected!==id)return;cache.set(id,data);}
-   if(ticket!==generation||disposed)return;next=await decode(data);if(ticket!==generation||disposed||selected!==id){disposeMesh(next);return;}
-   createRenderer();if(mesh){group.remove(mesh);disposeMesh(mesh);}mesh=next;next=null;group.add(mesh);loaded=id;ready=true;loading=false;clearTimeout(timeout);neutral();size();
-   if(canPaint())paint(true);
-   message(names[id]+' ready. Hover, focus or tap to reveal the real 3D model.');
-   if(!introConsumed&&fine.matches&&active()&&inView&&!pinned&&!hovered&&!focused){introConsumed=true;intro=true;angleY=-.28;angleX=.04;animateTo(0,.07,1200);introTimer=setTimeout(function(){intro=false;ui();cancelAnimation();},2600);}
-   else if(wantsReveal()){if(active()){angleY=-.18;animateTo(0,0,900);}else staticPaint();}
-   ui();
-  }catch(e){if(next)disposeMesh(next);if(ticket!==generation||disposed)return;clearTimeout(timeout);loading=false;ready=false;failed=true;cancelAnimation();ui();retry.hidden=false;message('3D is unavailable here. Your portrait and all project evidence still work.');fallback();}
+   if(!runtime)runtime=import(new URL('./vendor/hero-three.js',base).href).catch(function(e){runtime=null;throw e;});T=await runtime;if(!valid(rec,ticket))return;
+   var data=dataCache.get(rec.character);if(!data){abort=new AbortController();stats.loads++;var response=await fetch(new URL('./models/'+rec.character+'.model.json',base),{signal:abort.signal});if(!response.ok)throw Error('Model unavailable');data=await response.json();if(!valid(rec,ticket))return;dataCache.set(rec.character,data);}
+   if(!valid(rec,ticket))return;next=await decode(data);if(!valid(rec,ticket)){disposeMesh(next);next=null;return;}
+   meshCache.set(rec.character,next);next=null;rec.loading=false;clearTimeout(timer);timer=0;abort=null;createRenderer();render(rec);
+  }catch(e){if(next)disposeMesh(next);if(!renderer&&meshCache.has(rec.character)){disposeMesh(meshCache.get(rec.character));meshCache.delete(rec.character);}if(disposed||ticket!==epoch||active!==rec)return;clearTimeout(timer);timer=0;abort=null;rec.loading=false;rec.failed=true;live(rec,false);text(rec,'Static preview · use the control to retry 3D');if(rec.enable){rec.enable.textContent='Retry 3D';rec.enable.setAttribute('aria-pressed','false');}}
  }
- async function fallback(){
-  if(disposed||suspended||!wantsReveal()||(!failed&&!contextLost))return;
-  var id=selected,ticket=++fallbackGeneration;
-  try{var r=await fetch(new URL('./models/'+id+'.poster.json',base));if(!r.ok)return;var data=await r.json();
-   var image=new Image();image.src=data.image;await image.decode();
-   if(ticket!==fallbackGeneration||id!==selected||disposed||suspended||!wantsReveal()||(!failed&&!contextLost))return;
-   poster.src=data.image;fallbackActive=true;ui();message(names[id]+' static preview. Interactive 3D is unavailable; your portfolio remains usable.');
-  }catch(e){}
+ function tick(){
+  frame=0;if(disposed||suspended||document.hidden)return;stats.frames++;var header=document.querySelector('.nav').getBoundingClientRect().bottom,center=(innerHeight+header)/2,candidate=null,score=Infinity;
+  records.forEach(function(rec){var r=rec.viewport.getBoundingClientRect();rec.visible=r.bottom>header&&r.top<innerHeight&&r.right>0&&r.left<innerWidth;rec.node.dataset.visible=String(rec.visible);rec.progress=clamp((innerHeight-r.top)/(innerHeight+r.height),0,1);
+   if(rec.full){rec.node.style.setProperty('--poster-turn',motion()?((rec.progress-.5)*18+rec.x*7+(rec.turned?18:0))+'deg':'0deg');rec.node.style.setProperty('--stage-lift',motion()?((.5-rec.progress)*12)+'px':'0px');rec.node.style.setProperty('--ring-turn',motion()?(-25+rec.progress*50)+'deg':'0deg');}
+   if(eligible(rec)){var distance=Math.abs((Math.max(r.top,header)+Math.min(r.bottom,innerHeight))/2-center);if(distance<score){candidate=rec;score=distance;}}
+  });
+  var marquee=document.querySelector('.marq');if(marquee){var mr=marquee.getBoundingClientRect();marquee.dataset.visible=String(mr.bottom>header&&mr.top<innerHeight);}
+  if(candidate!==active){cancelLoad();if(active){live(active,false);if(!active.failed)text(active,active.node===hero&&portrait?'Portrait revealed':(!motion()?'Static preview · motion paused':'Character study'));}active=candidate;}
+  if(!active||lost)return;if(meshCache.has(active.character)){render(active);}else if(!active.failed&&!active.loading)load(active);
  }
- function ensure(){if(disposed||suspended)return;if(contextLost){fallback();return;}if(!loading&&(!ready||loaded!==selected))loadModel(selected);else if(ready&&wantsReveal()){if(!firstPaint)staticPaint();ui();}}
- function reveal(origin){if(disposed||forcedPortrait)return;ensure();if(ready&&active()){angleY=origin==='hover'?-.12:angleY;animateTo(0,0,800);}else if(ready)staticPaint();ui();}
- function cancelWarm(){if(!idle)return;if(window.cancelIdleCallback)cancelIdleCallback(idle);else clearTimeout(idle);idle=0;}
- function warm(){if(idle||disposed||loading||ready||!inView||!fine.matches||!active()||(navigator.connection&&navigator.connection.saveData))return;var run=function(){idle=0;if(!disposed&&!loading&&!ready&&inView&&fine.matches&&active())ensure();};idle=window.requestIdleCallback?requestIdleCallback(run,{timeout:1000}):setTimeout(run,200);}
- on(button,'pointerenter',function(e){if(e.pointerType==='touch')return;hovered=true;forcedPortrait=false;stopIntro();if(active())reveal('hover');});
- on(button,'pointerleave',function(){hovered=false;targetX=targetY=0;button.style.setProperty('--card-x','0deg');button.style.setProperty('--card-y','0deg');if(!pinned&&!focused){cancelAnimation();ui();}else if(active())animateTo(0,0);});
- on(button,'pointermove',function(e){if(!active()||!fine.matches||e.pointerType==='touch'||!inView)return;var r=button.getBoundingClientRect(),x=Math.max(-1,Math.min(1,(e.clientX-r.left)/r.width*2-1)),y=Math.max(-1,Math.min(1,(e.clientY-r.top)/r.height*2-1));button.style.setProperty('--card-x',(-y*4)+'deg');button.style.setProperty('--card-y',(x*6)+'deg');if(ready&&wantsReveal())animateTo(-y*.08,x*.22,700);});
- on(button,'focus',function(){focused=true;forcedPortrait=false;stopIntro();if(active())reveal('focus');});
- on(button,'blur',function(){focused=false;if(!pinned&&!hovered){cancelAnimation();ui();}});
- on(button,'click',function(){
-  if(disposed)return;stopIntro();fallbackGeneration++;fallbackActive=false;pinned=!pinned;forcedPortrait=!pinned;
-  if(pinned)reveal('click');else cancelAnimation();ui();
+ function schedule(){if(disposed||suspended||document.hidden||frame)return;frame=requestAnimationFrame(tick);}
+ function enable(rec){if(disposed)return;rec.userEnabled=true;rec.failed=false;if(rec.enable){rec.enable.setAttribute('aria-pressed','true');rec.enable.textContent='Enable 3D';}schedule();}
+ on(heroButton,'pointerenter',function(e){if(e.pointerType==='touch')return;hovered=true;forcedMask=false;syncHero();});
+ on(heroButton,'pointerleave',function(){hovered=false;syncHero();});
+ on(heroButton,'focus',function(){focused=true;forcedMask=false;syncHero();});
+ on(heroButton,'blur',function(){focused=false;syncHero();});
+ on(heroButton,'click',function(){portraitPinned=!portraitPinned;forcedMask=!portraitPinned;syncHero();});
+ on(document,'keydown',function(e){if(e.key==='Escape'&&portrait&&!e.defaultPrevented){portraitPinned=false;forcedMask=true;syncHero();}});
+ records.forEach(function(rec){
+  if(rec.enable)on(rec.enable,'click',function(){enable(rec);});
+  if(rec.turn)on(rec.turn,'click',function(){rec.turned=!rec.turned;rec.turn.setAttribute('aria-pressed',String(rec.turned));rec.turn.textContent=rec.turned?'Reset ↗':'Turn ↗';rec.turn.setAttribute('aria-label',(rec.turned?'Reset ':'Turn ')+rec.character.replace('-',' ')+' model');enable(rec);});
+  if(rec.full){on(rec.viewport,'pointermove',function(e){if(!motion()||!fine.matches||e.pointerType==='touch')return;var r=rec.viewport.getBoundingClientRect();rec.x=clamp((e.clientX-r.left)/r.width*2-1,-1,1);rec.y=clamp((e.clientY-r.top)/r.height*2-1,-1,1);schedule();});on(rec.viewport,'pointerleave',function(){rec.x=rec.y=0;schedule();});}
  });
- on(owner,'keydown',function(e){if(e.key==='Escape'){pinned=false;forcedPortrait=true;fallbackGeneration++;fallbackActive=false;stopIntro();cancelAnimation();ui();message('Kartik portrait restored.');}});
- selects.forEach(function(b){on(b,'click',function(){
-  if(disposed)return;stopIntro();fallbackGeneration++;fallbackActive=false;selected=b.dataset.character;pinned=true;forcedPortrait=false;
-  if(loaded===selected&&ready&&!contextLost){ui();staticPaint();}else loadModel(selected);
- });});
- on(retry,'click',function(){if(contextLost){message('The graphics context is unavailable. Reload the page to retry.');return;}pinned=true;forcedPortrait=false;loadModel(selected);});
- function visibility(){if(document.hidden){cancelAnimation();cancelStatic();stopIntro();neutral();}else{refresh();if(inView)warm();}}
- on(document,'visibilitychange',visibility);
- function intersection(value){inView=value;owner.dataset.heroVisible=String(value);hero.dataset.heroVisible=String(value);if(disposed)return;if(!value){cancelWarm();cancelAnimation();cancelStatic();stopIntro();}else{if(dirty&&canPaint()){size();staticPaint();}refresh();warm();}}
- if('IntersectionObserver'in window){observer=new IntersectionObserver(function(entries){intersection(entries[0].isIntersecting);},{threshold:.05});observer.observe(owner);}else{var checkIntersectionFallback=function(){if(disposed)return;var r=owner.getBoundingClientRect();intersection(r.bottom>0&&r.top<innerHeight);};on(window,'scroll',checkIntersectionFallback,{passive:true});on(window,'resize',checkIntersectionFallback);checkIntersectionFallback();}
- if('ResizeObserver'in window){resizeObserver=new ResizeObserver(size);resizeObserver.observe(button);}else on(window,'resize',size);
- if(M)unsubscribe=M.onChange(function(){cancelAnimation();if(!active()){stopIntro();neutral();if(canPaint()&&wantsReveal())staticPaint();}else warm();refresh();});
- on(window,'pagehide',function(e){suspended=true;generation++;if(abort)abort.abort();loading=false;cancelAnimation();cancelStatic();stopIntro();clearTimeout(timeout);if(!e.persisted)dispose();});
- on(window,'pageshow',function(){if(disposed)return;suspended=false;refresh();if(inView){if(pinned)ensure();else warm();}});
- function dispose(){if(disposed)return;disposed=true;fallbackGeneration++;owner.dataset.revealed='false';owner.dataset.fallback='false';cancelWarm();generation++;removers.splice(0).forEach(function(off){off();});if(abort)abort.abort();cancelAnimation();cancelStatic();clearTimeout(timeout);stopIntro();if(observer)observer.disconnect();if(resizeObserver)resizeObserver.disconnect();if(unsubscribe)unsubscribe();if(mesh)disposeMesh(mesh);if(renderer){renderer.dispose();renderer.domElement.remove();}renderer=null;mesh=null;scene=null;group=null;camera=null;ready=false;loading=false;fallbackActive=false;cache.clear();}
- window.PortfolioHero3D={state:function(){return {selected:selected,loaded:loaded,loading:loading,ready:ready,revealed:owner.dataset.revealed==='true',pinned:pinned,inView:inView,contextLost:contextLost,fallback:fallbackActive,disposed:disposed,animationPending:!!raf,staticPending:!!staticRaf,degraded:degraded,stats:JSON.parse(JSON.stringify(stats)),canvas:renderer?{width:renderer.domElement.width,height:renderer.domElement.height}:null};},dispose:dispose};
- ui();
+ on(fine,'change',function(){syncHero();schedule();});
+ on(window,'scroll',schedule,{passive:true});on(window,'resize',schedule,{passive:true});
+ if('IntersectionObserver'in window){observer=new IntersectionObserver(schedule,{threshold:0});records.forEach(function(r){observer.observe(r.viewport);});}
+ if('ResizeObserver'in window){resize=new ResizeObserver(schedule);records.forEach(function(r){resize.observe(r.viewport);});resize.observe(document.getElementById('main'));}
+ if(M)unsubscribe=M.onChange(function(){if(disposed)return;cancelLoad();if(document.hidden)return;records.forEach(function(r){r.x=r.y=0;});schedule();});
+ on(document,'visibilitychange',function(){if(document.hidden){if(frame)cancelAnimationFrame(frame);frame=0;cancelLoad();records.forEach(function(r){live(r,false);});}else schedule();});
+ on(window,'pagehide',function(e){suspended=true;if(frame)cancelAnimationFrame(frame);frame=0;cancelLoad();records.forEach(function(r){live(r,false);});if(!e.persisted)dispose();});
+ on(window,'pageshow',function(){if(disposed)return;suspended=false;schedule();});
+ function dispose(){if(disposed)return;disposed=true;if(frame)cancelAnimationFrame(frame);frame=0;cancelLoad();removers.splice(0).forEach(function(off){off();});if(observer)observer.disconnect();if(resize)resize.disconnect();if(unsubscribe)unsubscribe();records.forEach(function(r){live(r,false);});meshCache.forEach(disposeMesh);meshCache.clear();dataCache.clear();if(renderer){renderer.dispose();renderer.domElement.remove();}renderer=null;scene=null;group=null;camera=null;active=null;attached=null;}
+ window.PortfolioStages={state:function(){return {active:active?active.id:null,portrait:portrait,portraitPinned:portraitPinned,contextLost:lost,disposed:disposed,suspended:suspended,pending:!!frame,degraded:degraded,meshCache:meshCache.size,dataCache:dataCache.size,stats:JSON.parse(JSON.stringify(stats)),stages:records.map(function(r){return {id:r.id,character:r.character,full:r.full,visible:r.visible,loading:r.loading,loaded:meshCache.has(r.character),live:r.painted,userEnabled:r.userEnabled,failed:r.failed,angle:r.angle,progress:r.progress};})};},dispose:dispose};
+ document.documentElement.classList.add('stage-ready');
+ helper.textContent=fine.matches?'Hover or focus to meet Kartik':'Tap to meet Kartik';
+ schedule();
 })();

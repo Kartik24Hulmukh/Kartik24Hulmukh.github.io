@@ -6,7 +6,7 @@ The existing ink/paper layout, portrait, canonical identity, project claims, dat
 
 - Pink/teal game-inspired geometry is authored directly into the page before JavaScript. Gentle geometric motion and claim → source → boundary choreography run on arrival, except when the visitor has paused motion or their device requests reduced motion.
 - Source links are visible without a mode switch. The lead jittest project is expanded immediately. The Sources navigation link goes to the published denominators. E remains an optional evidence-emphasis shortcut.
-- The large Experience settings sheet, theme switch, local-file upload and reset UI are removed. A compact, visible music/motion/volume dock replaces them. Hero/footers reserve space; keyboard focus is moved clear of the dock when necessary.
+- The large Experience settings sheet, theme switch, local-file upload and reset UI are removed. A compact, visible music/motion/volume dock replaces them. The controls now live within one reserved header band; no corrective focus-scroll handler is used.
 - There is exactly one ordinary audible playback attempt on an eligible visible arrival. The browser may refuse it. Sound on remains visible; no synthetic clicks, global interaction hijack, muted-then-unmute trick, retry loop or browser-policy bypass is used.
 - Explicit mute/cancel is remembered. Hidden tabs, page exit and external pause stop music; returning does not restart it. A page initially loaded hidden consumes its automatic attempt without starting audio.
 - Music uses the owner-supplied Pink Soldiers recording. No royalty-free or general redistribution rights are claimed. A cold text-transport source can require another tap on browsers that expire activation during loading; universal one-tap/audible autoplay is not promised.
@@ -29,3 +29,7 @@ References:
 Run both Python validators and JS syntax checks. `scripts/test_arrival.cjs` exercises desktop/mobile/root/docs, policy-blocked/permitted playback, saved mute, cancellation, tab/page lifecycle, reduced motion and no-script states. It requires Playwright and Chromium; `PORTFOLIO_TEST_URL`, `CHROMIUM_PATH` and `PORTFOLIO_TEST_OUTPUT` are configurable. Local automated checks do not prove physical Safari/iOS behavior, audible output on every device, WCAG certification, or conversion/traction uplift.
 
 Premortem: don't confuse attractive animation with verified results; keep the human-approval vignette explicitly illustrative; never restore a blocking loader or scramble the name; preserve denominators and boundaries; never load duplicate legacy engines; keep the root/docs mirrors in sync.
+
+## Distributed-stage follow-up
+
+The hero is now mask-first, revealing the existing illustrated portrait through hover/focus/tap/keyboard. Real full-body Pink Soldier and Unknown meshes are placed in Work and Process, with lightweight render-derived posters. Scroll affects the artwork rather than hijacking native navigation. The sticky manifesto runway, delayed-engine/inert disclosure race, paper-scene caption contrast, renderer-init retry failure and hover-only Escape dismissal were addressed. One renderer and a bounded model cache are retained. See STAGE_VALIDATION.md; visual effects do not constitute proof of traffic or conversion gains.

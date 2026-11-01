@@ -62,7 +62,7 @@
  audio.addEventListener('playing',function(){if(document.hidden||suspended||muted||(!pending&&!soundOn))audio.pause();});
  window.addEventListener('storage',function(e){if(e.key==='kh-audio'&&e.newValue==='off'){muted=true;stopSound('muted');render('Music muted in another tab.');}});
  window.PortfolioExperience={stopSound:stopSound,state:function(){return {playMode:true,soundOn:soundOn,track:'Pink Soldiers',paused:audio.paused,pending:pending,phase:phase,muted:muted,volume:volume};}};
- document.addEventListener('focusin',function(e){if(!e.target.getBoundingClientRect||e.target.closest('.experience-dock'))return;var r=e.target.getBoundingClientRect(),d=$('#experience-controls').getBoundingClientRect();if(r.bottom>d.top&&r.top<d.bottom&&r.right>d.left&&r.left<d.right)window.scrollBy(0,d.top<innerHeight/2?r.top-d.bottom-16:r.bottom-d.top+16);});
+ // Header controls occupy a reserved band; native focus scrolling needs no corrective jump.
  render();arrival();
 })();
 (function(){

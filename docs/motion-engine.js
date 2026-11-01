@@ -110,14 +110,14 @@
         if (en.target.classList.contains('num')) countUp(en.target);
         io.unobserve(en.target);
       });
-    }, { threshold: 0.2 });
+    }, { threshold: 0, rootMargin: '0px 0px -32px 0px' });
     $$('[data-reveal]').forEach(function (el) { io.observe(el); });
     $$('.num').forEach(function (el) { if (!el.closest('[data-reveal]')) io.observe(el); });
 
     var steps = $$('.step');
     var io3 = new IntersectionObserver(function (es) {
       es.forEach(function (en) { if (en.isIntersecting) { steps.forEach(function (s) { s.classList.remove('on'); }); en.target.classList.add('on'); } });
-    }, { rootMargin: '-45% 0px -45% 0px' });
+    }, { rootMargin: '-25% 0px -35% 0px' });
     steps.forEach(function (s) { io3.observe(s); });
     if (steps[0]) steps[0].classList.add('on');
 
@@ -128,7 +128,7 @@
         var i = secs.indexOf(en.target);
         if (si) si.textContent = '[' + ('0' + i).slice(-2) + '/' + ('0' + total).slice(-2) + '] ' + en.target.getAttribute('data-title');
       });
-    }, { rootMargin: '-50% 0px -50% 0px' });
+    }, { rootMargin: '-25% 0px -35% 0px' });
     secs.forEach(function (s) { io2.observe(s); });
   } else {
     $$('[data-reveal]').forEach(function (el) { el.classList.add('in'); });
@@ -150,20 +150,12 @@
   function onScroll() {
     var y = window.scrollY, H = document.documentElement.scrollHeight - window.innerHeight;
     if (prog) prog.style.transform = 'scaleX(' + (H > 0 ? y / H : 0) + ')';
-    if (man && words.length && !RM) {
-      var r = man.getBoundingClientRect();
-      var p = clamp(-r.top / Math.max(1, r.height - window.innerHeight), 0, 1);
-      var lit = Math.round(p * 1.15 * words.length);
-      for (var i = 0; i < words.length; i++) words[i].classList.toggle('on', i < lit);
-    }
-    if (marq && !RM) {
-      var v = y - lastY; skew = clamp(v * 0.25, -8, 8);
-      marq.style.setProperty('--skew', skew + 'deg');
-      if (skew && !skewFrame) skewFrame = Motion.raf(easeSkew);
-    }
+    // Native scrolling keeps every word readable; character stages own choreography.
     lastY = y; ticking = false;
   }
-  window.addEventListener('scroll', function () { if (RM) { onScroll(); return; } if (!ticking) { ticking = true; Motion.raf(onScroll); } }, { passive: true });
+  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  if ('ResizeObserver' in window) new ResizeObserver(onScroll).observe(mainEl || document.body);
   onScroll();
 
   /* ---------- 12. projects: accordion + peek ---------- */
@@ -203,6 +195,8 @@
     var body = $('.proj-body', p);
     if (!h || !body) return;
     body.inert=!p.classList.contains('open');
+    h.setAttribute('aria-expanded',p.classList.contains('open')?'true':'false');
+    h.disabled=false;
     h.addEventListener('click', function () {
       var open = p.classList.toggle('open');
       h.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -214,6 +208,8 @@
       h.addEventListener('mouseleave', stopPeek);
     }
   });
+
+  document.documentElement.classList.add('js','accordion-ready');
 
   /* ---------- 13. copy ---------- */
   var live = $('#live');

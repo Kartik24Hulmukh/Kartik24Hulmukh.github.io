@@ -14,7 +14,7 @@
 <script>document.documentElement.classList.add('js');</script>
 <link href="./docs/attachment.css" rel="stylesheet"/>
 <link href="./docs/portrait-refined.css" rel="stylesheet"/>
-<link href="./docs/experience.css" rel="stylesheet"/><link href="./docs/hero3d.css" rel="stylesheet"/><script>try{document.documentElement.dataset.motion=(matchMedia('(prefers-reduced-motion: reduce)').matches||localStorage.getItem('kh-motion')==='off')?'off':'on';}catch(e){document.documentElement.dataset.motion=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on';}</script><script>setTimeout(function(){if(window.__portfolioEngineReady)return;document.documentElement.classList.remove('js');document.body.classList.remove('lock','has-cursor');document.body.classList.add('ready');var l=document.getElementById('loader');if(l)l.remove();document.querySelectorAll('.ch').forEach(function(n){n.textContent=n.dataset.ch||n.textContent;});document.querySelectorAll('.proj-body').forEach(function(n){n.inert=false;});},1200);</script></head>
+<link href="./docs/experience.css" rel="stylesheet"/><link href="./docs/hero3d.css" rel="stylesheet"/><script>try{document.documentElement.dataset.motion=(matchMedia('(prefers-reduced-motion: reduce)').matches||localStorage.getItem('kh-motion')==='off')?'off':'on';}catch(e){document.documentElement.dataset.motion=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on';}</script><script>setTimeout(function(){if(window.__portfolioEngineReady)return;document.documentElement.classList.add('engine-fallback');document.body.classList.remove('lock','has-cursor');document.body.classList.add('ready');var l=document.getElementById('loader');if(l)l.remove();document.querySelectorAll('.ch').forEach(function(n){n.textContent=n.dataset.ch||n.textContent;});document.querySelectorAll('.proj-body').forEach(function(n){n.inert=false;});},1200);</script></head>
 <body class="play-mode">
 <a class="skip" href="#main">Skip to content</a>
 <canvas aria-hidden="true" id="gl"></canvas>
@@ -33,6 +33,13 @@
 </div>
 <a class="mono" href="#numbers">Sources ↘</a>
 </nav>
+<aside aria-label="Sound and motion controls" class="experience-dock" id="experience-controls">
+<button aria-checked="false" aria-describedby="sound-help" aria-label="Background music" class="dock-button" id="sound-toggle" role="switch" type="button"><span aria-hidden="true" class="sound-bars"><i></i><i></i><i></i></span><span id="sound-action">Sound on</span></button>
+<button aria-checked="true" aria-label="Decorative motion" class="dock-button" id="motion-toggle" role="switch" type="button"><span aria-hidden="true" class="motion-symbol">Ⅱ</span><span id="motion-action">Pause motion</span></button>
+<div class="dock-volume"><label class="sr" for="sound-volume">Music volume</label><input id="sound-volume" max="100" min="0" type="range" value="20"/><output class="sr" for="sound-volume" id="volume-output">20%</output></div>
+<p class="sr" id="sound-help">Pink Soldiers. Music starts automatically where your browser allows it. Otherwise choose Sound on. Playback pauses when you leave this tab.</p>
+<p aria-live="polite" class="sr" id="xp-status" role="status"></p>
+</aside>
 </header>
 <div aria-hidden="true" class="secind mono" id="secind">[00/07] Index</div>
 <div aria-hidden="true" class="ev-banner">Evidence mode — every figure shows its source</div>
@@ -52,20 +59,18 @@
 <span>19.07° N, 72.87° E</span>
 <span aria-label="Claim, source, boundary" class="arrival-signature"><span aria-hidden="true" class="mini-shapes"><i></i><i></i><i></i></span> Proof, not promises.</span>
 </div>
-<div class="hero-stage"><h1 aria-label="Kartik Hulmukh" class="name"><span aria-hidden="true" class="row">Kartik</span><span aria-hidden="true" class="row">Hulmukh</span></h1><figure aria-label="Kartik portrait and interactive character study" class="hero-portrait hero-identity" data-hero-visible="true" id="hero-identity">
+<div class="hero-stage"><h1 aria-label="Kartik Hulmukh" class="name"><span aria-hidden="true" class="row">Kartik</span><span aria-hidden="true" class="row">Hulmukh</span></h1><figure aria-label="Front Man mask and Kartik portrait" class="hero-portrait hero-identity character-stage" data-character="front-man" data-framing="bust" data-portrait="false" data-visible="true" id="hero-identity">
 <div aria-hidden="true" class="identity-halo"><i></i><i></i><i></i></div>
-<div class="identity-topline mono"><span>THE FACE BEHIND THE PROOF</span><span aria-hidden="true">01 / 03</span></div>
-<button aria-describedby="identity-help identity-status" aria-label="Reveal Front Man 3D model" aria-pressed="false" class="identity-aperture" id="portrait-reveal" type="button">
+<div class="identity-topline mono"><span>THE MASK / THE MAKER</span><span aria-hidden="true">01</span></div>
+<button aria-describedby="identity-help" aria-label="Reveal Kartik's portrait" aria-pressed="false" class="identity-aperture" id="portrait-reveal" type="button">
 <span aria-hidden="true" class="identity-grid"></span><span aria-hidden="true" class="identity-light"></span>
-<span aria-hidden="true" class="model-surface" id="hero-model-surface"></span>
-<img alt="Illustrated portrait of Kartik Hulmukh" class="portrait-baseline" decoding="async" fetchpriority="high" height="271" src="./assets/kartik-portrait.svg" width="276"/>
-<span aria-hidden="true" class="identity-corner"></span><span aria-hidden="true" class="identity-crosshair">+</span>
+<span aria-hidden="true" class="mask-surface"><img alt="" class="stage-poster" decoding="async" fetchpriority="high" height="624" src="./docs/models/front-man.cover.svg" width="600"/><span class="stage-surface" id="hero-model-surface"></span></span>
+<img alt="Illustrated portrait of Kartik Hulmukh" class="portrait-baseline" decoding="async" height="271" src="./assets/kartik-portrait.svg" width="276"/>
+<span aria-hidden="true" class="identity-crosshair">+</span>
 </button>
-<figcaption class="identity-caption"><span id="identity-label">Kartik Hulmukh</span><span id="identity-help">Hover or tap to unmask ↗</span></figcaption>
-<div aria-label="3D character studies" class="character-select" role="group"><button aria-pressed="true" data-character="front-man" type="button">Front Man</button><button aria-pressed="false" data-character="pink-soldier" type="button">Pink Soldier</button><button aria-pressed="false" data-character="unknown" type="button">Unknown</button></div>
-<p class="identity-credit">3D models: @jaeysart · non-commercial use</p>
-<p aria-live="polite" class="identity-status" id="identity-status" role="status">Interactive character study. Your work stays in focus.</p>
-<button class="model-retry" hidden="" id="model-retry" type="button">Retry 3D scene</button>
+<figcaption class="identity-caption"><span id="identity-label">Front Man</span><span id="identity-help">Hover or tap to meet Kartik ↗</span></figcaption>
+<div class="stage-controls"><button aria-pressed="false" class="stage-enable" type="button">Enable 3D</button><span class="stage-status" id="identity-status">Character study · hover reveals the maker</span></div>
+<p class="identity-credit">Models by @jaeysart · non-commercial use</p>
 </figure><ol aria-label="How I build: claim, source, boundary" class="proof-rail"><li><span aria-hidden="true" class="rail-shape circle"></span>Claim</li><li><span aria-hidden="true" class="rail-shape triangle"></span>Source</li><li><span aria-hidden="true" class="rail-shape square"></span>Boundary</li></ol></div>
 <div class="h-bot">
 <p class="h-tag">I build software<br/>that <em>shows its work.</em></p>
@@ -141,14 +146,19 @@
 </div>
 <!-- 03 WORK -->
 <section class="paper perf work" data-title="Work" id="work">
-<div class="sec-h">
+<div class="work-intro"><div class="sec-h">
 <span class="mono lab">[ 03 ]</span>
 <h2 class="sec-title">Selected <em>work</em></h2>
 <p class="mono lab right">07 entries · lead project open<br/>each one ships a way to check it</p>
-</div>
+</div><figure aria-label="Pink Soldier full-body character study" class="character-stage full-stage" data-character="pink-soldier" data-framing="full" id="work-guard">
+<div class="stage-topline mono"><span>02 / FIELDWORK</span><span aria-hidden="true">○</span></div>
+<div class="stage-visual" aria-hidden="true"><span class="stage-ring"></span><span class="stage-floor"></span><img alt="" class="stage-poster" decoding="async" height="960" loading="lazy" src="./docs/models/pink-soldier.full.svg" width="768"/><span class="stage-surface"></span><span class="stage-crosshair">+</span></div>
+<figcaption><span>Pink Soldier</span><button aria-pressed="false" class="stage-turn" type="button">Turn ↗</button></figcaption>
+<p class="stage-status">Character study</p>
+</figure></div>
 <div class="projs">
 <article class="proj open" data-kind="Verification" data-status="v0.4.1 published on PyPI">
-<button aria-controls="pb1" aria-expanded="true" class="proj-head" data-cursor="OPEN">
+<button disabled="" aria-controls="pb1" aria-expanded="true" class="proj-head" data-cursor="OPEN">
 <span class="p-idx mono">01</span>
 <span class="p-name">jittest</span>
 <span class="p-line">Advisory differential verification for AI-written pull requests</span>
@@ -186,7 +196,7 @@ jittest verify-receipt bug_flask_01_evidence.json \
 </div></div></div>
 </article>
 <article class="proj" data-kind="Desktop agent" data-status="Technical preview · ghost-typing production NO-GO">
-<button aria-controls="pb2" aria-expanded="false" class="proj-head" data-cursor="OPEN">
+<button disabled="" aria-controls="pb2" aria-expanded="true" class="proj-head" data-cursor="OPEN">
 <span class="p-idx mono">02</span>
 <span class="p-name">Axiom-Grid</span>
 <span class="p-line">Local-first copilot research · ghost-typing technical preview</span>
@@ -221,7 +231,7 @@ jittest verify-receipt bug_flask_01_evidence.json \
 </div></div></div>
 </article>
 <article class="proj" data-kind="Accessibility" data-status="Open-source beta">
-<button aria-controls="pb3" aria-expanded="false" class="proj-head" data-cursor="OPEN">
+<button disabled="" aria-controls="pb3" aria-expanded="true" class="proj-head" data-cursor="OPEN">
 <span class="p-idx mono">03</span>
 <span class="p-name">AccessDoc</span>
 <span class="p-line">The receipt printer for accessibility</span>
@@ -253,7 +263,7 @@ python3 cli.py verify dist/bundle.zip   # 0 = intact, 1 = tampered</code>
 </div></div></div>
 </article>
 <article class="proj" data-kind="Civic tech" data-status="Synthetic-preview release candidate">
-<button aria-controls="pb4" aria-expanded="false" class="proj-head" data-cursor="OPEN">
+<button disabled="" aria-controls="pb4" aria-expanded="true" class="proj-head" data-cursor="OPEN">
 <span class="p-idx mono">04</span>
 <span class="p-name">Project X-Ray</span>
 <span class="p-line">Source-linked claims about public infrastructure</span>
@@ -283,7 +293,7 @@ python3 cli.py verify dist/bundle.zip   # 0 = intact, 1 = tampered</code>
 </div></div></div>
 </article>
 <article class="proj" data-kind="Market intelligence" data-status="Active development · v1.6.x">
-<button aria-controls="pb6" aria-expanded="false" class="proj-head" data-cursor="OPEN">
+<button disabled="" aria-controls="pb6" aria-expanded="true" class="proj-head" data-cursor="OPEN">
 <span class="p-idx mono">05</span>
 <span class="p-name">Simultaneity Index</span>
 <span class="p-line">How crowded is this idea, right now?</span>
@@ -309,7 +319,7 @@ python3 cli.py verify dist/bundle.zip   # 0 = intact, 1 = tampered</code>
 </div></div></div>
 </article>
 <article class="proj" data-kind="Finance" data-status="Release candidate">
-<button aria-controls="pb7" aria-expanded="false" class="proj-head" data-cursor="OPEN">
+<button disabled="" aria-controls="pb7" aria-expanded="true" class="proj-head" data-cursor="OPEN">
 <span class="p-idx mono">06</span>
 <span class="p-name">LedgerMatch</span>
 <span class="p-line">Bank reconciliation that refuses to guess</span>
@@ -340,7 +350,7 @@ python3 -m app.validate out_demo/evidence.json \
 </div></div></div>
 </article>
 <article class="proj" data-kind="Product" data-status="Founder · campus platform">
-<button aria-controls="pb8" aria-expanded="false" class="proj-head" data-cursor="OPEN">
+<button disabled="" aria-controls="pb8" aria-expanded="true" class="proj-head" data-cursor="OPEN">
 <span class="p-idx mono">07</span>
 <span class="p-name">RGIT Rozgar</span>
 <span class="p-line">Everything a student needs near campus</span>
@@ -393,7 +403,12 @@ python3 -m app.validate out_demo/evidence.json \
 <span class="mono lab">[ 05 ] Process</span>
 <h2 class="sec-title md">How a<br/>claim <em>earns</em><br/>its place.</h2>
 <p>The working loop: state the claim, build the harness, try to break it, and leave a way for someone else to inspect the result.</p>
-</div>
+<figure aria-label="Unknown full-body character study" class="character-stage full-stage" data-character="unknown" data-framing="full" id="process-guard">
+<div class="stage-topline mono"><span>03 / THE CHECKPOINT</span><span aria-hidden="true">△</span></div>
+<div class="stage-visual" aria-hidden="true"><span class="stage-ring"></span><span class="stage-floor"></span><img alt="" class="stage-poster" decoding="async" height="960" loading="lazy" src="./docs/models/unknown.full.svg" width="768"/><span class="stage-surface"></span><span class="stage-crosshair">+</span></div>
+<figcaption><span>Unknown</span><button aria-pressed="false" class="stage-turn" type="button">Turn ↗</button></figcaption>
+<p class="stage-status">Character study</p>
+</figure></div>
 <div class="proc-r">
 <div class="step"><span class="mono">01</span><div><h3>State the claim</h3><p>Write down exactly what will be true — and what won't. The boundary is part of the spec, not a disclaimer added later.</p></div></div>
 <div class="step"><span class="mono">02</span><div><h3>Build the harness</h3><p>Tests, fixtures, frozen cohorts, pinned images. If it can't be measured, it doesn't ship as a claim.</p></div></div>
@@ -447,11 +462,5 @@ python3 -m app.validate out_demo/evidence.json \
 <span>Static site · no analytics trackers · sources visible · E highlights evidence</span>
 </footer>
 <script src="./docs/motion-controller.js"></script><script src="./docs/motion-engine.js"></script>
-<aside aria-label="Sound and motion controls" class="experience-dock" id="experience-controls">
-<button aria-checked="false" aria-describedby="sound-help" aria-label="Background music" class="dock-button" id="sound-toggle" role="switch" type="button"><span aria-hidden="true" class="sound-bars"><i></i><i></i><i></i></span><span id="sound-action">Sound on</span></button>
-<button aria-checked="true" aria-label="Decorative motion" class="dock-button" id="motion-toggle" role="switch" type="button"><span aria-hidden="true" class="motion-symbol">Ⅱ</span><span id="motion-action">Pause motion</span></button>
-<div class="dock-volume"><label class="sr" for="sound-volume">Music volume</label><input id="sound-volume" max="100" min="0" type="range" value="20"/><output class="sr" for="sound-volume" id="volume-output">20%</output></div>
-<p class="sr" id="sound-help">Pink Soldiers. Music starts automatically where your browser allows it. Otherwise choose Sound on. Playback pauses when you leave this tab.</p>
-<p aria-live="polite" class="sr" id="xp-status" role="status"></p>
-</aside><audio data-src="./docs/assets/pink-soldiers.mp3.b64" hidden="" id="portfolio-audio" loop="" preload="none"></audio><script src="./docs/experience.js"></script><script defer="" src="./docs/hero3d.js"></script></body>
+<audio data-src="./docs/assets/pink-soldiers.mp3.b64" hidden="" id="portfolio-audio" loop="" preload="none"></audio><script src="./docs/experience.js"></script><script defer="" src="./docs/hero3d.js"></script></body>
 </html>
