@@ -134,3 +134,5 @@ html:not(.js) .ev-toggle,html:not(.js) .copy{display:none!important}
 html:not(.js) .src{display:inline-flex}
 @media(max-width:640px){.h-top>span:first-child{flex:1;max-width:none}.experience-toggle{flex:none}}
 .btn,.gate-steps li::before{font-size:14px}
+/* Short desktop viewports reserve the bottom edge for actual page content. */
+@media(max-height:800px){.secind{display:none}}
