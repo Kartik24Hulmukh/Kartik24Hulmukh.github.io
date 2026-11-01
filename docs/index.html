@@ -17,7 +17,6 @@
 <link href="./experience.css" rel="stylesheet"/><script>try{document.documentElement.dataset.motion=(matchMedia('(prefers-reduced-motion: reduce)').matches||localStorage.getItem('kh-motion')==='off')?'off':'on';}catch(e){document.documentElement.dataset.motion=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on';}</script><script>setTimeout(function(){if(window.__portfolioEngineReady)return;document.documentElement.classList.remove('js');document.body.classList.remove('lock','has-cursor');document.body.classList.add('ready');var l=document.getElementById('loader');if(l)l.remove();document.querySelectorAll('.ch').forEach(function(n){n.textContent=n.dataset.ch||n.textContent;});document.querySelectorAll('.proj-body').forEach(function(n){n.inert=false;});},1200);</script></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-
 <canvas aria-hidden="true" id="gl"></canvas>
 <div aria-hidden="true" class="grain"></div>
 <div aria-hidden="true" class="cur"><div class="cur-ring"><span class="cur-lab"></span></div><div class="cur-dot"></div></div>
@@ -439,8 +438,8 @@ python3 -m app.validate out_demo/evidence.json \
 <p class="xp-intro" id="experience-description">The work stays the same. Choose how it moves.</p>
 <div class="xp-option"><div><label id="motion-label">Motion</label><p id="motion-description">Pause backgrounds, animated type and decorative movement.</p></div><button aria-checked="true" aria-describedby="motion-description" aria-labelledby="motion-label" class="xp-switch" id="motion-toggle" role="switch" type="button"><span aria-hidden="true"></span></button></div>
 <div class="xp-option"><div><label id="play-label">Game-inspired geometry</label><p>Circle, triangle, square. A restrained pink-and-teal atmosphere.</p></div><button aria-checked="false" aria-labelledby="play-label" class="xp-switch" id="play-toggle" role="switch" type="button"><span aria-hidden="true"></span></button></div>
-<div class="xp-option"><div><label id="sound-label">Ambient sound</label><p id="sound-description">An original, quiet sound sketch—not the show’s soundtrack.</p></div><button aria-checked="false" aria-describedby="sound-description" aria-labelledby="sound-label" class="xp-switch" id="sound-toggle" role="switch" type="button"><span aria-hidden="true"></span></button></div>
+<div class="xp-option"><div><label id="sound-label">Background music</label><p id="sound-description">Pink Soldiers · 30-second loop. Starts only when you turn it on.</p></div><button aria-checked="false" aria-describedby="sound-description" aria-labelledby="sound-label" class="xp-switch" id="sound-toggle" role="switch" type="button"><span aria-hidden="true"></span></button></div>
 <div class="volume-row"><label for="sound-volume">Volume</label><input id="sound-volume" max="100" min="0" type="range" value="20"/><output for="sound-volume" id="volume-output">20%</output></div><label class="audio-pick" for="custom-audio">Choose a permitted audio file</label><input accept="audio/*" aria-describedby="audio-note" class="audio-file" id="custom-audio" type="file"/>
-<p class="xp-foot" id="audio-note">Sound starts only when you turn it on. Selected files stay in this browser session.</p><p aria-live="polite" class="xp-status" id="xp-status"></p>
-</section><script src="./experience.js"></script></body>
+<button class="audio-pick" id="restore-track" type="button">Use Pink Soldiers again</button><p class="xp-foot" id="audio-note">Playback pauses when you leave this tab. Selected files stay in this browser session.</p><p aria-live="polite" class="xp-status" id="xp-status"></p>
+</section><audio data-src="./assets/pink-soldiers.mp3.b64" hidden="" id="portfolio-audio" loop="" preload="none"></audio><script src="./experience.js"></script></body>
 </html>

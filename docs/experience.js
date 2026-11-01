@@ -3,11 +3,11 @@
  var M=window.PortfolioMotion, $=function(s){return document.querySelector(s);};
  var toggle=$('#experience-toggle'),panel=$('#experience-panel'),close=$('#experience-close');
  var motion=$('#motion-toggle'),play=$('#play-toggle'),sound=$('#sound-toggle'),status=$('#xp-status');
- var custom=$('#custom-audio'),audio=null,audioURL=null,ctx=null,oscillators=[],soundOn=false,playMode=false;
- var generation=0,pending=false,masterGain=null,volume=.2;
+ var custom=$('#custom-audio'),builtIn=$('#portfolio-audio'),audio=builtIn,audioURL=null,builtInURL=null,loadPromise=null,soundOn=false,playMode=false;
+ var generation=0,pending=false,volume=.2;
  if(!M){toggle.hidden=true;return;}
  var volumeInput=$('#sound-volume');
- volumeInput.addEventListener('input',function(){volume=Number(this.value)/100;$('#volume-output').textContent=this.value+'%';if(audio)audio.volume=volume;if(ctx&&masterGain)masterGain.gain.setTargetAtTime(volume*.09,ctx.currentTime,.025);});
+ volumeInput.addEventListener('input',function(){volume=Number(this.value)/100;$('#volume-output').textContent=this.value+'%';if(audio)audio.volume=volume;});
  function report(text){status.textContent=text;position();}
  function position(){if(panel.hidden)return;var r=toggle.getBoundingClientRect(),gap=12;
   var width=panel.getBoundingClientRect().width;panel.style.left=Math.max(16,Math.min(innerWidth-width-16,r.right-width))+'px';
@@ -24,35 +24,49 @@
  motion.addEventListener('click',function(){M.setEnabled(!M.state().enabled);report(M.state().enabled?'Motion enabled.':'Motion paused. All project content stays available.');});
  function setPlay(on){playMode=on;document.body.classList.toggle('play-mode',on);play.setAttribute('aria-checked',String(on));try{localStorage.setItem('kh-play',on?'on':'off');}catch(e){}}
  try{setPlay(localStorage.getItem('kh-play')==='on');}catch(e){setPlay(false);}
- play.addEventListener('click',function(){setPlay(!playMode);report(playMode?'Game-inspired geometry enabled. No official show assets are used.':'Original portfolio palette restored.');});
+ play.addEventListener('click',function(){setPlay(!playMode);report(playMode?'Game-inspired geometry enabled. No copied show imagery is used.':'Original portfolio palette restored.');});
  function stopSound(){
-  generation++;pending=false;soundOn=false;sound.setAttribute('aria-checked','false');
-  if(audio)audio.pause();
-  if(ctx){var old=ctx;ctx=null;masterGain=null;oscillators.forEach(function(o){try{o.stop();}catch(e){}});oscillators=[];old.close().catch(function(){});}
+  generation++;pending=false;soundOn=false;sound.setAttribute('aria-checked','false');sound.removeAttribute('aria-busy');
+  audio.pause();
  }
- function makeAmbient(){
-  var AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw Error('Audio synthesis is unavailable in this browser.');
-  ctx=new AC();var gain=ctx.createGain();masterGain=gain;gain.gain.setValueAtTime(volume*.09,ctx.currentTime);gain.connect(ctx.destination);
-  /* Original sustained harmony, not a transcription or sound-alike of any theme song. */
-  [146.83,220,261.63,329.63].forEach(function(hz,i){var o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=hz;g.gain.value=i===0?.38:.17;o.connect(g);g.connect(gain);o.start();oscillators.push(o);});
-  return ctx.resume();
+ function loadBuiltIn(){
+  if(builtInURL)return Promise.resolve();
+  if(loadPromise)return loadPromise;
+  // Same-origin lossless transport; fetched only after an explicit play request.
+  loadPromise=fetch(builtIn.dataset.src).then(function(r){if(!r.ok)throw Error('Track download failed');return r.text();}).then(function(text){
+   var raw=atob(text.trim()),bytes=new Uint8Array(raw.length);
+   for(var i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);
+   builtInURL=URL.createObjectURL(new Blob([bytes],{type:'audio/mpeg'}));builtIn.src=builtInURL;
+  }).catch(function(e){loadPromise=null;throw e;});return loadPromise;
  }
+ function bindError(selected){selected.addEventListener('error',function(){if(selected!==audio)return;stopSound();report('This audio could not be played. Try again or choose another file.');});}
+ bindError(builtIn);
  sound.addEventListener('click',function(){
-  if(soundOn||pending){stopSound();report('Sound muted.');return;}
-  pending=true;var ticket=++generation;var promise;
-  try{if(audio){audio.volume=volume;promise=audio.play();}else promise=makeAmbient();}
-  catch(e){stopSound();report(e.message);return;}
-  Promise.resolve(promise).then(function(){if(ticket!==generation||document.hidden){return;}pending=false;soundOn=true;sound.setAttribute('aria-checked','true');report(audio?'Your selected audio is playing locally.':'Original ambient sketch playing. This is not the Squid Game soundtrack.');}).catch(function(){if(ticket!==generation)return;stopSound();report('Playback was blocked. Try turning sound on again.');});
+  if(soundOn||pending){stopSound();report('Music paused.');return;}
+  var selected=audio,ticket=++generation;pending=true;sound.setAttribute('aria-busy','true');
+  report(selected===builtIn?'Loading Pink Soldiers…':'Starting your selected audio…');
+  Promise.resolve(selected===builtIn?loadBuiltIn():undefined).then(function(){
+   if(ticket!==generation||document.hidden||selected!==audio)return;
+   selected.volume=volume;return selected.play();
+  }).then(function(){
+   if(ticket!==generation||document.hidden||selected!==audio)return;
+   pending=false;soundOn=true;sound.removeAttribute('aria-busy');sound.setAttribute('aria-checked','true');
+   report(selected===builtIn?'Pink Soldiers is playing.':'Your selected audio is playing locally.');
+  }).catch(function(){if(ticket!==generation)return;stopSound();report('Playback could not start. Press the music control again, or choose a different file.');});
  });
  custom.addEventListener('change',function(){var f=custom.files&&custom.files[0];if(!f)return;
   if(!f.type.startsWith('audio/')&&!(/\.(mp3|wav|ogg|m4a|aac|flac|webm)$/i.test(f.name)&&!f.type)){report('Choose a supported audio file.');custom.value='';return;}
   if(f.size>25*1024*1024){report('Choose an audio file smaller than 25 MB.');custom.value='';return;}
-  stopSound();if(audioURL)URL.revokeObjectURL(audioURL);audioURL=URL.createObjectURL(f);audio=new Audio(audioURL);audio.loop=true;audio.preload='none';var selectedAudio=audio;audio.addEventListener('error',function(){if(audio!==selectedAudio)return;stopSound();report('This audio file could not be played. Choose a different format.');});
-  $('#sound-description').textContent='Your selected audio. Turn sound on to play; no upload is made.';report('Audio selected locally. Use only tracks you have permission to use.');position();
+  stopSound();if(audioURL)URL.revokeObjectURL(audioURL);audioURL=URL.createObjectURL(f);audio=new Audio(audioURL);audio.loop=true;audio.preload='none';bindError(audio);
+  $('#sound-description').textContent='Your selected audio. Turn music on to play; no upload is made.';report('Local audio selected. Music is paused.');
+ });
+ $('#restore-track').addEventListener('click',function(){
+  stopSound();audio=builtIn;if(audioURL){URL.revokeObjectURL(audioURL);audioURL=null;}custom.value='';
+  $('#sound-description').textContent='Pink Soldiers · 30-second loop. Starts only when you turn it on.';report('Pink Soldiers selected. Turn music on to play.');
  });
  document.addEventListener('visibilitychange',function(){if(document.hidden)stopSound();});
  window.addEventListener('pagehide',function(){stopSound();});
- window.PortfolioExperience={stopSound:stopSound,state:function(){return {playMode:playMode,soundOn:soundOn,audioContextState:ctx?ctx.state:'closed',customAudio:!!audio};}};
+ window.PortfolioExperience={stopSound:stopSound,state:function(){return {playMode:playMode,soundOn:soundOn,audioContextState:'closed',customAudio:audio!==builtIn,track:audio===builtIn?'Pink Soldiers':'local file',paused:audio.paused,pending:pending};}};
 })();
 (function(){
  var M=window.PortfolioMotion||{state:function(){return {active:false};},onChange:function(fn){fn({active:false});}},gate=document.querySelector('.human-gate');if(!gate)return;

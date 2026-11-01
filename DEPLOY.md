@@ -51,6 +51,6 @@ Use a normal revert commit or restore the backed-up files through a new commit. 
 
 `docs/index.html` loads `motion-controller.js`, `motion-engine.js`, and `experience.js`; it does not load the retained original `attachment.js`. The original attachment stylesheet and JS remain unchanged for baseline integrity and rollback. Enhancements are in `experience.css`.
 
-The professional visual mode is default. Geometry is optional, motion respects the live system reduced-motion setting, and sound starts only after an explicit click. The ambient cue is original synthesized audio, not the Squid Game recording. Selecting a local audio file is a private preview action; it does not upload or distribute that file. No show recording or branded media is included.
+The professional visual mode is default. Geometry is optional, motion respects the live system reduced-motion setting, and sound starts only after an explicit click. The opt-in background track is the user-supplied Pink Soldiers recording. Selecting a local audio file is a private preview action; it does not upload or distribute that file. No copied show imagery is included; the supplied recording is not claimed to be royalty-free.
 
 Before publishing, run `python3 scripts/build_bootstrap.py` then both Python validators and syntax checks. Preserve existing CNAME/settings/workflows and unrelated assets. Never deploy local research/profile recovery notes.
