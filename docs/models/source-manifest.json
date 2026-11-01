@@ -1,0 +1,260 @@
+{
+  "threeVersion": "0.187.0",
+  "conversion": "convert.mjs",
+  "licenseEvidence": {
+    "author": "@jaeysart",
+    "restriction": "Commercial Use Prohibited",
+    "overview": "It is intended for personal projects or other non-commercial purposes only.",
+    "previewFiles": [
+      "00_Image/SquidGame2_FreeModel_02.png",
+      "00_Image/SquidGame2_FreeModel_04.png",
+      "00_Image/SquidGame2_FreeModel_06.png"
+    ],
+    "sourceURL": null,
+    "standaloneLicenseFile": false
+  },
+  "models": [
+    {
+      "name": "FrontMan",
+      "file": "front-man.model.json",
+      "source": "FrontMan_v01/FrontMan_v01.fbx",
+      "sourceSHA256": "73ba027afb162b97213644f906f89cb92a18b079dbe18ba70e94bd42436fa9e3",
+      "sourceBytes": 567888,
+      "sourceTriangles": 18742,
+      "deliveredTriangles": 18742,
+      "vertices": 10473,
+      "drawCalls": 1,
+      "materials": 1,
+      "sourceMeshes": [
+        {
+          "name": "FrontMan_mask",
+          "triangles": 5048
+        },
+        {
+          "name": "FrontMan_hood",
+          "triangles": 3288
+        },
+        {
+          "name": "FrontMan_body",
+          "triangles": 10406
+        }
+      ],
+      "sourceBounds": {
+        "min": [
+          -48.60943603515625,
+          -0.011279366910457611,
+          -22.015409469604492
+        ],
+        "max": [
+          48.60943603515625,
+          105.83827209472656,
+          17.441272735595703
+        ]
+      },
+      "browserBounds": {
+        "min": [
+          -0.9184627684090609,
+          -1,
+          -0.37276192161759375
+        ],
+        "max": [
+          0.9184627684090609,
+          1,
+          0.37276192161759375
+        ]
+      },
+      "bytes": 312584,
+      "geometryGzipBytes": 221276,
+      "geometryRawJSONBytes": 331519,
+      "textureBytes": 12722,
+      "textureFormat": "WebP RGB",
+      "textureSize": [
+        1024,
+        1024
+      ],
+      "omitted": [],
+      "notes": "Baked FBX world transforms; preserved triangles, smooth/flat normals, UV seams; no decimation; merged to one mesh/material; removed unused vertex colors; quantized position int16/normal int8/UV uint16; normalized centered height=2."
+    },
+    {
+      "name": "PinkSoldiers",
+      "file": "pink-soldier.model.json",
+      "source": "PinkSoldiers_v01/PinkSoldiers_v01.fbx",
+      "sourceSHA256": "94db90662aa12b81a035ab49550e4bb47eeebc8215471861170f7fbd39416ba1",
+      "sourceBytes": 497584,
+      "sourceTriangles": 19584,
+      "deliveredTriangles": 16272,
+      "vertices": 9430,
+      "drawCalls": 1,
+      "materials": 1,
+      "sourceMeshes": [
+        {
+          "name": "PinkSoldier_mask_Circle",
+          "triangles": 1656
+        },
+        {
+          "name": "PinkSoldier_hood",
+          "triangles": 2096
+        },
+        {
+          "name": "PinkSoldier_body",
+          "triangles": 12520
+        }
+      ],
+      "sourceBounds": {
+        "min": [
+          -42.24736022949219,
+          -0.01067429780960083,
+          -23.84893798828125
+        ],
+        "max": [
+          42.24736022949219,
+          98.33317565917969,
+          20.602188110351562
+        ]
+      },
+      "browserBounds": {
+        "min": [
+          -0.8591764558326541,
+          -1,
+          -0.4519970096561557
+        ],
+        "max": [
+          0.8591764558326541,
+          1,
+          0.4519970096561557
+        ]
+      },
+      "bytes": 400620,
+      "geometryGzipBytes": 193707,
+      "geometryRawJSONBytes": 293683,
+      "textureBytes": 106308,
+      "textureFormat": "WebP RGB",
+      "textureSize": [
+        1024,
+        1024
+      ],
+      "omitted": [
+        "Triangle mask duplicate",
+        "Square mask duplicate"
+      ],
+      "notes": "Baked FBX world transforms; preserved triangles, smooth/flat normals, UV seams; no decimation; merged to one mesh/material; removed unused vertex colors; quantized position int16/normal int8/UV uint16; normalized centered height=2."
+    },
+    {
+      "name": "Unknown",
+      "file": "unknown.model.json",
+      "source": "Unknown_v01/Unknown_v01.fbx",
+      "sourceSHA256": "0c5375b74807ec7f3127f1101d6103c15d55b08d593b8646c6ee747a77177667",
+      "sourceBytes": 414864,
+      "sourceTriangles": 16272,
+      "deliveredTriangles": 16272,
+      "vertices": 9430,
+      "drawCalls": 1,
+      "materials": 1,
+      "sourceMeshes": [
+        {
+          "name": "Unknown_mask",
+          "triangles": 1656
+        },
+        {
+          "name": "Unknown_hood",
+          "triangles": 2096
+        },
+        {
+          "name": "Unknown_body",
+          "triangles": 12520
+        }
+      ],
+      "sourceBounds": {
+        "min": [
+          -42.24736022949219,
+          -0.01067429780960083,
+          -23.84893798828125
+        ],
+        "max": [
+          42.24736022949219,
+          98.33317565917969,
+          20.602188110351562
+        ]
+      },
+      "browserBounds": {
+        "min": [
+          -0.8591764558326541,
+          -1,
+          -0.4519970096561557
+        ],
+        "max": [
+          0.8591764558326541,
+          1,
+          0.4519970096561557
+        ]
+      },
+      "bytes": 394568,
+      "geometryGzipBytes": 193708,
+      "geometryRawJSONBytes": 293683,
+      "textureBytes": 101784,
+      "textureFormat": "WebP RGB",
+      "textureSize": [
+        1024,
+        1024
+      ],
+      "omitted": [],
+      "notes": "Baked FBX world transforms; preserved triangles, smooth/flat normals, UV seams; no decimation; merged to one mesh/material; removed unused vertex colors; quantized position int16/normal int8/UV uint16; normalized centered height=2."
+    }
+  ],
+  "orientation": {
+    "up": "+Y",
+    "front": "+Z",
+    "normalization": "centered at origin, full model height=2",
+    "rotationForFrontView": [
+      0,
+      0,
+      0
+    ]
+  },
+  "renderQA": [
+    {
+      "drawCalls": 1,
+      "triangles": 18742,
+      "model": "front-man",
+      "rotation": 0
+    },
+    {
+      "drawCalls": 1,
+      "triangles": 16272,
+      "model": "pink-soldier",
+      "rotation": 0
+    },
+    {
+      "drawCalls": 1,
+      "triangles": 16272,
+      "model": "unknown",
+      "rotation": 0
+    }
+  ],
+  "textureMapsUsed": [
+    "BaseColor"
+  ],
+  "textureMapsOmitted": [
+    "Normal",
+    "Metalness",
+    "Height",
+    "Roughness"
+  ],
+  "posters": [
+    {
+      "file": "front-man.poster.json",
+      "bytes": 30293,
+      "sha256": "9eb2bea9fe367d0d3638a6ad4423b19cece6be8e6f2f960de684e1d40d09a2ac"
+    },
+    {
+      "file": "pink-soldier.poster.json",
+      "bytes": 89700,
+      "sha256": "a10daa7db3074985b12079fb5b6965439b2a8fd799ecda6f4200b6968fa49817"
+    },
+    {
+      "file": "unknown.poster.json",
+      "bytes": 85983,
+      "sha256": "fa6fa59c50c77d7105b0aaa8f76ed2fb33776f7c3bd3d9c4faedb78e1877ca5a"
+    }
+  ]
+}

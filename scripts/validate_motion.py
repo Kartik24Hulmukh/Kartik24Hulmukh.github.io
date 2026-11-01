@@ -23,3 +23,14 @@ assert 'class="play-mode"' in s, 'Atmosphere must be default-on before JS'
 assert 'experience-panel' not in s and 'custom-audio' not in s, 'No setup panel on visitor arrival'
 assert 'class="proj open"' in s, 'Lead project must be open'
 print('PASS: automatic-first atmosphere, compact controls and immediately open lead project.')
+
+# The optional hero owns exactly one canvas and imports only on intent/idle.
+for f in ['hero3d.js', 'hero3d.css', 'vendor/hero-three.js', 'models/front-man.model.json', 'models/pink-soldier.model.json', 'models/unknown.model.json']:
+    assert (R / 'docs' / f).is_file(), f
+for id_ in ['hero-identity', 'portrait-reveal', 'hero-model-surface', 'identity-status']:
+    assert len(re.findall(r'id="' + id_ + '"', s)) == 1, id_
+hero = (R / 'docs/hero3d.js').read_text()
+assert 'setAnimationLoop' not in hero
+assert hero.count('new T.WebGLRenderer(') == 1
+assert 'loaded===selected' in hero and 'fallbackGeneration' in hero
+print('PASS: optional hero assets, unique controls, single renderer and state guards.')

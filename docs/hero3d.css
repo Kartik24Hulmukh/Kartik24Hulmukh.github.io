@@ -1,0 +1,86 @@
+/* One identity aperture: portrait first, a real 3D alter ego on reveal. */
+.hero-stage{grid-template-columns:minmax(0,1fr) clamp(300px,28vw,380px);gap:clamp(28px,4vw,64px);margin:42px 0 64px}
+.hero-identity{pointer-events:auto;position:relative;isolation:isolate;min-width:0;transform-style:preserve-3d}
+.identity-topline{display:flex;justify-content:space-between;gap:12px;font-size:11px!important;letter-spacing:.07em;color:#cfcac0;margin-bottom:12px}
+.identity-topline span:first-child{max-width:22ch}.identity-topline span:last-child{color:#f05a94;white-space:nowrap}
+.identity-aperture{display:block;position:relative;width:100%;aspect-ratio:1/1.04;overflow:hidden;border:1px solid #615d55;background:linear-gradient(150deg,#242127,#101011 56%,#1c2224);isolation:isolate;transform:perspective(900px) rotateX(var(--card-x,0deg)) rotateY(var(--card-y,0deg));transition:transform .35s ease,border-color .2s;touch-action:pan-y}
+.identity-aperture:hover,.identity-aperture:focus-visible{border-color:#f05a94}
+.identity-aperture:focus-visible,.character-select button:focus-visible,.model-retry:focus-visible{outline:2px solid #f05a94;outline-offset:5px}
+.identity-grid{position:absolute;inset:0;opacity:.35;background:linear-gradient(#aaa1 1px,transparent 1px),linear-gradient(90deg,#aaa1 1px,transparent 1px);background-size:32px 32px;transform:perspective(400px) rotateX(12deg) scale(1.1);z-index:-1}
+.identity-light{position:absolute;width:70%;height:160%;left:-15%;top:-30%;background:linear-gradient(90deg,transparent,#f05a941a,transparent);transform:rotate(25deg) translateX(-100%);pointer-events:none}
+.portrait-baseline{position:absolute!important;width:92%!important;height:auto!important;max-height:94%;object-fit:contain;left:4%;bottom:0;z-index:2;filter:drop-shadow(0 12px 18px #0008);transition:opacity .3s ease,transform .45s cubic-bezier(.2,.7,.1,1);transform:translateY(0) scale(1)}
+.model-surface{position:absolute;inset:0;opacity:0;transition:opacity .3s ease;z-index:1;pointer-events:none}
+.model-surface canvas{display:block;width:100%;height:100%}
+.hero-identity[data-revealed=true] .model-surface{opacity:1}
+.hero-identity[data-revealed=true] .portrait-baseline{opacity:0;transform:translateY(18px) scale(.95)}
+.identity-corner{position:absolute;inset:10px;border-top:1px solid #f05a9466;border-left:1px solid #f05a9466;width:25px;height:25px;pointer-events:none;z-index:4}
+.identity-crosshair{position:absolute;right:12px;bottom:10px;color:#64c6b3;font:24px/1 var(--mono);z-index:4}
+.identity-caption{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:14px 0 10px;font-size:14px;line-height:1.4}
+.identity-caption>span:first-child{font-weight:600}.identity-caption>span:last-child{color:#cfcac0;font-size:14px}
+.character-select{display:grid;grid-template-columns:1fr 1fr 1fr;border-block:1px solid #615d55}
+.character-select button{min-height:44px;padding:8px 5px;font-size:14px;color:#cfcac0;position:relative}
+.character-select button+button{border-left:1px solid #615d55}
+.character-select button[aria-pressed=true]{color:#f05a94;background:#f05a940d}
+.character-select button[aria-pressed=true]::after{content:'';position:absolute;bottom:-1px;left:15%;right:15%;height:2px;background:#f05a94}
+.identity-credit{font-size:14px;line-height:1.5;color:#bbb6ad;margin-top:10px}
+.identity-status{font-size:14px;line-height:1.5;color:#cfcac0;margin-top:6px;min-height:42px}
+.model-retry{font-size:14px;min-height:44px;border-bottom:1px solid #f05a94;color:#f05a94}
+.model-retry[hidden]{display:none}
+.identity-halo{position:absolute;inset:15% -10% 24%;z-index:-1;pointer-events:none}
+.identity-halo i{position:absolute;display:block;border:1px solid #f05a9466;width:95%;height:95%;left:2%;top:2%}
+.identity-halo i:first-child{border-radius:50%;border-color:#64c6b399;transform:rotateX(35deg) rotateZ(-24deg)}
+.identity-halo i:nth-child(2){transform:rotate(38deg);width:75%;height:75%;left:12%;top:12%}
+.identity-halo i:nth-child(3){border-color:#f05a9444;transform:rotate(-14deg) scale(1.04)}
+html[data-motion=on] .hero-identity[data-hero-visible=true] .identity-light{animation:identity-sweep 5s ease-in-out infinite}
+html[data-motion=on] .hero-identity[data-hero-visible=true] .identity-halo i:first-child{animation:identity-orbit 9s ease-in-out infinite}
+html[data-motion=on] .hero-identity[data-hero-visible=true] .identity-halo i:nth-child(2){animation:identity-angle 8s ease-in-out infinite alternate}
+html[data-motion=on] .hero-identity[data-hero-visible=true]{animation:identity-float 6s ease-in-out infinite}
+@keyframes identity-float{50%{transform:translateY(-9px)}}
+@keyframes identity-sweep{0%,10%{transform:rotate(25deg) translateX(-120%)}55%,100%{transform:rotate(25deg) translateX(260%)}}
+@keyframes identity-orbit{50%{transform:rotateX(35deg) rotateZ(28deg) scale(1.07)}}
+@keyframes identity-angle{to{transform:rotate(49deg) scale(.97)}}
+.hero[data-hero-visible=false] .proof-rail *, .hero[data-hero-visible=false] .proof-rail::after{animation-play-state:paused!important}
+html:not(.js) .character-select,html:not(.js) .identity-help,html:not(.js) .model-retry{display:none}
+html:not(.js) .identity-aperture{cursor:default;pointer-events:none}
+@media(max-width:1100px) and (min-width:641px){.hero .name{font-size:clamp(70px,10.5vw,130px)}}
+@media(max-width:760px) and (min-width:641px){.hero-stage{grid-template-columns:minmax(0,1fr) 290px;gap:24px}.hero .name{font-size:clamp(62px,9.2vw,80px)}}
+@media(max-width:640px){
+ .hero-stage{grid-template-columns:1fr;gap:32px;margin:36px 0 64px;width:100%;max-width:440px}
+ .hero .name{font-size:clamp(52px,18vw,88px);line-height:.91}
+ .hero-identity{width:min(100%,300px);justify-self:center;margin:0 auto}
+ .identity-topline{font-size:11px!important}.identity-topline span:first-child{max-width:none;font-size:10px}
+ .identity-caption{flex-direction:column;align-items:flex-start;gap:4px}
+ .identity-status{min-height:42px}.proof-rail{bottom:-42px}
+ .hero{padding-bottom:110px}
+}
+@media(prefers-reduced-motion:reduce){.hero-identity,.hero-identity *{animation:none!important;transition:none!important}.identity-light{display:none}}
+.model-poster{position:absolute!important;inset:0;width:100%!important;height:100%!important;object-fit:contain;display:none!important}
+.hero-identity[data-fallback=true] .model-surface{opacity:1}
+.hero-identity[data-fallback=true] .model-poster{display:block!important}
+.hero-identity[data-fallback=true] .model-surface canvas{visibility:hidden}
+.hero-identity[data-fallback=true] .portrait-baseline{opacity:0}
+html:not(.js) #identity-help{display:none}
+/* Move artwork, not hit targets. Controls remain physically stable. */
+html[data-motion=on] .hero-identity[data-hero-visible=true]{animation:none}
+html[data-motion=on] .hero-identity[data-hero-visible=true] .portrait-baseline{animation:identity-float 6s ease-in-out infinite}
+.identity-topline{font-size:14px!important;line-height:1.5}
+.identity-topline span:first-child{max-width:22ch;font-size:14px}
+/* Keep global media utilities in the header band, clear of the larger hero. */
+.experience-dock{top:76px;bottom:auto}
+.hero{padding-top:158px;padding-bottom:48px}
+html{scroll-padding-top:145px}
+@media(max-width:640px){.hero{padding-top:158px;padding-bottom:64px}.identity-topline span:first-child{font-size:14px;max-width:20ch}}
+/* Fit the actual fixed header, not merely the clipped body scroll width. */
+@media(max-width:640px){
+ .nav{width:100%;grid-template-columns:minmax(0,1fr) auto;gap:8px}
+ .brand{min-width:0;gap:8px}.brand .mono{letter-spacing:.04em;white-space:nowrap}
+ .nav-r{min-width:0}.nav-r>a{min-height:44px;display:inline-flex;align-items:center;white-space:nowrap}
+}
+html[data-motion=off] .hero-identity *{transition:none!important}
+/* Decorative halos must not expand the mobile layout viewport. */
+html{overflow-x:clip}
+.hero{overflow:clip}
+/* Never superimpose two faces during the reveal. Only the new artwork moves. */
+.portrait-baseline{transition:transform .3s ease}
+.model-surface{transition:transform .3s ease;transform:translateY(10px) scale(.97)}
+.hero-identity[data-revealed=true] .model-surface,.hero-identity[data-fallback=true] .model-surface{transform:translateY(0) scale(1)}

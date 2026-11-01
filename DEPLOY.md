@@ -54,3 +54,13 @@ Use a normal revert commit or restore the backed-up files through a new commit. 
 The game-inspired pink/teal geometry is the authored default. Motion runs unless paused or reduced-motion is requested. Sources are visible and the lead project is open. Compact visible controls replace the settings sheet. Music gets one normal automatic attempt where browser policy permits; otherwise a visible Sound on control remains. Saved mute is respected. Playback stops on tab hide/page exit and never automatically resumes on return. The supplied recording is not claimed to be royalty-free. See AUDIO_SOURCE.md and MOTION_UPGRADE.md for policy and transport limits.
 
 Before publishing, run `python3 scripts/build_bootstrap.py` then both Python validators and syntax checks. Preserve existing CNAME/settings/workflows and unrelated assets. Never deploy local research/profile recovery notes.
+
+## Optional 3D identity study
+
+The hero preserves Kartik's portrait and name; Front Man, Pink Soldier and Unknown share one locally bundled Three.js 0.187.0 renderer. `hero3d.js` imports the runtime/model on desktop idle near the visible hero or explicit user activation; touch, reduced motion and saved pause do not preload it. No new package service or CDN is required at runtime. Google Fonts remain an existing external dependency.
+
+Browser payloads are compact quantized JSON meshes with embedded downsampled WebP textures, not the original 418MB archive. Approximate uncompressed files: runtime 532KiB; selected model 308–392KiB. Only the selected character is fetched; other models load on selection. The hero uses bounded interpolation and on-demand stills, capped DPR, no shadows/postprocessing, and a poster fallback. It stops rendering when hidden, offscreen or paused (explicit static swaps are allowed). All project/evidence sections are unchanged.
+
+Supplied models are credited to @jaeysart. The archive preview states “Commercial Use Prohibited” and personal/non-commercial projects only. No broader rights, franchise affiliation, or commercial-use permission is asserted. Replace the assets or obtain permission before commercial use. See `docs/models/README.md` and source manifest. Third-party software MIT licenses are retained separately.
+
+Validation: 41 headless Chromium assertions across rapid selection, keyboard/touch, 320/390px reduced-motion layouts, pause/offscreen/hidden gating, real WebGL loss/restoration, late fallback, disposal, no-IntersectionObserver failure fallback and no-JavaScript baseline. These are software-browser tests, not real-phone or real-GPU performance measurements, a WCAG certification, or proof of increased traction. No zero-lag guarantee is made.

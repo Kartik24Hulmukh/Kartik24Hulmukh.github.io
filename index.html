@@ -14,7 +14,7 @@
 <script>document.documentElement.classList.add('js');</script>
 <link href="./docs/attachment.css" rel="stylesheet"/>
 <link href="./docs/portrait-refined.css" rel="stylesheet"/>
-<link href="./docs/experience.css" rel="stylesheet"/><script>try{document.documentElement.dataset.motion=(matchMedia('(prefers-reduced-motion: reduce)').matches||localStorage.getItem('kh-motion')==='off')?'off':'on';}catch(e){document.documentElement.dataset.motion=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on';}</script><script>setTimeout(function(){if(window.__portfolioEngineReady)return;document.documentElement.classList.remove('js');document.body.classList.remove('lock','has-cursor');document.body.classList.add('ready');var l=document.getElementById('loader');if(l)l.remove();document.querySelectorAll('.ch').forEach(function(n){n.textContent=n.dataset.ch||n.textContent;});document.querySelectorAll('.proj-body').forEach(function(n){n.inert=false;});},1200);</script></head>
+<link href="./docs/experience.css" rel="stylesheet"/><link href="./docs/hero3d.css" rel="stylesheet"/><script>try{document.documentElement.dataset.motion=(matchMedia('(prefers-reduced-motion: reduce)').matches||localStorage.getItem('kh-motion')==='off')?'off':'on';}catch(e){document.documentElement.dataset.motion=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on';}</script><script>setTimeout(function(){if(window.__portfolioEngineReady)return;document.documentElement.classList.remove('js');document.body.classList.remove('lock','has-cursor');document.body.classList.add('ready');var l=document.getElementById('loader');if(l)l.remove();document.querySelectorAll('.ch').forEach(function(n){n.textContent=n.dataset.ch||n.textContent;});document.querySelectorAll('.proj-body').forEach(function(n){n.inert=false;});},1200);</script></head>
 <body class="play-mode">
 <a class="skip" href="#main">Skip to content</a>
 <canvas aria-hidden="true" id="gl"></canvas>
@@ -52,7 +52,21 @@
 <span>19.07° N, 72.87° E</span>
 <span aria-label="Claim, source, boundary" class="arrival-signature"><span aria-hidden="true" class="mini-shapes"><i></i><i></i><i></i></span> Proof, not promises.</span>
 </div>
-<div class="hero-stage"><h1 aria-label="Kartik Hulmukh" class="name"><span aria-hidden="true" class="row">Kartik</span><span aria-hidden="true" class="row">Hulmukh</span></h1><figure class="hero-portrait clean"><svg aria-hidden="true" class="geometry-field" focusable="false" viewbox="0 0 340 340"><circle class="geo-circle" cx="112" cy="108" r="91"></circle><path class="geo-triangle" d="M246 18 327 166 165 166Z"></path><path class="geo-square" d="M167 178h144v144H167Z"></path></svg><img alt="Illustrated portrait of Kartik Hulmukh" decoding="async" fetchpriority="high" height="271" src="./assets/kartik-portrait.svg" width="276"/></figure><ol aria-label="How I build: claim, source, boundary" class="proof-rail"><li><span aria-hidden="true" class="rail-shape circle"></span>Claim</li><li><span aria-hidden="true" class="rail-shape triangle"></span>Source</li><li><span aria-hidden="true" class="rail-shape square"></span>Boundary</li></ol></div>
+<div class="hero-stage"><h1 aria-label="Kartik Hulmukh" class="name"><span aria-hidden="true" class="row">Kartik</span><span aria-hidden="true" class="row">Hulmukh</span></h1><figure aria-label="Kartik portrait and interactive character study" class="hero-portrait hero-identity" data-hero-visible="true" id="hero-identity">
+<div aria-hidden="true" class="identity-halo"><i></i><i></i><i></i></div>
+<div class="identity-topline mono"><span>THE FACE BEHIND THE PROOF</span><span aria-hidden="true">01 / 03</span></div>
+<button aria-describedby="identity-help identity-status" aria-label="Reveal Front Man 3D model" aria-pressed="false" class="identity-aperture" id="portrait-reveal" type="button">
+<span aria-hidden="true" class="identity-grid"></span><span aria-hidden="true" class="identity-light"></span>
+<span aria-hidden="true" class="model-surface" id="hero-model-surface"></span>
+<img alt="Illustrated portrait of Kartik Hulmukh" class="portrait-baseline" decoding="async" fetchpriority="high" height="271" src="./assets/kartik-portrait.svg" width="276"/>
+<span aria-hidden="true" class="identity-corner"></span><span aria-hidden="true" class="identity-crosshair">+</span>
+</button>
+<figcaption class="identity-caption"><span id="identity-label">Kartik Hulmukh</span><span id="identity-help">Hover or tap to unmask ↗</span></figcaption>
+<div aria-label="3D character studies" class="character-select" role="group"><button aria-pressed="true" data-character="front-man" type="button">Front Man</button><button aria-pressed="false" data-character="pink-soldier" type="button">Pink Soldier</button><button aria-pressed="false" data-character="unknown" type="button">Unknown</button></div>
+<p class="identity-credit">3D models: @jaeysart · non-commercial use</p>
+<p aria-live="polite" class="identity-status" id="identity-status" role="status">Interactive character study. Your work stays in focus.</p>
+<button class="model-retry" hidden="" id="model-retry" type="button">Retry 3D scene</button>
+</figure><ol aria-label="How I build: claim, source, boundary" class="proof-rail"><li><span aria-hidden="true" class="rail-shape circle"></span>Claim</li><li><span aria-hidden="true" class="rail-shape triangle"></span>Source</li><li><span aria-hidden="true" class="rail-shape square"></span>Boundary</li></ol></div>
 <div class="h-bot">
 <p class="h-tag">I build software<br/>that <em>shows its work.</em></p>
 <div class="h-copy">
@@ -439,5 +453,5 @@ python3 -m app.validate out_demo/evidence.json \
 <div class="dock-volume"><label class="sr" for="sound-volume">Music volume</label><input id="sound-volume" max="100" min="0" type="range" value="20"/><output class="sr" for="sound-volume" id="volume-output">20%</output></div>
 <p class="sr" id="sound-help">Pink Soldiers. Music starts automatically where your browser allows it. Otherwise choose Sound on. Playback pauses when you leave this tab.</p>
 <p aria-live="polite" class="sr" id="xp-status" role="status"></p>
-</aside><audio data-src="./docs/assets/pink-soldiers.mp3.b64" hidden="" id="portfolio-audio" loop="" preload="none"></audio><script src="./docs/experience.js"></script></body>
+</aside><audio data-src="./docs/assets/pink-soldiers.mp3.b64" hidden="" id="portfolio-audio" loop="" preload="none"></audio><script src="./docs/experience.js"></script><script defer="" src="./docs/hero3d.js"></script></body>
 </html>
