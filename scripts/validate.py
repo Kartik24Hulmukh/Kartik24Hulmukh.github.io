@@ -8,7 +8,7 @@ for name,key in [('attachment.css','css_sha256'),('attachment.js','javascript_sh
  assert hashlib.sha256(p.read_bytes()).hexdigest()==m[key],f'Original design asset changed: {name}'
 for name in ['index.html','docs/index.html']:
  s=(R/name).read_text()
- assert len(re.findall(r'<article class="proj"',s))==7
+ assert len(re.findall(r'<article class="proj(?: open)?"',s))==7
  assert len(re.findall(r'<h1\b',s))==1
  assert 'data-to="1832"' not in s
  for value in re.findall(r'(?:href|src)="(\./[^"]+)"',s):

@@ -15,7 +15,7 @@
 <link href="./docs/attachment.css" rel="stylesheet"/>
 <link href="./docs/portrait-refined.css" rel="stylesheet"/>
 <link href="./docs/experience.css" rel="stylesheet"/><script>try{document.documentElement.dataset.motion=(matchMedia('(prefers-reduced-motion: reduce)').matches||localStorage.getItem('kh-motion')==='off')?'off':'on';}catch(e){document.documentElement.dataset.motion=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on';}</script><script>setTimeout(function(){if(window.__portfolioEngineReady)return;document.documentElement.classList.remove('js');document.body.classList.remove('lock','has-cursor');document.body.classList.add('ready');var l=document.getElementById('loader');if(l)l.remove();document.querySelectorAll('.ch').forEach(function(n){n.textContent=n.dataset.ch||n.textContent;});document.querySelectorAll('.proj-body').forEach(function(n){n.inert=false;});},1200);</script></head>
-<body>
+<body class="play-mode">
 <a class="skip" href="#main">Skip to content</a>
 <canvas aria-hidden="true" id="gl"></canvas>
 <div aria-hidden="true" class="grain"></div>
@@ -31,7 +31,7 @@
 <a class="mono scr" href="#process">Process</a>
 <a class="mono scr" href="#contact">Contact</a>
 </div>
-<button aria-pressed="false" class="mono ev-toggle" data-cursor="PROOF" id="evt" title="Show the source behind every figure (shortcut: E)"><span aria-hidden="true" class="ev-sw"></span><span>Evidence</span></button>
+<a class="mono" href="#numbers">Sources ↘</a>
 </nav>
 </header>
 <div aria-hidden="true" class="secind mono" id="secind">[00/07] Index</div>
@@ -50,9 +50,9 @@
 <div class="h-top mono">
 <span>[ 00 ] Verification infrastructure</span>
 <span>19.07° N, 72.87° E</span>
-<button aria-controls="experience-panel" aria-expanded="false" aria-haspopup="dialog" class="experience-toggle mono" data-cursor="TUNE" id="experience-toggle" type="button">Experience <span aria-hidden="true" class="mini-shapes"><i></i><i></i><i></i></span></button>
+<span aria-label="Claim, source, boundary" class="arrival-signature"><span aria-hidden="true" class="mini-shapes"><i></i><i></i><i></i></span> Proof, not promises.</span>
 </div>
-<div class="hero-stage"><h1 aria-label="Kartik Hulmukh" class="name"><span aria-hidden="true" class="row">Kartik</span><span aria-hidden="true" class="row">Hulmukh</span></h1><figure class="hero-portrait clean"><svg aria-hidden="true" class="geometry-field" focusable="false" viewbox="0 0 340 340"><circle class="geo-circle" cx="112" cy="108" r="91"></circle><path class="geo-triangle" d="M246 18 327 166 165 166Z"></path><path class="geo-square" d="M167 178h144v144H167Z"></path></svg><img alt="Illustrated portrait of Kartik Hulmukh" decoding="async" fetchpriority="high" height="271" src="./assets/kartik-portrait.svg" width="276"/></figure></div>
+<div class="hero-stage"><h1 aria-label="Kartik Hulmukh" class="name"><span aria-hidden="true" class="row">Kartik</span><span aria-hidden="true" class="row">Hulmukh</span></h1><figure class="hero-portrait clean"><svg aria-hidden="true" class="geometry-field" focusable="false" viewbox="0 0 340 340"><circle class="geo-circle" cx="112" cy="108" r="91"></circle><path class="geo-triangle" d="M246 18 327 166 165 166Z"></path><path class="geo-square" d="M167 178h144v144H167Z"></path></svg><img alt="Illustrated portrait of Kartik Hulmukh" decoding="async" fetchpriority="high" height="271" src="./assets/kartik-portrait.svg" width="276"/></figure><ol aria-label="How I build: claim, source, boundary" class="proof-rail"><li><span aria-hidden="true" class="rail-shape circle"></span>Claim</li><li><span aria-hidden="true" class="rail-shape triangle"></span>Source</li><li><span aria-hidden="true" class="rail-shape square"></span>Boundary</li></ol></div>
 <div class="h-bot">
 <p class="h-tag">I build software<br/>that <em>shows its work.</em></p>
 <div class="h-copy">
@@ -130,11 +130,11 @@
 <div class="sec-h">
 <span class="mono lab">[ 03 ]</span>
 <h2 class="sec-title">Selected <em>work</em></h2>
-<p class="mono lab right">07 entries · click a row to open<br/>each one ships a way to check it</p>
+<p class="mono lab right">07 entries · lead project open<br/>each one ships a way to check it</p>
 </div>
 <div class="projs">
-<article class="proj" data-kind="Verification" data-status="v0.4.1 published on PyPI">
-<button aria-controls="pb1" aria-expanded="false" class="proj-head" data-cursor="OPEN">
+<article class="proj open" data-kind="Verification" data-status="v0.4.1 published on PyPI">
+<button aria-controls="pb1" aria-expanded="true" class="proj-head" data-cursor="OPEN">
 <span class="p-idx mono">01</span>
 <span class="p-name">jittest</span>
 <span class="p-line">Advisory differential verification for AI-written pull requests</span>
@@ -427,19 +427,17 @@ python3 -m app.validate out_demo/evidence.json \
 </div>
 </section>
 </main>
-<noscript>JavaScript is off: all project details are available below. Motion and sound controls are disabled.</noscript><footer class="mono">
+<noscript>JavaScript is off: all project details and sources remain available. Motion and audio are disabled.</noscript><footer class="mono">
 <span>© 2026 Kartik Hulmukh · Mumbai</span>
 <span>Page-text SHA-256 fingerprint (not a signature): <code id="digest">computing…</code></span>
-<span>Static site · no analytics trackers · press E for evidence</span>
+<span>Static site · no analytics trackers · sources visible · E highlights evidence</span>
 </footer>
 <script src="./docs/motion-controller.js"></script><script src="./docs/motion-engine.js"></script>
-<section aria-describedby="experience-description" aria-labelledby="experience-title" aria-modal="false" class="experience-panel" hidden="" id="experience-panel" role="dialog">
-<div class="xp-head"><div><p class="xp-kicker">Your browser. Your call.</p><h2 id="experience-title">Tune the atmosphere.</h2></div><button aria-label="Close experience settings" class="xp-close" id="experience-close" type="button">×</button></div>
-<p class="xp-intro" id="experience-description">The work stays the same. Choose how it moves.</p>
-<div class="xp-option"><div><label id="motion-label">Motion</label><p id="motion-description">Pause backgrounds, animated type and decorative movement.</p></div><button aria-checked="true" aria-describedby="motion-description" aria-labelledby="motion-label" class="xp-switch" id="motion-toggle" role="switch" type="button"><span aria-hidden="true"></span></button></div>
-<div class="xp-option"><div><label id="play-label">Game-inspired geometry</label><p>Circle, triangle, square. A restrained pink-and-teal atmosphere.</p></div><button aria-checked="false" aria-labelledby="play-label" class="xp-switch" id="play-toggle" role="switch" type="button"><span aria-hidden="true"></span></button></div>
-<div class="xp-option"><div><label id="sound-label">Background music</label><p id="sound-description">Pink Soldiers · 30-second loop. Starts only when you turn it on.</p></div><button aria-checked="false" aria-describedby="sound-description" aria-labelledby="sound-label" class="xp-switch" id="sound-toggle" role="switch" type="button"><span aria-hidden="true"></span></button></div>
-<div class="volume-row"><label for="sound-volume">Volume</label><input id="sound-volume" max="100" min="0" type="range" value="20"/><output for="sound-volume" id="volume-output">20%</output></div><label class="audio-pick" for="custom-audio">Choose a permitted audio file</label><input accept="audio/*" aria-describedby="audio-note" class="audio-file" id="custom-audio" type="file"/>
-<button class="audio-pick" id="restore-track" type="button">Use Pink Soldiers again</button><p class="xp-foot" id="audio-note">Playback pauses when you leave this tab. Selected files stay in this browser session.</p><p aria-live="polite" class="xp-status" id="xp-status"></p>
-</section><audio data-src="./docs/assets/pink-soldiers.mp3.b64" hidden="" id="portfolio-audio" loop="" preload="none"></audio><script src="./docs/experience.js"></script></body>
+<aside aria-label="Sound and motion controls" class="experience-dock" id="experience-controls">
+<button aria-checked="false" aria-describedby="sound-help" aria-label="Background music" class="dock-button" id="sound-toggle" role="switch" type="button"><span aria-hidden="true" class="sound-bars"><i></i><i></i><i></i></span><span id="sound-action">Sound on</span></button>
+<button aria-checked="true" aria-label="Decorative motion" class="dock-button" id="motion-toggle" role="switch" type="button"><span aria-hidden="true" class="motion-symbol">Ⅱ</span><span id="motion-action">Pause motion</span></button>
+<div class="dock-volume"><label class="sr" for="sound-volume">Music volume</label><input id="sound-volume" max="100" min="0" type="range" value="20"/><output class="sr" for="sound-volume" id="volume-output">20%</output></div>
+<p class="sr" id="sound-help">Pink Soldiers. Music starts automatically where your browser allows it. Otherwise choose Sound on. Playback pauses when you leave this tab.</p>
+<p aria-live="polite" class="sr" id="xp-status" role="status"></p>
+</aside><audio data-src="./docs/assets/pink-soldiers.mp3.b64" hidden="" id="portfolio-audio" loop="" preload="none"></audio><script src="./docs/experience.js"></script></body>
 </html>

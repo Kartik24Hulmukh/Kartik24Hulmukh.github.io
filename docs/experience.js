@@ -1,72 +1,69 @@
+/* Automatic-first arrival; browser autoplay policy remains authoritative. */
 (function(){
  'use strict';
- var M=window.PortfolioMotion, $=function(s){return document.querySelector(s);};
- var toggle=$('#experience-toggle'),panel=$('#experience-panel'),close=$('#experience-close');
- var motion=$('#motion-toggle'),play=$('#play-toggle'),sound=$('#sound-toggle'),status=$('#xp-status');
- var custom=$('#custom-audio'),builtIn=$('#portfolio-audio'),audio=builtIn,audioURL=null,builtInURL=null,loadPromise=null,soundOn=false,playMode=false;
- var generation=0,pending=false,volume=.2;
- if(!M){toggle.hidden=true;return;}
- var volumeInput=$('#sound-volume');
- volumeInput.addEventListener('input',function(){volume=Number(this.value)/100;$('#volume-output').textContent=this.value+'%';if(audio)audio.volume=volume;});
- function report(text){status.textContent=text;position();}
- function position(){if(panel.hidden)return;var r=toggle.getBoundingClientRect(),gap=12;
-  var width=panel.getBoundingClientRect().width;panel.style.left=Math.max(16,Math.min(innerWidth-width-16,r.right-width))+'px';
-  var height=panel.getBoundingClientRect().height;panel.style.top=Math.max(16,Math.min(innerHeight-height-16,r.bottom+gap))+'px';}
- function open(){panel.hidden=false;toggle.setAttribute('aria-expanded','true');position();close.focus();}
- function shut(restore){panel.hidden=true;toggle.setAttribute('aria-expanded','false');if(restore)toggle.focus();}
- toggle.addEventListener('click',function(){panel.hidden?open():shut(true);});close.addEventListener('click',function(){shut(true);});
- document.addEventListener('pointerdown',function(e){if(!panel.hidden&&!panel.contains(e.target)&&!toggle.contains(e.target))shut(false);});
- document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!panel.hidden){e.preventDefault();shut(true);}});
- window.addEventListener('resize',position);document.addEventListener('focusin',function(e){if(!panel.hidden&&!panel.contains(e.target)&&e.target!==toggle)shut(false);});
- M.onChange(function(s){motion.setAttribute('aria-checked',String(s.enabled&&!s.systemReduced));motion.disabled=s.systemReduced;
-  $('#motion-description').textContent=s.systemReduced?'Your system requests reduced motion. Backgrounds and decorative movement are paused.':'Pause backgrounds, animated type and decorative movement.';
-  if(s.hidden&&soundOn)stopSound();position();});
- motion.addEventListener('click',function(){M.setEnabled(!M.state().enabled);report(M.state().enabled?'Motion enabled.':'Motion paused. All project content stays available.');});
- function setPlay(on){playMode=on;document.body.classList.toggle('play-mode',on);play.setAttribute('aria-checked',String(on));try{localStorage.setItem('kh-play',on?'on':'off');}catch(e){}}
- try{setPlay(localStorage.getItem('kh-play')==='on');}catch(e){setPlay(false);}
- play.addEventListener('click',function(){setPlay(!playMode);report(playMode?'Game-inspired geometry enabled. No copied show imagery is used.':'Original portfolio palette restored.');});
- function stopSound(){
-  generation++;pending=false;soundOn=false;sound.setAttribute('aria-checked','false');sound.removeAttribute('aria-busy');
-  audio.pause();
+ var M=window.PortfolioMotion,$=function(s){return document.querySelector(s);};
+ var audio=$('#portfolio-audio'),sound=$('#sound-toggle'),motion=$('#motion-toggle'),status=$('#xp-status');
+ var volumeInput=$('#sound-volume'),generation=0,pending=false,soundOn=false,phase='idle',volume=.2;
+ var builtInURL=null,loadPromise=null,initialAttempted=false,muted=false,suspended=false;
+ try{muted=localStorage.getItem('kh-audio')==='off';}catch(e){}
+ function remember(on){muted=!on;try{localStorage.setItem('kh-audio',on?'on':'off');}catch(e){}}
+ function render(message){
+  sound.setAttribute('aria-checked',String(soundOn));sound.setAttribute('aria-busy',String(pending));
+  $('#sound-action').textContent=pending?'Cancel sound':soundOn?'Mute music':phase==='error'?'Retry sound':'Sound on';
+  sound.title=pending?'Cancel music loading':soundOn?'Mute Pink Soldiers':'Play Pink Soldiers';
+  sound.dataset.state=phase;if(message)status.textContent=message;
  }
- function loadBuiltIn(){
-  if(builtInURL)return Promise.resolve();
-  if(loadPromise)return loadPromise;
-  // Same-origin lossless transport; fetched only after an explicit play request.
-  loadPromise=fetch(builtIn.dataset.src).then(function(r){if(!r.ok)throw Error('Track download failed');return r.text();}).then(function(text){
-   var raw=atob(text.trim()),bytes=new Uint8Array(raw.length);
-   for(var i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);
-   builtInURL=URL.createObjectURL(new Blob([bytes],{type:'audio/mpeg'}));builtIn.src=builtInURL;
+ function stopSound(next){generation++;pending=false;soundOn=false;audio.pause();phase=next||'paused';render();}
+ function loadTrack(){
+  if(builtInURL)return Promise.resolve();if(loadPromise)return loadPromise;
+  loadPromise=fetch(audio.dataset.src).then(function(r){if(!r.ok)throw Error('Track download failed');return r.text();}).then(function(text){
+   var raw=atob(text.trim()),bytes=new Uint8Array(raw.length);for(var i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);
+   builtInURL=URL.createObjectURL(new Blob([bytes],{type:'audio/mpeg'}));audio.src=builtInURL;
   }).catch(function(e){loadPromise=null;throw e;});return loadPromise;
  }
- function bindError(selected){selected.addEventListener('error',function(){if(selected!==audio)return;stopSound();report('This audio could not be played. Try again or choose another file.');});}
- bindError(builtIn);
+ function startSound(origin){
+  if(document.hidden||suspended||pending||soundOn)return;
+  var ticket=++generation;pending=true;phase='loading';render(origin==='auto'?'Preparing background music.':'Starting background music.');
+  audio.volume=volume;
+  function play(){if(ticket!==generation||document.hidden||muted)return;return audio.play();}
+  var attempt;
+  // A ready source calls play synchronously during the Sound on gesture (Safari included).
+  try{attempt=builtInURL?play():loadTrack().then(play);}catch(e){attempt=Promise.reject(e);}
+  Promise.resolve(attempt).then(function(){
+   if(ticket!==generation)return;
+   if(document.hidden||suspended||muted||audio.paused||audio.muted||volume===0){stopSound(muted?'muted':'paused');return;}
+   pending=false;soundOn=true;phase='playing';render('Pink Soldiers is playing. Use Mute music to stop.');
+  }).catch(function(e){
+   if(ticket!==generation)return;
+   stopSound(e&&e.name==='NotAllowedError'?'blocked':'error');
+   render(phase==='blocked'?'Your browser requires a tap. Choose Sound on to play Pink Soldiers.':'Music could not start. Choose Retry sound to try again.');
+  });
+ }
  sound.addEventListener('click',function(){
-  if(soundOn||pending){stopSound();report('Music paused.');return;}
-  var selected=audio,ticket=++generation;pending=true;sound.setAttribute('aria-busy','true');
-  report(selected===builtIn?'Loading Pink Soldiers…':'Starting your selected audio…');
-  Promise.resolve(selected===builtIn?loadBuiltIn():undefined).then(function(){
-   if(ticket!==generation||document.hidden||selected!==audio)return;
-   selected.volume=volume;return selected.play();
-  }).then(function(){
-   if(ticket!==generation||document.hidden||selected!==audio)return;
-   pending=false;soundOn=true;sound.removeAttribute('aria-busy');sound.setAttribute('aria-checked','true');
-   report(selected===builtIn?'Pink Soldiers is playing.':'Your selected audio is playing locally.');
-  }).catch(function(){if(ticket!==generation)return;stopSound();report('Playback could not start. Press the music control again, or choose a different file.');});
+  if(soundOn||pending){remember(false);stopSound('muted');render('Music muted. Your choice is remembered.');}
+  else{remember(true);if(volume===0){volume=.2;audio.volume=volume;volumeInput.value='20';$('#volume-output').textContent='20%';}startSound('user');}
  });
- custom.addEventListener('change',function(){var f=custom.files&&custom.files[0];if(!f)return;
-  if(!f.type.startsWith('audio/')&&!(/\.(mp3|wav|ogg|m4a|aac|flac|webm)$/i.test(f.name)&&!f.type)){report('Choose a supported audio file.');custom.value='';return;}
-  if(f.size>25*1024*1024){report('Choose an audio file smaller than 25 MB.');custom.value='';return;}
-  stopSound();if(audioURL)URL.revokeObjectURL(audioURL);audioURL=URL.createObjectURL(f);audio=new Audio(audioURL);audio.loop=true;audio.preload='none';bindError(audio);
-  $('#sound-description').textContent='Your selected audio. Turn music on to play; no upload is made.';report('Local audio selected. Music is paused.');
- });
- $('#restore-track').addEventListener('click',function(){
-  stopSound();audio=builtIn;if(audioURL){URL.revokeObjectURL(audioURL);audioURL=null;}custom.value='';
-  $('#sound-description').textContent='Pink Soldiers · 30-second loop. Starts only when you turn it on.';report('Pink Soldiers selected. Turn music on to play.');
- });
- document.addEventListener('visibilitychange',function(){if(document.hidden)stopSound();});
- window.addEventListener('pagehide',function(){stopSound();});
- window.PortfolioExperience={stopSound:stopSound,state:function(){return {playMode:playMode,soundOn:soundOn,audioContextState:'closed',customAudio:audio!==builtIn,track:audio===builtIn?'Pink Soldiers':'local file',paused:audio.paused,pending:pending};}};
+ volumeInput.addEventListener('input',function(){volume=Number(this.value)/100;audio.volume=volume;$('#volume-output').textContent=this.value+'%';if(volume===0){remember(false);stopSound('muted');render('Music muted at zero volume.');}});
+ audio.addEventListener('error',function(){stopSound('error');render('This audio could not be played. Choose Retry sound to try again.');});
+ if(M){
+  M.onChange(function(s){
+   motion.setAttribute('aria-checked',String(s.enabled&&!s.systemReduced));motion.disabled=s.systemReduced;
+   $('#motion-action').textContent=s.systemReduced?'Reduced motion':s.enabled?'Pause motion':'Resume motion';
+   motion.title=s.systemReduced?'Your device requests reduced motion':s.enabled?'Pause decorative motion':'Resume decorative motion';
+  });
+  motion.addEventListener('click',function(){M.setEnabled(!M.state().enabled);status.textContent=M.state().enabled?'Motion resumed.':'Motion paused. All project content remains available.';});
+ }else{motion.disabled=true;$('#motion-action').textContent='Motion unavailable';}
+ function arrival(){if(initialAttempted)return;initialAttempted=true;if(document.hidden){phase='paused';render();return;}if(muted){phase='muted';render('Music is muted by your saved preference.');}else startSound('auto');}
+ document.addEventListener('visibilitychange',function(){if(document.hidden)stopSound(muted?'muted':'paused');else render();});
+ window.addEventListener('pagehide',function(){suspended=true;stopSound(muted?'muted':'paused');});
+ window.addEventListener('pageshow',function(){suspended=false;render();});
+ audio.addEventListener('volumechange',function(){if(audio.muted&&soundOn){stopSound('paused');render('Music was muted by your browser.');}});
+ audio.addEventListener('pause',function(){if(audio.paused&&!pending&&soundOn){stopSound('paused');render('Music paused. Choose Sound on to resume.');}});
+ audio.addEventListener('playing',function(){if(document.hidden||suspended||muted||(!pending&&!soundOn))audio.pause();});
+ window.addEventListener('storage',function(e){if(e.key==='kh-audio'&&e.newValue==='off'){muted=true;stopSound('muted');render('Music muted in another tab.');}});
+ window.PortfolioExperience={stopSound:stopSound,state:function(){return {playMode:true,soundOn:soundOn,track:'Pink Soldiers',paused:audio.paused,pending:pending,phase:phase,muted:muted,volume:volume};}};
+ document.addEventListener('focusin',function(e){if(!e.target.getBoundingClientRect||e.target.closest('.experience-dock'))return;var r=e.target.getBoundingClientRect(),d=$('#experience-controls').getBoundingClientRect();if(r.bottom>d.top&&r.top<d.bottom&&r.right>d.left&&r.left<d.right)window.scrollBy(0,d.top<innerHeight/2?r.top-d.bottom-16:r.bottom-d.top+16);});
+ render();arrival();
 })();
 (function(){
  var M=window.PortfolioMotion||{state:function(){return {active:false};},onChange:function(fn){fn({active:false});}},gate=document.querySelector('.human-gate');if(!gate)return;
