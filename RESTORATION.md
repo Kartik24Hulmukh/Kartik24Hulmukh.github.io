@@ -1,3 +1,5 @@
+> Historical baseline record. The November 2026 optional-motion implementation and current validation scope are documented in MOTION_UPGRADE.md and DEPLOY.md; older loader/WebGL/runtime descriptions below are not current behavior.
+
 # Attachment-first portfolio restoration
 
 The source is the user-supplied `Kartik Hulmukh — Portfolio.html` attachment.

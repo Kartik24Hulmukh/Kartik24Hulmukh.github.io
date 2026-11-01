@@ -1,0 +1,136 @@
+/* Original motion layer, informed by the cited authoring references; no copied media. */
+.hero-stage{position:relative}
+.experience-toggle{display:none;align-items:center;justify-content:flex-end;gap:12px;min-height:44px;color:var(--paper);font:inherit;letter-spacing:inherit;text-transform:uppercase;white-space:nowrap}
+.js .experience-toggle{display:inline-flex}
+.experience-toggle:hover,.experience-toggle[aria-expanded=true]{color:var(--red)}
+.mini-shapes{display:flex;gap:6px;align-items:center}
+.mini-shapes i{display:block;width:7px;height:7px;border:1px solid currentColor}
+.mini-shapes i:first-child{border-radius:50%}
+.mini-shapes i:nth-child(2){width:8px;height:8px;border:0;background:currentColor;clip-path:polygon(50% 0,100% 100%,0 100%)}
+.proof-rail{position:absolute;left:0;bottom:-34px;display:flex;width:min(100%,360px);justify-content:space-between;list-style:none;isolation:isolate;color:var(--soft);font:11px/1.6 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.proof-rail::before{content:'';position:absolute;left:7px;right:8px;top:7px;height:1px;background:var(--line);z-index:-1}
+.proof-rail::after{content:'';position:absolute;left:7px;right:8px;top:7px;height:1px;background:var(--red);transform-origin:left;transform:scaleX(0);z-index:-1}
+.ready .proof-rail::after{animation:rail-draw 1.8s var(--ease) .5s both}
+.proof-rail li{display:flex;align-items:center;gap:9px;background:var(--ink);padding-right:8px}
+.proof-rail li:last-child{padding-left:8px;padding-right:0}
+.rail-shape{display:block;flex:none;width:14px;height:14px;border:1px solid var(--red)}
+.rail-shape.circle{border-radius:50%}
+.rail-shape.triangle{border:0;background:var(--red);clip-path:polygon(50% 0,100% 100%,0 100%);width:15px;height:14px;position:relative}
+.rail-shape.triangle::after{content:'';position:absolute;inset:2px;background:var(--ink);clip-path:polygon(50% 10%,91% 91%,9% 91%)}
+@keyframes rail-draw{to{transform:scaleX(1)}}
+.hero-portrait{isolation:isolate}
+.geometry-field{position:absolute;inset:-20px -12px;width:calc(100% + 24px);height:calc(100% + 40px);z-index:-1;fill:none;stroke:var(--red);stroke-width:1;opacity:0;transition:opacity .6s}
+.play-mode{--red:#f05a94}
+.play-mode #gl{filter:hue-rotate(-42deg) saturate(.85)}
+.play-mode .geometry-field{opacity:.42}
+.geo-circle{stroke:#64c6b3;transform-origin:112px 108px}
+.geo-triangle{stroke-dasharray:7 7;transform-origin:246px 110px}
+.geo-square{transform-origin:239px 250px}
+.play-mode .geo-circle{animation:geo-breathe 8s ease-in-out infinite}
+.play-mode .geo-triangle{animation:geo-turn 11s ease-in-out infinite}
+.play-mode .geo-square{animation:geo-breathe 9s ease-in-out -3s infinite}
+@keyframes geo-breathe{50%{transform:scale(.96) translateY(3px)}}
+@keyframes geo-turn{50%{transform:rotate(4deg)}}
+.proj-head::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;transform:scaleX(0);transform-origin:left;background:var(--red);transition:transform .55s var(--ease)}
+.proj-head:hover::after,.proj-head:focus-visible::after,.proj.open .proj-head::after{transform:scaleX(1)}
+.experience-panel{position:fixed;z-index:220;right:24px;top:160px;width:min(390px,calc(100vw - 32px));max-height:calc(100svh - 32px);overflow:auto;padding:24px;background:#171715;color:var(--paper);border:1px solid #55524b;box-shadow:0 24px 72px rgba(0,0,0,.35);font:14px/1.5 var(--display)}
+.experience-panel[hidden]{display:none}
+.xp-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.xp-kicker{font:10px/1.5 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:#b3afa5;margin-bottom:8px}
+.xp-head h2{font:italic 32px/1.05 var(--serif);font-weight:400;letter-spacing:-.01em}
+.xp-close{min-width:44px;min-height:44px;font-size:28px;line-height:1;color:#cfcac0;margin:-8px -8px 0 0}
+.xp-intro{color:#c1bcb1;margin:18px 0 4px}
+.xp-option{display:flex;justify-content:space-between;gap:20px;align-items:center;border-bottom:1px solid #46433d;padding:18px 0}
+.xp-option label{display:block;font-weight:600;font-size:15px;margin-bottom:4px}
+.xp-option p{color:#bdb8ae;font-size:14px;line-height:1.5;max-width:28ch}
+.xp-switch{width:52px;height:44px;flex:none;position:relative;cursor:pointer}
+.xp-switch::before{content:'';position:absolute;width:44px;height:24px;left:4px;top:10px;border:1px solid #9d988e;border-radius:20px;transition:background .25s}
+.xp-switch span{position:absolute;left:8px;top:14px;width:16px;height:16px;border-radius:50%;background:#cfcac0;transition:transform .25s,background .25s}
+.xp-switch[aria-checked=true]::before{background:var(--red);border-color:var(--red)}
+.xp-switch[aria-checked=true] span{transform:translateX(20px);background:var(--ink)}
+.xp-switch:disabled{opacity:.55;cursor:not-allowed}
+.audio-pick{min-height:44px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;border-bottom:1px solid #9d988e;color:var(--paper);cursor:pointer}
+.audio-file{max-width:100%;font-size:14px;margin-top:10px}
+.audio-file::file-selector-button{display:none}
+.xp-foot,.xp-status{font-size:14px;line-height:1.5;color:#bdb8ae;margin-top:14px}
+.xp-status:empty{display:none}
+/* A real pause: JS pauses RAFs/intervals; CSS stops decorative compositing as well. */
+html[data-motion=off]{scroll-behavior:auto!important}
+html[data-motion=off] *,html[data-motion=off] *::before,html[data-motion=off] *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+html[data-motion=off] .proof-rail::after{transform:scaleX(1)}
+html[data-motion=off] .js [data-reveal],html.js[data-motion=off] [data-reveal]{opacity:1;transform:none}
+html[data-motion=off] .name .ch{transform:none!important}
+html[data-motion=off] .w{opacity:1}
+html[data-motion=off] .cur{display:none!important}
+html[data-motion=off] body,html[data-motion=off] a,html[data-motion=off] button{cursor:auto!important}
+html[data-motion=off] .peek{opacity:0!important;pointer-events:none}
+.ev-banner{max-width:calc(100vw - 32px);white-space:normal;text-align:center}
+@media(max-width:640px){
+ .experience-toggle{gap:8px;font-size:10px}
+ .mini-shapes{gap:4px}
+ .mini-shapes i{width:6px;height:6px}
+ .proof-rail{width:100%;font-size:10px;bottom:-32px}
+ .proof-rail li{gap:7px}
+ .experience-panel{padding:20px}
+}
+/* Added sequences end in a static state; the original ambient field remains optional. */
+.play-mode .geo-circle,.play-mode .geo-square,.play-mode .geo-triangle{animation:none;stroke-dasharray:700;stroke-dashoffset:0}
+html[data-motion=on] .play-mode .geometry-field{animation:geometry-arrive .65s var(--ease) both}
+@keyframes geometry-arrive{from{opacity:0;transform:translateY(4px)}to{opacity:.42;transform:none}}
+.receipt-trace{display:flex;justify-content:space-between;align-items:center;gap:8px;position:relative;margin:16px 0 20px;padding:0 0 12px;font:14px/1.5 var(--mono);isolation:isolate}
+.receipt-trace::after{content:'';position:absolute;left:0;bottom:0;right:0;height:1px;background:var(--ink);transform-origin:left;transform:scaleX(1)}
+.proj.open .receipt-trace::after{animation:receipt-draw .65s var(--ease) both}
+.receipt-trace a{border-bottom:1px dotted currentColor;text-underline-offset:3px;min-height:44px;display:flex;align-items:center}
+.receipt-trace a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+@keyframes receipt-draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.human-gate{padding:20px;border:1px solid var(--lineInk);background:rgba(255,255,255,.2);font-size:14px}
+.human-gate .gate-label{font:14px/1.4 var(--mono);margin-bottom:16px;color:var(--ink)}
+.gate-steps{display:grid;grid-template-columns:1fr 1fr;list-style:none;gap:8px;margin:0 0 16px;counter-reset:gate}
+.gate-steps li{counter-increment:gate;padding:8px 0;border-bottom:1px solid #aaa499;color:#5f5b53;transition:color .3s,border-color .3s}
+.gate-steps li::before{content:'0' counter(gate) ' / ';font-family:var(--mono);font-size:11px}
+.gate-steps li.current{color:var(--ink);border-bottom:2px solid var(--ink);font-weight:600}
+.human-gate .gate-status{font-size:14px;color:var(--ink);margin-bottom:12px}
+.gate-continue{min-height:44px;display:inline-flex;align-items:center;gap:20px;border-bottom:1px solid var(--ink);font-size:14px}
+.human-gate .gate-note{font-size:14px;color:#5f5b53;margin-top:12px}
+html:not(.js) .proj-body{grid-template-rows:1fr}
+html[data-motion=off] .marq,html:not(.js) .marq{overflow:visible}
+html[data-motion=off] .marq-track,html:not(.js) .marq-track{width:auto;display:flex;flex-wrap:wrap;gap:12px 24px;animation:none}
+html[data-motion=off] .marq-item[aria-hidden=true],html:not(.js) .marq-item[aria-hidden=true]{display:none}
+html[data-motion=off] .marq-item,html:not(.js) .marq-item{white-space:normal;font-size:14px}
+html[data-motion=off] .proj-head:hover .p-name{transform:none}
+/* Finish states: native controls, readable labels and robust progressive enhancement. */
+.mono,.src,.lnk,.copy,.r-cmd code,.btable th,.btable td:first-child,.receipt{font-size:14px}
+.xp-kicker,.experience-toggle{font-size:14px}
+.experience-toggle:focus-visible,.xp-switch:focus-visible,.audio-file:focus-visible{outline:2px solid var(--paper);outline-offset:4px}
+.ev-toggle,.nav-links a,.brand,.lnk,.copy{min-height:44px;display:inline-flex;align-items:center}
+.h-top{align-items:center}
+.audio-file::file-selector-button{display:inline-block;background:#ece8df;color:#171715;padding:10px;border:0;margin-right:10px;min-height:44px;font:inherit}
+.audio-pick{border:0;margin-top:16px;min-height:auto;font-weight:600}
+.volume-row{display:grid;grid-template-columns:auto 1fr 44px;gap:12px;align-items:center;margin-top:18px}
+.volume-row input{width:100%;min-height:44px;accent-color:var(--red)}
+.volume-row output{font:14px/1.5 var(--mono)}
+.receipt{--red:#a62b0c}
+.play-mode .receipt{--red:#a82156}
+.receipt .r-row{flex-wrap:wrap}
+.receipt .r-row b{overflow-wrap:anywhere}
+html[data-motion=off] #gl{visibility:hidden}
+html[data-motion=off] .step,html:not(.js) .step{opacity:1}
+html:not(.js) .name .ch,html[data-motion=off] .name .ch{transform:none!important}
+html:not(.js) #digest{font-size:0}
+html:not(.js) #digest::after{content:'Unavailable without JavaScript';font-size:14px}
+html:not(.js) .experience-toggle{display:none!important}
+html:not(.js) .human-gate{display:none}
+html[data-page-visible=false] *,html[data-page-visible=false] *::before,html[data-page-visible=false] *::after{animation-play-state:paused!important}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.step,.w{opacity:1!important}#gl{visibility:hidden}}
+@media(max-width:640px){.hero>.h-top,.experience-toggle{font-size:14px}.hero>.h-top{flex-wrap:wrap;gap:8px}.brand .mono{font-size:14px}.nav{grid-template-columns:1fr auto}.nav-r{gap:12px}.experience-panel{max-height:calc(100svh - 32px)}.receipt-trace{font-size:14px;gap:8px}.h-top>span:first-child{max-width:19ch}}
+/* Native pointers keep text and controls unobscured. */
+body.has-cursor,body.has-cursor a,body.has-cursor button{cursor:auto!important}
+.cur{display:none!important}
+/* Surface-specific accents retain AA text contrast in both visual modes. */
+.paper{--red:#a62b0c}
+.play-mode .paper{--red:#a82156}
+html:not(.js) *,html:not(.js) *::before,html:not(.js) *::after{animation:none!important;transition:none!important}
+html:not(.js) .ev-toggle,html:not(.js) .copy{display:none!important}
+html:not(.js) .src{display:inline-flex}
+@media(max-width:640px){.h-top>span:first-child{flex:1;max-width:none}.experience-toggle{flex:none}}
+.btn,.gate-steps li::before{font-size:14px}

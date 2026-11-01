@@ -14,18 +14,10 @@
 <script>document.documentElement.classList.add('js');</script>
 <link href="./docs/attachment.css" rel="stylesheet"/>
 <link href="./docs/portrait-refined.css" rel="stylesheet"/>
-</head>
+<link href="./docs/experience.css" rel="stylesheet"/><script>try{document.documentElement.dataset.motion=(matchMedia('(prefers-reduced-motion: reduce)').matches||localStorage.getItem('kh-motion')==='off')?'off':'on';}catch(e){document.documentElement.dataset.motion=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on';}</script><script>setTimeout(function(){if(window.__portfolioEngineReady)return;document.documentElement.classList.remove('js');document.body.classList.remove('lock','has-cursor');document.body.classList.add('ready');var l=document.getElementById('loader');if(l)l.remove();document.querySelectorAll('.ch').forEach(function(n){n.textContent=n.dataset.ch||n.textContent;});document.querySelectorAll('.proj-body').forEach(function(n){n.inert=false;});},1200);</script></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<div aria-hidden="true" id="loader">
-<div class="l-row mono"><span>KH / 26</span><span>Loading portfolio</span></div>
-<div class="l-mid">
-<div class="l-count" id="lcount">000</div>
-<div class="l-hash mono" id="lhash"> </div>
-<div class="mono l-skip" id="lstat">hashing this page's text with SHA-256…</div>
-</div>
-<div class="l-row mono"><span>Proof or silence</span><span>Click to skip</span></div>
-</div>
+
 <canvas aria-hidden="true" id="gl"></canvas>
 <div aria-hidden="true" class="grain"></div>
 <div aria-hidden="true" class="cur"><div class="cur-ring"><span class="cur-lab"></span></div><div class="cur-dot"></div></div>
@@ -59,9 +51,9 @@
 <div class="h-top mono">
 <span>[ 00 ] Verification infrastructure</span>
 <span>19.07° N, 72.87° E</span>
-<span>Portfolio — 2026</span>
+<button aria-controls="experience-panel" aria-expanded="false" aria-haspopup="dialog" class="experience-toggle mono" data-cursor="TUNE" id="experience-toggle" type="button">Experience <span aria-hidden="true" class="mini-shapes"><i></i><i></i><i></i></span></button>
 </div>
-<div class="hero-stage"><h1 aria-label="Kartik Hulmukh" class="name"><span aria-hidden="true" class="row">Kartik</span><span aria-hidden="true" class="row">Hulmukh</span></h1><figure class="hero-portrait clean"><img alt="Illustrated portrait of Kartik Hulmukh" decoding="async" fetchpriority="high" height="271" src="./assets/kartik-portrait.svg" width="276"/></figure></div>
+<div class="hero-stage"><h1 aria-label="Kartik Hulmukh" class="name"><span aria-hidden="true" class="row">Kartik</span><span aria-hidden="true" class="row">Hulmukh</span></h1><figure class="hero-portrait clean"><svg aria-hidden="true" class="geometry-field" focusable="false" viewbox="0 0 340 340"><circle class="geo-circle" cx="112" cy="108" r="91"></circle><path class="geo-triangle" d="M246 18 327 166 165 166Z"></path><path class="geo-square" d="M167 178h144v144H167Z"></path></svg><img alt="Illustrated portrait of Kartik Hulmukh" decoding="async" fetchpriority="high" height="271" src="./assets/kartik-portrait.svg" width="276"/></figure></div>
 <div class="h-bot">
 <p class="h-tag">I build software<br/>that <em>shows its work.</em></p>
 <div class="h-copy">
@@ -91,12 +83,12 @@
 </div>
 <div class="grid4">
 <div class="cell" data-reveal="">
-<div class="big"><span class="num" data-to="83">0</span><small>/83</small></div>
+<div class="big"><span class="num" data-to="83">83</span><small>/83</small></div>
 <p>Rows attempted — every single one with a signed receipt.</p>
 <a class="src" href="https://github.com/Kartik24Hulmukh/jittest/blob/39e07bf33d6efed8842a9723c34c665ed4641926/docs/evidence/layer1/REPORT.md" rel="noopener" target="_blank">src ↗ jittest · layer1/REPORT.md</a>
 </div>
 <div class="cell" data-reveal="">
-<div class="big"><span class="num" data-to="5">0</span><small>/11</small></div>
+<div class="big"><span class="num" data-to="5">5</span><small>/11</small></div>
 <p>Executed bug rows caught with signed proof (proven_catch).</p>
 <a class="src" href="https://github.com/Kartik24Hulmukh/jittest#the-measured-status--we-publish-our-denominator" rel="noopener" target="_blank">src ↗ jittest README</a>
 </div>
@@ -106,7 +98,7 @@
 <a class="src" href="https://github.com/Kartik24Hulmukh/jittest#the-measured-status--we-publish-our-denominator" rel="noopener" target="_blank">src ↗ jittest README</a>
 </div>
 <div class="cell" data-reveal="">
-<div class="big"><span class="num" data-to="59">0</span></div>
+<div class="big"><span class="num" data-to="59">59</span></div>
 <p>Signed refusals. Counted as results, never hidden.</p>
 <a class="src" href="https://github.com/Kartik24Hulmukh/jittest/blob/39e07bf33d6efed8842a9723c34c665ed4641926/docs/evidence/layer1/REPORT.md" rel="noopener" target="_blank">src ↗ jittest · layer1/REPORT.md</a>
 </div>
@@ -163,11 +155,11 @@
 </div>
 </div>
 <div class="receipt">
-<div class="r-h"><span>Receipt · jittest</span><span>№ 01</span></div>
+<div class="r-h"><span>Receipt · jittest</span><span>№ 01</span></div><div aria-label="Reading order: claim, source, boundary" class="receipt-trace"><span>Claim</span><a class="trace-source" href="https://github.com/Kartik24Hulmukh/jittest#try-it-in-60-seconds--no-keys-no-setup" rel="noopener" target="_blank">Source ↗</a><a class="trace-boundary" href="#project-boundary-1">Boundary ↓</a></div>
 <div class="r-row"><span>published</span><i></i><b>v0.4.1</b></div>
 <div class="r-row"><span>main branch</span><i></i><b>unpublished candidate</b></div>
 <div class="r-row"><span>verdict types</span><i></i><b>6</b></div>
-<div class="r-row"><span>won't claim</span><i></i><b class="v">signature ≠ correctness</b></div>
+<div class="r-row" id="project-boundary-1"><span>won't claim</span><i></i><b class="v">signature ≠ correctness</b></div>
 <div class="r-cmd">
 <code>pip install jittest==0.4.1
 # Download the example receipt from the README first.
@@ -193,18 +185,18 @@ jittest verify-receipt bug_flask_01_evidence.json \
 <div class="pb-text">
 <p>Local-first document intelligence and desktop-copilot research. The ghost-typing direction follows <em>propose → approve → execute → verify</em>, with explicit human approval. Signed-receipt and document-grounding work sit alongside a focused local runtime preview—not a claim of all-app production readiness.</p>
 <p>The repository spans document Q&amp;A, receipt verification and redlining experiments. Readiness varies by component; ghost-typing production gates remain NO-GO.</p>
-<ul class="facts mono"><li>Lead builder</li><li>MIT</li><li>Technical preview</li><li>Human-gated design</li></ul>
+<div class="human-gate"><p class="gate-label">Workflow illustration</p><ol class="gate-steps"><li data-stage="0">Propose</li><li class="current" data-stage="1">Await approval</li><li data-stage="2">Execute</li><li data-stage="3">Inspect receipt</li></ol><p aria-live="polite" class="gate-status">Waiting at the human gate.</p><button class="gate-continue" type="button">Continue illustration <span aria-hidden="true">→</span></button><p class="gate-note">Illustration only—no action runs here.</p></div><ul class="facts mono"><li>Lead builder</li><li>MIT</li><li>Technical preview</li><li>Human-gated design</li></ul>
 <div class="links">
 <a class="lnk" href="https://github.com/Kartik24Hulmukh/Axiom-Grid" rel="noopener" target="_blank">Repository ↗</a>
 <a class="lnk" href="https://github.com/Kartik24Hulmukh/Kairo-Phantom" rel="noopener" target="_blank">Kairo-Phantom (predecessor) ↗</a>
 </div>
 </div>
 <div class="receipt">
-<div class="r-h"><span>Receipt · Axiom-Grid</span><span>№ 02</span></div>
+<div class="r-h"><span>Receipt · Axiom-Grid</span><span>№ 02</span></div><div aria-label="Reading order: claim, source, boundary" class="receipt-trace"><span>Claim</span><a class="trace-source" href="https://github.com/Kartik24Hulmukh/Axiom-Grid/pull/33" rel="noopener" target="_blank">Source ↗</a><a class="trace-boundary" href="#project-boundary-2">Boundary ↓</a></div>
 <div class="r-row"><span>status</span><i></i><b>technical preview</b></div>
 <div class="r-row"><span>launch gate</span><i></i><b class="v">NO-GO (its own checks)</b></div>
 <div class="r-row"><span>human gate</span><i></i><b>explicit approval</b></div>
-<div class="r-row"><span>won't claim</span><i></i><b class="v">AI grading its own work</b></div>
+<div class="r-row" id="project-boundary-2"><span>won't claim</span><i></i><b class="v">AI grading its own work</b></div>
 <div class="r-cmd">
 <code>python tools/verify_receipts_external.py \
   redline_output/audit_log.json</code>
@@ -232,11 +224,11 @@ jittest verify-receipt bug_flask_01_evidence.json \
 <div class="links"><a class="lnk" href="https://github.com/Kartik24Hulmukh/AccessDoc" rel="noopener" target="_blank">Repository ↗</a></div>
 </div>
 <div class="receipt">
-<div class="r-h"><span>Receipt · AccessDoc</span><span>№ 03</span></div>
+<div class="r-h"><span>Receipt · AccessDoc</span><span>№ 03</span></div><div aria-label="Reading order: claim, source, boundary" class="receipt-trace"><span>Claim</span><a class="trace-source" href="https://github.com/Kartik24Hulmukh/AccessDoc" rel="noopener" target="_blank">Source ↗</a><a class="trace-boundary" href="#project-boundary-3">Boundary ↓</a></div>
 <div class="r-row"><span>status</span><i></i><b>open-source beta</b></div>
 <div class="r-row"><span>outputs</span><i></i><b>5 formats</b></div>
 <div class="r-row"><span>tamper check</span><i></i><b>exit 0 / exit 1</b></div>
-<div class="r-row"><span>won't claim</span><i></i><b class="v">WCAG conformance</b></div>
+<div class="r-row" id="project-boundary-3"><span>won't claim</span><i></i><b class="v">WCAG conformance</b></div>
 <div class="r-cmd">
 <code>python3 cli.py bundle axe.json --out dist/bundle.zip
 python3 cli.py verify dist/bundle.zip   # 0 = intact, 1 = tampered</code>
@@ -264,11 +256,11 @@ python3 cli.py verify dist/bundle.zip   # 0 = intact, 1 = tampered</code>
 <div class="links"><a class="lnk" href="https://github.com/Kartik24Hulmukh/project-xray" rel="noopener" target="_blank">Repository ↗</a></div>
 </div>
 <div class="receipt">
-<div class="r-h"><span>Receipt · X-Ray</span><span>№ 04</span></div>
+<div class="r-h"><span>Receipt · X-Ray</span><span>№ 04</span></div><div aria-label="Reading order: claim, source, boundary" class="receipt-trace"><span>Claim</span><a class="trace-source" href="https://github.com/Kartik24Hulmukh/project-xray" rel="noopener" target="_blank">Source ↗</a><a class="trace-boundary" href="#project-boundary-4">Boundary ↓</a></div>
 <div class="r-row"><span>status</span><i></i><b>preview RC</b></div>
 <div class="r-row"><span>preview data</span><i></i><b>synthetic</b></div>
 <div class="r-row"><span>who decides</span><i></i><b>a human</b></div>
-<div class="r-row"><span>won't claim</span><i></i><b class="v">"this is corruption"</b></div>
+<div class="r-row" id="project-boundary-4"><span>won't claim</span><i></i><b class="v">"this is corruption"</b></div>
 <div class="r-cmd">
 <code># evaluation steps live in the repository README</code>
 </div>
@@ -293,10 +285,10 @@ python3 cli.py verify dist/bundle.zip   # 0 = intact, 1 = tampered</code>
 <div class="links"><a class="lnk" href="https://github.com/Kartik24Hulmukh/frontier-oss-ideas" rel="noopener" target="_blank">Repository ↗</a></div>
 </div>
 <div class="receipt">
-<div class="r-h"><span>Receipt · Simultaneity</span><span>№ 05</span></div>
+<div class="r-h"><span>Receipt · Simultaneity</span><span>№ 05</span></div><div aria-label="Reading order: claim, source, boundary" class="receipt-trace"><span>Claim</span><a class="trace-source" href="https://github.com/Kartik24Hulmukh/frontier-oss-ideas/pull/39" rel="noopener" target="_blank">Source ↗</a><a class="trace-boundary" href="#project-boundary-5">Boundary ↓</a></div>
 <div class="r-row"><span>status</span><i></i><b>active · v1.6.x</b></div>
 <div class="r-row"><span>supply adapters</span><i></i><b>8</b></div>
-<div class="r-row"><span>won't claim</span><i></i><b class="v">integrity = authentication</b></div>
+<div class="r-row" id="project-boundary-5"><span>won't claim</span><i></i><b class="v">integrity = authentication</b></div>
 <div class="r-cmd"><code># verify steps live in the repository README</code></div>
 <div class="r-foot">Proof integrity is not issuer authentication.</div>
 <a class="src" href="https://github.com/Kartik24Hulmukh/frontier-oss-ideas/pull/39" rel="noopener" target="_blank">src ↗ frontier-oss-ideas PR #39</a>
@@ -319,10 +311,10 @@ python3 cli.py verify dist/bundle.zip   # 0 = intact, 1 = tampered</code>
 <div class="links"><a class="lnk" href="https://github.com/Kartik24Hulmukh/Ledgermatch" rel="noopener" target="_blank">Repository ↗</a></div>
 </div>
 <div class="receipt">
-<div class="r-h"><span>Receipt · LedgerMatch</span><span>№ 06</span></div>
+<div class="r-h"><span>Receipt · LedgerMatch</span><span>№ 06</span></div><div aria-label="Reading order: claim, source, boundary" class="receipt-trace"><span>Claim</span><a class="trace-source" href="https://github.com/Kartik24Hulmukh/Ledgermatch" rel="noopener" target="_blank">Source ↗</a><a class="trace-boundary" href="#project-boundary-6">Boundary ↓</a></div>
 <div class="r-row"><span>status</span><i></i><b>release candidate</b></div>
 <div class="r-row"><span>dependencies</span><i></i><b>0</b></div>
-<div class="r-row"><span>won't claim</span><i></i><b class="v">system of record</b></div>
+<div class="r-row" id="project-boundary-6"><span>won't claim</span><i></i><b class="v">system of record</b></div>
 <div class="r-cmd">
 <code>python3 -m unittest discover -s tests -p 'test_*.py'
 python3 -m app.validate out_demo/evidence.json \
@@ -405,7 +397,7 @@ python3 -m app.validate out_demo/evidence.json \
 <h2 class="sec-title md" style="margin-top:18px">Selected <em>entries.</em></h2>
 </div>
 <div class="stat">
-<b class="num" data-to="7">0</b>
+<b class="num" data-to="7">7</b>
 <span class="mono lab">public projects featured here</span>
 <a class="src" href="https://github.com/Kartik24Hulmukh" rel="noopener" target="_blank">src ↗ github.com/Kartik24Hulmukh</a>
 </div>
@@ -436,11 +428,19 @@ python3 -m app.validate out_demo/evidence.json \
 </div>
 </section>
 </main>
-<footer class="mono">
+<noscript>JavaScript is off: all project details are available below. Motion and sound controls are disabled.</noscript><footer class="mono">
 <span>© 2026 Kartik Hulmukh · Mumbai</span>
 <span>Page-text SHA-256 fingerprint (not a signature): <code id="digest">computing…</code></span>
-<span>One file · no trackers · press E for evidence</span>
+<span>Static site · no analytics trackers · press E for evidence</span>
 </footer>
-<script src="./docs/attachment.js"></script>
-</body>
+<script src="./docs/motion-controller.js"></script><script src="./docs/motion-engine.js"></script>
+<section aria-describedby="experience-description" aria-labelledby="experience-title" aria-modal="false" class="experience-panel" hidden="" id="experience-panel" role="dialog">
+<div class="xp-head"><div><p class="xp-kicker">Your browser. Your call.</p><h2 id="experience-title">Tune the atmosphere.</h2></div><button aria-label="Close experience settings" class="xp-close" id="experience-close" type="button">×</button></div>
+<p class="xp-intro" id="experience-description">The work stays the same. Choose how it moves.</p>
+<div class="xp-option"><div><label id="motion-label">Motion</label><p id="motion-description">Pause backgrounds, animated type and decorative movement.</p></div><button aria-checked="true" aria-describedby="motion-description" aria-labelledby="motion-label" class="xp-switch" id="motion-toggle" role="switch" type="button"><span aria-hidden="true"></span></button></div>
+<div class="xp-option"><div><label id="play-label">Game-inspired geometry</label><p>Circle, triangle, square. A restrained pink-and-teal atmosphere.</p></div><button aria-checked="false" aria-labelledby="play-label" class="xp-switch" id="play-toggle" role="switch" type="button"><span aria-hidden="true"></span></button></div>
+<div class="xp-option"><div><label id="sound-label">Ambient sound</label><p id="sound-description">An original, quiet sound sketch—not the show’s soundtrack.</p></div><button aria-checked="false" aria-describedby="sound-description" aria-labelledby="sound-label" class="xp-switch" id="sound-toggle" role="switch" type="button"><span aria-hidden="true"></span></button></div>
+<div class="volume-row"><label for="sound-volume">Volume</label><input id="sound-volume" max="100" min="0" type="range" value="20"/><output for="sound-volume" id="volume-output">20%</output></div><label class="audio-pick" for="custom-audio">Choose a permitted audio file</label><input accept="audio/*" aria-describedby="audio-note" class="audio-file" id="custom-audio" type="file"/>
+<p class="xp-foot" id="audio-note">Sound starts only when you turn it on. Selected files stay in this browser session.</p><p aria-live="polite" class="xp-status" id="xp-status"></p>
+</section><script src="./docs/experience.js"></script></body>
 </html>

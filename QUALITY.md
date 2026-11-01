@@ -1,3 +1,5 @@
+> Historical baseline record. The November 2026 optional-motion implementation and current validation scope are documented in MOTION_UPGRADE.md and DEPLOY.md; older loader/WebGL/runtime descriptions below are not current behavior.
+
 # Validation record — 27 October 2026
 
 The refined site preserves the supplied portfolio's ink/paper/orange identity rather than replacing it with a different design. Scope: website and profile presentation, not certification of the underlying projects.

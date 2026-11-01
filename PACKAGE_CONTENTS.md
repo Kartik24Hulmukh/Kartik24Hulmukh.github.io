@@ -1,3 +1,5 @@
+> Historical baseline record. The November 2026 optional-motion implementation and current validation scope are documented in MOTION_UPGRADE.md and DEPLOY.md; older loader/WebGL/runtime descriptions below are not current behavior.
+
 # Portfolio source
 
 - `README.md`: GitHub profile copy and scheduled repository-snapshot region.
