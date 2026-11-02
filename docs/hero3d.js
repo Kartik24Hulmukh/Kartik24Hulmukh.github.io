@@ -77,7 +77,7 @@
   }catch(e){if(next)disposeMesh(next);if(!renderer&&meshCache.has(rec.character)){disposeMesh(meshCache.get(rec.character));meshCache.delete(rec.character);}if(disposed||ticket!==epoch||active!==rec)return;clearTimeout(timer);timer=0;abort=null;rec.loading=false;rec.failed=true;live(rec,false);text(rec,'Static preview · use the control to retry 3D');if(rec.enable){rec.enable.textContent='Retry 3D';rec.enable.setAttribute('aria-pressed','false');}}
  }
  function tick(){
-  frame=0;if(disposed||suspended||document.hidden)return;stats.frames++;var header=document.querySelector('.nav').getBoundingClientRect().bottom,center=(innerHeight+header)/2,candidate=null,score=Infinity;
+  frame=0;if(disposed||suspended||document.hidden)return;stats.frames++;var header=clamp(document.querySelector('.nav').getBoundingClientRect().bottom,0,innerHeight),center=(innerHeight+header)/2,candidate=null,score=Infinity;
   records.forEach(function(rec){var r=rec.viewport.getBoundingClientRect();rec.visible=r.bottom>header&&r.top<innerHeight&&r.right>0&&r.left<innerWidth;rec.node.dataset.visible=String(rec.visible);rec.progress=clamp((innerHeight-r.top)/(innerHeight+r.height),0,1);
    if(rec.full){rec.node.style.setProperty('--poster-turn',motion()?((rec.progress-.5)*18+rec.x*7)+'deg':'0deg');rec.node.style.setProperty('--stage-lift',motion()?((.5-rec.progress)*12)+'px':'0px');rec.node.style.setProperty('--ring-turn',motion()?(-25+rec.progress*50)+'deg':'0deg');}
    if(eligible(rec)){var distance=Math.abs((Math.max(r.top,header)+Math.min(r.bottom,innerHeight))/2-center);if(distance<score){candidate=rec;score=distance;}}

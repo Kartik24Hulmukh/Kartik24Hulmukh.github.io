@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
+<link rel="icon" type="image/svg+xml" href="./favicon.svg"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>Kartik Hulmukh — Software that shows its work</title>
 <meta content="Kartik Hulmukh builds verification infrastructure for AI-generated work — jittest, Axiom-Grid, AccessDoc, Project X-Ray. Source-linked tools, explicit limits, and independently checkable results." name="description"/>
@@ -15,7 +16,7 @@
 <link href="./font-display.css?v=eb0810f9098f" rel="stylesheet"/>
 <link href="./attachment.css?v=8187c13100f7" rel="stylesheet"/>
 <link href="./portrait-refined.css?v=26132e7a6c1b" rel="stylesheet"/>
-<link href="./experience.css?v=e169fd329108" rel="stylesheet"/><link href="./hero3d.css?v=141c09ba0275" rel="stylesheet"/><link href="./atmosphere.css?v=cd2ba91652e1" rel="stylesheet"/><link href="./interaction-polish.css?v=921f3f69876f" rel="stylesheet"/><script>try{document.documentElement.dataset.motion=(matchMedia('(prefers-reduced-motion: reduce)').matches||localStorage.getItem('kh-motion')==='off')?'off':'on';}catch(e){document.documentElement.dataset.motion=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on';}</script><script>setTimeout(function(){if(window.__portfolioEngineReady)return;document.documentElement.classList.add('engine-fallback');document.body.classList.remove('lock','has-cursor');document.body.classList.add('ready');var l=document.getElementById('loader');if(l)l.remove();document.querySelectorAll('.ch').forEach(function(n){n.textContent=n.dataset.ch||n.textContent;});document.querySelectorAll('.proj-body').forEach(function(n){n.inert=false;});},1200);</script></head>
+<link href="./experience.css?v=e169fd329108" rel="stylesheet"/><link href="./hero3d.css?v=141c09ba0275" rel="stylesheet"/><link href="./atmosphere.css?v=cd2ba91652e1" rel="stylesheet"/><link href="./interaction-polish.css?v=9086771d8147" rel="stylesheet"/><script>try{document.documentElement.dataset.motion=(matchMedia('(prefers-reduced-motion: reduce)').matches||localStorage.getItem('kh-motion')==='off')?'off':'on';}catch(e){document.documentElement.dataset.motion=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on';}</script><script>setTimeout(function(){if(window.__portfolioEngineReady)return;document.documentElement.classList.add('engine-fallback');document.body.classList.remove('lock','has-cursor');document.body.classList.add('ready');var l=document.getElementById('loader');if(l)l.remove();document.querySelectorAll('.ch').forEach(function(n){n.textContent=n.dataset.ch||n.textContent;});document.querySelectorAll('.proj-body').forEach(function(n){n.inert=false;});},1200);</script></head>
 <body class="play-mode">
 <a class="skip" href="#main">Skip to content</a>
 <canvas aria-hidden="true" id="gl"></canvas>
@@ -34,13 +35,12 @@
 </div>
 <a class="mono" href="#numbers">Sources ↘</a>
 </nav>
-<aside aria-label="Sound and motion controls" class="experience-dock" id="experience-controls">
-<button aria-checked="false" aria-describedby="sound-help" aria-label="Background music" class="dock-button" id="sound-toggle" role="switch" type="button"><span aria-hidden="true" class="sound-bars"><i></i><i></i><i></i></span><span id="sound-action">Sound on</span></button>
-<button aria-checked="true" aria-label="Decorative motion" class="dock-button" id="motion-toggle" role="switch" type="button"><span aria-hidden="true" class="motion-symbol">Ⅱ</span><span id="motion-action">Pause motion</span></button>
-<div class="dock-volume"><label class="sr" for="sound-volume">Music volume</label><input id="sound-volume" max="100" min="0" type="range" value="20"/><output class="sr" for="sound-volume" id="volume-output">20%</output></div>
-<p class="sr" id="sound-help">Pink Soldiers. Music starts automatically where your browser allows it. Otherwise choose Sound on. Playback pauses when you leave this tab.</p>
-<p aria-live="polite" class="sr" id="xp-status" role="status"></p>
-</aside>
+<details class="mobile-nav">
+<summary>Menu <span aria-hidden="true">↘</span></summary>
+<nav aria-label="Mobile primary">
+<a href="#work">Work</a><a href="#bounds">Boundaries</a><a href="#process">Process</a><a href="#contact">Contact</a><a href="#numbers">Sources</a>
+</nav>
+</details>
 </header>
 <div aria-hidden="true" class="secind mono" id="secind">[00/07] Index</div>
 <div aria-hidden="true" class="ev-banner">Evidence mode — every figure shows its source</div>
@@ -66,9 +66,10 @@
 <button aria-describedby="identity-help" aria-label="Reveal Kartik's portrait" aria-pressed="false" class="identity-aperture" id="portrait-reveal" type="button">
 <span aria-hidden="true" class="identity-grid"></span><span aria-hidden="true" class="identity-light"></span>
 <span aria-hidden="true" class="mask-surface"><img alt="" class="stage-poster" decoding="async" fetchpriority="high" height="624" src="./models/front-man.cover.svg" width="600"/><span class="stage-surface" id="hero-model-surface"></span></span>
-<img alt="Illustrated portrait of Kartik Hulmukh" class="portrait-baseline" decoding="async" height="271" src="../assets/kartik-portrait.svg" width="276"/>
+<span aria-hidden="true" class="identity-maker"><img alt="Illustrated portrait of Kartik Hulmukh" class="portrait-baseline" decoding="async" height="271" src="../assets/kartik-portrait.svg" width="276"/></span>
 <span aria-hidden="true" class="identity-crosshair">+</span>
 </button>
+<noscript><div class="identity-static"><img src="./models/front-man.cover.svg" width="600" height="624" alt="Front Man mask"/><img src="../assets/kartik-portrait.svg" width="276" height="271" alt="Illustrated portrait of Kartik Hulmukh"/></div><p class="identity-static-label">Front Man / the maker</p></noscript>
 <figcaption class="identity-caption"><span id="identity-label">Front Man</span><span id="identity-help">Meet the maker ↗</span></figcaption>
 <div class="stage-controls"><button aria-pressed="false" class="stage-enable" type="button">Enable 3D</button><span class="stage-status" id="identity-status">Character study · hover reveals the maker</span></div>
 <p class="identity-credit">Models by @jaeysart · non-commercial use</p>
@@ -85,6 +86,13 @@
 </div>
 <a class="mono scroll-cue" data-cursor="WORK" href="#work">Explore work <span aria-hidden="true">↘</span></a>
 </div>
+<aside aria-label="Sound and motion controls" class="experience-dock" id="experience-controls">
+<button aria-checked="false" aria-describedby="sound-help" aria-label="Background music" class="dock-button" id="sound-toggle" role="switch" type="button"><span aria-hidden="true" class="sound-bars"><i></i><i></i><i></i></span><span id="sound-action">Sound on</span></button>
+<button aria-checked="true" aria-label="Decorative motion" class="dock-button" id="motion-toggle" role="switch" type="button"><span aria-hidden="true" class="motion-symbol">Ⅱ</span><span id="motion-action">Pause motion</span></button>
+<div class="dock-volume"><label class="sr" for="sound-volume">Music volume</label><input id="sound-volume" max="100" min="0" type="range" value="20"/><output class="sr" for="sound-volume" id="volume-output">20%</output></div>
+<p class="sr" id="sound-help">Pink Soldiers. Music starts automatically where your browser allows it. Otherwise choose Sound on. Playback pauses when you leave this tab.</p>
+<p aria-live="polite" class="sr" id="xp-status" role="status"></p>
+</aside>
 </section>
 <!-- 01 MANIFESTO -->
 <section class="man" data-title="Position" id="manifesto">
@@ -471,5 +479,5 @@ python3 -m app.validate out_demo/evidence.json \
 <span>Static site · no analytics trackers · sources visible · E highlights evidence</span>
 </footer>
 <script src="./motion-controller.js?v=d4365d7502b9"></script><script src="./motion-engine.js?v=e68966b0df20"></script>
-<audio data-src="./assets/pink-soldiers.mp3.b64" hidden="" id="portfolio-audio" loop="" preload="none"></audio><script src="./experience.js?v=533d8b0c9b1d"></script><script defer="" src="./hero3d.js?v=ff701551bc00"></script><script defer="" src="./atmosphere.js?v=7ffb00b6dff5"></script><script defer="" src="./interaction-polish.js?v=7e41d8bd41a6"></script></body>
+<audio data-src="./assets/pink-soldiers.mp3.b64" hidden="" id="portfolio-audio" loop="" preload="none"></audio><script src="./experience.js?v=533d8b0c9b1d"></script><script defer="" src="./hero3d.js?v=1f42f82126b0"></script><script defer="" src="./atmosphere.js?v=7cbd9f85a584"></script><script defer="" src="./interaction-polish.js?v=7e41d8bd41a6"></script></body>
 </html>

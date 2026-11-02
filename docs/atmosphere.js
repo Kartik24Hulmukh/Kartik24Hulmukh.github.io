@@ -48,7 +48,7 @@
  function canDraw(){return !dead&&!suspended&&!document.hidden&&!lost&&!failed&&visible&&gl&&program;}
  function scene(){
   var r=work&&work.getBoundingClientRect(),header=document.querySelector('.nav');
-  var top=header?header.getBoundingClientRect().bottom:0;
+  var top=header?Math.max(0,Math.min(innerHeight,header.getBoundingClientRect().bottom)):0;
   visible=!(r&&r.top<=top&&r.bottom>=innerHeight);
   cv.dataset.fieldVisible=String(visible);
   scroll=Math.max(0,scrollY/Math.max(1,innerHeight));

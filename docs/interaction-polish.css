@@ -18,3 +18,64 @@ html[data-motion=off] .hero-identity .portrait-baseline,html[data-motion=off] .h
 html[data-motion=on] .marq-skew{transition:none}
 /* Hover feedback must not move the letter beneath its own pointer hit area. */
 .name .ch.stretch{transform:none}
+
+/* Arrival v2: navigation stays in flow, never over the reader. */
+.nav{position:relative;top:auto;left:auto;right:auto;min-height:64px;row-gap:0;border-bottom:1px solid #ffffff1f}
+html{scroll-padding-top:24px;scroll-padding-bottom:24px}
+:focus-visible{scroll-margin-top:24px;scroll-margin-bottom:24px}
+.hero{padding-top:32px;padding-bottom:40px}
+.hero-stage{margin-top:24px;margin-bottom:42px}
+.hero .experience-dock{position:static;grid-column:auto;justify-self:start;transform:none;width:max-content;max-width:100%;margin:24px 0 0;padding:2px 6px;background:#171715e8}
+/* An opaque maker panel wipes across the live mask. The button itself never moves. */
+.hero-identity .identity-maker{position:absolute;inset:0;z-index:2;display:block;overflow:hidden;pointer-events:none;background:radial-gradient(circle at 50% 38%,#35242e 0,#1d1b1e 48%,#111113 100%);clip-path:inset(0 100% 0 0);transition:clip-path 550ms cubic-bezier(.22,1,.36,1)}
+.hero-identity .identity-maker::after{content:'';position:absolute;inset:0 0 0 auto;width:2px;background:#f05a94;box-shadow:0 0 18px #f05a94;pointer-events:none}
+.hero-identity[data-portrait=true] .identity-maker,html:not(.stage-ready) .hero-identity .identity-aperture:hover .identity-maker,html:not(.stage-ready) .hero-identity .identity-aperture:focus-visible .identity-maker{clip-path:inset(0)}
+html.stage-ready .hero-identity[data-portrait=true] .mask-surface,html:not(.stage-ready) .identity-aperture:hover .mask-surface,html:not(.stage-ready) .identity-aperture:focus-visible .mask-surface{visibility:visible!important}
+.hero-identity .identity-aperture{border-color:#a783925e;background:radial-gradient(circle at 50% 30%,#3b2835,#17171b 64%);box-shadow:0 0 0 1px #f05a9417,0 24px 80px #0006}
+.hero-identity .identity-aperture::after{content:'';position:absolute;inset:10px;border:1px solid #fff2;pointer-events:none;z-index:3}
+.identity-topline{letter-spacing:.1em}
+.hero-identity .identity-crosshair{z-index:4}
+@media(max-width:640px){
+ .nav{padding:8px 20px;min-height:60px}
+ .hero{padding-top:24px;padding-bottom:36px}
+ .hero-stage{margin-top:22px;margin-bottom:40px}
+ .hero .experience-dock{justify-self:start;position:static;transform:none;width:max-content;max-width:100%;margin-top:24px}
+}
+html[data-motion=off] .hero-identity .identity-maker{transition:none}
+@media(prefers-reduced-motion:reduce){.hero-identity .identity-maker{transition:none!important}}
+/* A real, in-flow mobile menu restores all section links without covering content. */
+.mobile-nav{display:none}
+@media(max-width:640px){
+ .nav{align-items:start}
+ .nav-r{display:none}
+ .mobile-nav{display:block;justify-self:end;min-width:100px;color:#ece8df}
+ .mobile-nav summary{display:flex;align-items:center;justify-content:flex-end;gap:10px;min-height:44px;cursor:pointer;list-style:none;font:14px/1.4 var(--mono);text-transform:uppercase;letter-spacing:.05em}
+ .mobile-nav summary::-webkit-details-marker{display:none}
+ .mobile-nav nav{display:flex;flex-direction:column;align-items:stretch;padding:4px 0 8px;min-width:150px}
+ .mobile-nav nav a{display:flex;align-items:center;justify-content:flex-end;min-height:44px;border-top:1px solid #ffffff24;font:14px/1.4 var(--mono);text-transform:uppercase}
+ .mobile-nav summary:focus-visible,.mobile-nav a:focus-visible{outline:2px solid #f05a94;outline-offset:2px}
+}
+/* Give the live mask more visual weight while protecting the name column. */
+@media(min-width:1101px){.hero-stage{grid-template-columns:minmax(0,1fr) clamp(320px,29vw,400px);gap:clamp(32px,4vw,64px)}}
+/* Tablet shares the compact navigation; static fallback never offers dead controls. */
+@media(min-width:641px) and (max-width:980px){
+ .nav{align-items:start;grid-template-columns:1fr auto}
+ .nav-r{display:none}
+ .mobile-nav{display:block;justify-self:end;min-width:150px}
+ .mobile-nav summary{display:flex;align-items:center;justify-content:flex-end;gap:10px;min-height:44px;cursor:pointer;list-style:none;font:14px/1.4 var(--mono);text-transform:uppercase;letter-spacing:.05em}
+ .mobile-nav summary::-webkit-details-marker{display:none}
+ .mobile-nav nav{display:flex;flex-direction:column;padding:4px 0 8px}
+ .mobile-nav nav a{display:flex;align-items:center;justify-content:flex-end;min-height:44px;border-top:1px solid #ffffff24;font:14px/1.4 var(--mono);text-transform:uppercase}
+ .mobile-nav summary:focus-visible,.mobile-nav a:focus-visible{outline:2px solid #f05a94;outline-offset:2px}
+}
+html:not(.js) .identity-aperture,html:not(.js) .stage-turn,html:not(.js) button[data-copy]{display:none!important}
+html:not(.js) .identity-caption{display:none}
+.identity-static{display:grid;grid-template-columns:1fr 1fr;align-items:end;gap:8px;background:#19181c;padding:10px;border:1px solid #615d55}
+.identity-static img{display:block;width:100%;height:auto}
+.identity-static-label{font-size:14px;color:#cfcac0;margin-top:10px}
+/* Keep the illustration painted while its clipped panel reverses. */
+.hero-identity .identity-maker .portrait-baseline{opacity:1!important}
+html.stage-ready .hero-identity:not([data-portrait=true]) .identity-maker .portrait-baseline{opacity:1!important}
+.nav-r>a{white-space:nowrap}
+html:not(.js) .contact-guard .stage-status{display:none}
+.nav-r>a{display:inline-flex;align-items:center;min-height:44px}
