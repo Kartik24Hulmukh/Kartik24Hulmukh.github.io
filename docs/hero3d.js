@@ -89,6 +89,7 @@
  function schedule(){if(disposed||suspended||document.hidden||frame)return;frame=requestAnimationFrame(tick);}
  function enable(rec){if(disposed)return;rec.userEnabled=true;rec.failed=false;if(rec.enable){rec.enable.setAttribute('aria-pressed','true');rec.enable.textContent='Enable 3D';}schedule();}
  function resetIdentityDepth(){['--identity-x','--identity-y','--identity-rx','--identity-ry'].forEach(function(k){hero.style.removeProperty(k);});}
+ function setRevealOrigin(e){var r=heroButton.getBoundingClientRect();if(!r.width||!r.height)return;hero.style.setProperty('--cut-x',(clamp((e.clientX-r.left)/r.width,0,1)*100).toFixed(1)+'%');hero.style.setProperty('--cut-y',(clamp((e.clientY-r.top)/r.height,0,1)*100).toFixed(1)+'%');}
  on(heroButton,'pointermove',function(e){
   pointerX=e.clientX;pointerY=e.clientY;
   if(fine.matches&&e.pointerType!=='touch'&&!hovered&&!forcedMask){hovered=true;syncHero();}
@@ -97,9 +98,9 @@
   hero.style.setProperty('--identity-x',(x*3).toFixed(2)+'px');hero.style.setProperty('--identity-y',(y*2).toFixed(2)+'px');hero.style.setProperty('--identity-rx',(-y*2).toFixed(2)+'deg');hero.style.setProperty('--identity-ry',(x*3).toFixed(2)+'deg');
  });
  on(heroButton,'pointerleave',resetIdentityDepth);
- on(heroButton,'pointerenter',function(e){if(e.pointerType==='touch'||!fine.matches)return;pointerX=e.clientX;pointerY=e.clientY;hovered=true;forcedMask=false;syncHero();});
+ on(heroButton,'pointerenter',function(e){if(e.pointerType==='touch'||!fine.matches)return;pointerX=e.clientX;pointerY=e.clientY;setRevealOrigin(e);hovered=true;forcedMask=false;syncHero();});
  on(heroButton,'pointerleave',function(){hovered=false;syncHero();});
- on(heroButton,'focus',function(){focused=true;forcedMask=false;syncHero();});
+ on(heroButton,'focus',function(){if(!hovered){hero.style.setProperty('--cut-x','50%');hero.style.setProperty('--cut-y','50%');}focused=true;forcedMask=false;syncHero();});
  on(heroButton,'blur',function(){focused=false;syncHero();});
  on(heroButton,'click',function(){portraitPinned=!portraitPinned;forcedMask=!portraitPinned;syncHero();});
  on(document,'keydown',function(e){if(e.key==='Escape'&&portrait&&!e.defaultPrevented){portraitPinned=false;forcedMask=true;syncHero();}});

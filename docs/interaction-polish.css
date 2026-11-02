@@ -79,3 +79,41 @@ html.stage-ready .hero-identity:not([data-portrait=true]) .identity-maker .portr
 .nav-r>a{white-space:nowrap}
 html:not(.js) .contact-guard .stage-status{display:none}
 .nav-r>a{display:inline-flex;align-items:center;min-height:44px}
+/* On small screens the purpose and route to work precede the character scene. */
+.hero-mobile-intro{display:none}
+@media(max-width:640px){
+ .hero-mobile-intro{display:grid;gap:14px;justify-items:start;max-width:31ch}
+ .hero-mobile-intro p{font:clamp(25px,7vw,31px)/1.08 var(--serif);color:#ece8df}
+ .hero-mobile-intro em{color:#f05a94}
+ .mobile-work-link{display:inline-flex;align-items:center;gap:16px;min-height:44px;padding:10px 16px;border:1px solid #f05a94;border-radius:999px;color:#fff;font:14px/1.4 var(--mono);text-transform:uppercase;letter-spacing:.03em}
+ .mobile-work-link:hover,.mobile-work-link:focus-visible{background:#f05a94;color:#141113}
+ .hero .h-bot .h-tag,.hero .h-bot .scroll-cue{display:none}
+ .hero-identity{width:min(100%,280px)}
+}
+/* Open the reveal from the point of entry, without moving the hit target. */
+@supports (clip-path:circle(0% at 50% 50%)){
+ .hero-identity .identity-maker{clip-path:circle(0% at var(--cut-x,50%) var(--cut-y,50%));transition:clip-path 620ms cubic-bezier(.42,0,.22,1)}
+ .hero-identity[data-portrait=true] .identity-maker,html:not(.stage-ready) .hero-identity .identity-aperture:hover .identity-maker,html:not(.stage-ready) .hero-identity .identity-aperture:focus-visible .identity-maker{clip-path:circle(150% at var(--cut-x,50%) var(--cut-y,50%))}
+ .hero-identity .identity-maker::after{display:none}
+}
+/* Concrete specialty, visible reveal cue, and an immediate route to contact. */
+.identity-prompt{position:absolute;z-index:4;top:12px;left:12px;padding:6px 8px;background:#141316e6;color:#f5f1ec;font:14px/1.3 var(--mono);letter-spacing:.04em;text-transform:uppercase;pointer-events:none}
+.identity-prompt .prompt-hover{display:none}
+@media(hover:hover) and (pointer:fine){.identity-prompt .prompt-hover{display:inline}.identity-prompt .prompt-touch{display:none}}
+.hero-identity[data-portrait=true] .identity-prompt{opacity:0}
+.hero-identity .identity-halo{opacity:.65}
+.hero-identity .identity-aperture::after{display:none}
+.hero-identity .stage-enable[aria-pressed=true]{display:none}
+.project-quick-meta{font-size:14px!important;font-weight:600;color:#625c55}
+.project-quick-links{margin:8px 0 20px}
+.work-contact-link{display:inline-flex;align-items:center;min-height:44px;margin-top:32px;color:#9f1f50;border-bottom:1px solid currentColor;font:14px/1.5 var(--mono)}
+.work-contact-link:focus-visible{outline:2px solid #9f1f50;outline-offset:4px}
+@media(max-width:640px){
+ .hero-mobile-intro{gap:10px}
+ .hero-mobile-intro .hero-specialty{font:14px/1.5 var(--mono);color:#e4dbd2;letter-spacing:0;max-width:30ch}
+ .hero-mobile-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px}
+ .mobile-contact-link{display:inline-flex;align-items:center;min-height:44px;color:#ece8df;font:14px/1.4 var(--mono);text-decoration:underline;text-underline-offset:4px}
+ .mobile-contact-link:focus-visible{outline:2px solid #f05a94;outline-offset:3px}
+}
+@media(min-width:641px) and (max-width:980px){.hero>.h-top>span:nth-child(2){white-space:nowrap;flex:none}}
+html:not(.js) .clock{visibility:hidden}
