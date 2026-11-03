@@ -16,7 +16,7 @@
 <link href="./docs/font-display.css?v=eb0810f9098f" rel="stylesheet"/>
 <link href="./docs/attachment.css?v=8187c13100f7" rel="stylesheet"/>
 <link href="./docs/portrait-refined.css?v=26132e7a6c1b" rel="stylesheet"/>
-<link href="./docs/experience.css?v=e169fd329108" rel="stylesheet"/><link href="./docs/hero3d.css?v=141c09ba0275" rel="stylesheet"/><link href="./docs/atmosphere.css?v=cd2ba91652e1" rel="stylesheet"/><link href="./docs/interaction-polish.css?v=98515642bad6" rel="stylesheet"/><script>try{document.documentElement.dataset.motion=(matchMedia('(prefers-reduced-motion: reduce)').matches||localStorage.getItem('kh-motion')==='off')?'off':'on';}catch(e){document.documentElement.dataset.motion=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on';}</script><script>setTimeout(function(){if(window.__portfolioEngineReady)return;document.documentElement.classList.add('engine-fallback');document.body.classList.remove('lock','has-cursor');document.body.classList.add('ready');var l=document.getElementById('loader');if(l)l.remove();document.querySelectorAll('.ch').forEach(function(n){n.textContent=n.dataset.ch||n.textContent;});document.querySelectorAll('.proj-body').forEach(function(n){n.inert=false;});},1200);</script></head>
+<link href="./docs/experience.css?v=e169fd329108" rel="stylesheet"/><link href="./docs/hero3d.css?v=141c09ba0275" rel="stylesheet"/><link href="./docs/atmosphere.css?v=cd2ba91652e1" rel="stylesheet"/><link href="./docs/interaction-polish.css?v=ffcc9f9f8091" rel="stylesheet"/><script>try{document.documentElement.dataset.motion=(matchMedia('(prefers-reduced-motion: reduce)').matches||localStorage.getItem('kh-motion')==='off')?'off':'on';}catch(e){document.documentElement.dataset.motion=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on';}</script><script>setTimeout(function(){if(window.__portfolioEngineReady)return;document.documentElement.classList.add('engine-fallback');document.body.classList.remove('lock','has-cursor');document.body.classList.add('ready');var l=document.getElementById('loader');if(l)l.remove();document.querySelectorAll('.ch').forEach(function(n){n.textContent=n.dataset.ch||n.textContent;});document.querySelectorAll('.proj-body').forEach(function(n){n.inert=false;});},1200);</script></head>
 <body class="play-mode">
 <a class="skip" href="#main">Skip to content</a>
 <canvas aria-hidden="true" id="gl"></canvas>
@@ -60,7 +60,7 @@
 <span>19.07° N, 72.87° E</span>
 <span aria-label="Claim, source, boundary" class="arrival-signature"><span aria-hidden="true" class="mini-shapes"><i></i><i></i><i></i></span> Proof, not promises.</span>
 </div>
-<div class="hero-stage"><h1 aria-label="Kartik Hulmukh" class="name"><span aria-hidden="true" class="row">Kartik</span><span aria-hidden="true" class="row">Hulmukh</span></h1><div class="hero-mobile-intro"><p>I build software that <em>shows its work.</em></p><p class="hero-specialty">Local-first tools and AI-code verification.</p><div class="hero-mobile-actions"><a class="mobile-work-link" href="#work">View work <span aria-hidden="true">↘</span></a><a class="mobile-contact-link" href="#contact">Contact ↗</a></div></div><figure aria-label="Front Man mask and Kartik portrait" class="hero-portrait hero-identity character-stage" data-character="front-man" data-framing="bust" data-portrait="false" data-visible="true" id="hero-identity">
+<div class="hero-stage"><p class="hero-desktop-brief">Local-first tools · AI-code verification</p><h1 aria-label="Kartik Hulmukh" class="name"><span aria-hidden="true" class="row">Kartik</span><span aria-hidden="true" class="row">Hulmukh</span></h1><div class="hero-mobile-intro"><p>I build software that <em>shows its work.</em></p><p class="hero-specialty">Local-first tools and AI-code verification.</p><div class="hero-mobile-actions"><a class="mobile-work-link" href="#work">View work <span aria-hidden="true">↘</span></a><a class="mobile-contact-link" href="#contact">Contact ↗</a></div></div><figure aria-label="Front Man mask and Kartik portrait" class="hero-portrait hero-identity character-stage" data-character="front-man" data-framing="bust" data-portrait="false" data-visible="true" id="hero-identity">
 <div aria-hidden="true" class="identity-halo"><i></i><i></i><i></i></div>
 <div class="identity-topline mono"><span>THE MASK / THE MAKER</span><span aria-hidden="true">01</span></div>
 <button aria-describedby="identity-help" aria-label="Reveal Kartik's portrait" aria-pressed="false" class="identity-aperture" id="portrait-reveal" type="button">
@@ -164,6 +164,7 @@
 <div class="stage-topline mono"><span>02 / FIELDWORK</span><span aria-hidden="true">○</span></div>
 <div class="stage-visual" aria-hidden="true"><span class="stage-ring"></span><span class="stage-floor"></span><img alt="" class="stage-poster" decoding="async" height="960" loading="lazy" src="./docs/models/pink-soldier.full.svg" width="768"/><span class="stage-surface"></span><span class="stage-crosshair">+</span></div>
 <figcaption><span>Pink Soldier</span><button aria-pressed="false" class="stage-turn" type="button">Turn ↗</button></figcaption>
+<button class="stage-retry" type="button" hidden>Retry 3D</button>
 <p class="stage-status">Character study</p>
 </figure></div>
 <div class="projs">
@@ -193,7 +194,8 @@
 <div class="r-row" id="project-boundary-1"><span>won't claim</span><i></i><b class="v">signature ≠ correctness</b></div>
 <div class="r-cmd">
 <code>pip install jittest==0.4.1
-# Download the example receipt from the README first.
+curl -fsSLo bug_flask_01_evidence.json \
+  https://raw.githubusercontent.com/Kartik24Hulmukh/jittest/39e07bf33d6efed8842a9723c34c665ed4641926/docs/evidence/layer1/bug_flask_01_evidence.json
 jittest verify-receipt bug_flask_01_evidence.json \
   --expected-signer 4059d799af91096f --strict-signer --json</code>
 <button class="copy" data-copy="">COPY</button>
@@ -416,6 +418,7 @@ python3 -m app.validate out_demo/evidence.json \
 <div class="stage-topline mono"><span>03 / THE CHECKPOINT</span><span aria-hidden="true">△</span></div>
 <div class="stage-visual" aria-hidden="true"><span class="stage-ring"></span><span class="stage-floor"></span><img alt="" class="stage-poster" decoding="async" height="960" loading="lazy" src="./docs/models/unknown.full.svg" width="768"/><span class="stage-surface"></span><span class="stage-crosshair">+</span></div>
 <figcaption><span>Unknown</span><button aria-pressed="false" class="stage-turn" type="button">Turn ↗</button></figcaption>
+<button class="stage-retry" type="button" hidden>Retry 3D</button>
 <p class="stage-status">Character study</p>
 </figure></div>
 <div class="proc-r">
@@ -453,11 +456,12 @@ python3 -m app.validate out_demo/evidence.json \
 <section class="contact" data-title="Contact" id="contact">
 <span class="mono lab">[ 07 ] Contact — open to internships, research and collaborations</span>
 <div class="contact-scene">
-<h2 class="c-big">Got a claim?<br/>Let's <em>check it.</em></h2>
+<h2 class="c-big">Let's build<br/><em>something useful.</em></h2>
 <figure aria-label="Pink Soldier contact checkpoint" class="character-stage full-stage contact-guard" data-character="pink-soldier" data-framing="full" id="contact-guard">
 <div class="stage-topline mono"><span>04 / YOUR MOVE</span><span aria-hidden="true">○</span></div>
 <div class="stage-visual" aria-hidden="true"><span class="stage-ring"></span><span class="stage-floor"></span><img alt="" class="stage-poster" decoding="async" height="960" loading="lazy" src="./docs/models/pink-soldier.full.svg" width="768"/><span class="stage-surface"></span><span class="stage-crosshair">+</span></div>
 <figcaption><span>Pink Soldier</span><button aria-label="Turn pink soldier model by 90 degrees" aria-pressed="false" class="stage-turn" type="button">Turn 90° ↗</button></figcaption>
+<button class="stage-retry" type="button" hidden>Retry 3D</button>
 <p class="stage-status">Character study · scroll or hover</p>
 </figure>
 </div>
@@ -479,5 +483,5 @@ python3 -m app.validate out_demo/evidence.json \
 <span>Static site · no analytics trackers · sources visible · E highlights evidence</span>
 </footer>
 <script src="./docs/motion-controller.js?v=d4365d7502b9"></script><script src="./docs/motion-engine.js?v=b94112c8ed2d"></script>
-<audio data-src="./docs/assets/pink-soldiers.mp3.b64" hidden="" id="portfolio-audio" loop="" preload="none"></audio><script src="./docs/experience.js?v=533d8b0c9b1d"></script><script defer="" src="./docs/hero3d.js?v=1996f5ba1c09"></script><script defer="" src="./docs/atmosphere.js?v=7cbd9f85a584"></script><script defer="" src="./docs/interaction-polish.js?v=7e41d8bd41a6"></script></body>
+<audio data-src="./docs/assets/pink-soldiers.mp3.b64" hidden="" id="portfolio-audio" loop="" preload="none"></audio><script src="./docs/experience.js?v=533d8b0c9b1d"></script><script defer="" src="./docs/hero3d.js?v=2f1333ebe13e"></script><script defer="" src="./docs/atmosphere.js?v=7cbd9f85a584"></script><script defer="" src="./docs/interaction-polish.js?v=7e41d8bd41a6"></script></body>
 </html>

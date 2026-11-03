@@ -117,3 +117,28 @@ html:not(.js) .contact-guard .stage-status{display:none}
 }
 @media(min-width:641px) and (max-width:980px){.hero>.h-top>span:nth-child(2){white-space:nowrap;flex:none}}
 html:not(.js) .clock{visibility:hidden}
+/* Keep each project's purpose visible on narrow screens without hover. */
+@media(max-width:980px){
+ .proj-head{grid-template-columns:34px minmax(0,1fr) 24px;grid-template-rows:auto auto;gap:6px 12px}
+ .proj-head .p-idx{grid-column:1;grid-row:1}
+ .proj-head .p-name{grid-column:2;grid-row:1;min-width:0}
+ .proj-head .p-plus{grid-column:3;grid-row:1}
+ .proj-head .p-line{display:block;grid-column:2 / 4;grid-row:2;font-size:15px;line-height:1.45;color:#3b3833}
+}
+/* Put the specialty near the name, not below the fold, on wide screens. */
+.hero-desktop-brief{display:none}
+@media(min-width:981px){.hero-desktop-brief{display:block;position:absolute;left:0;top:8px;padding-left:12px;border-left:2px solid #f05a94;color:#e4dbd2;font:14px/1.4 var(--mono);letter-spacing:.03em;max-width:38ch}}
+/* A failed 3D load has a separate retry action; rotation never changes on retry. */
+.stage-retry:not([hidden]){display:inline-flex;align-items:center;min-height:44px;margin-top:4px;color:#f05a94;border-bottom:1px solid currentColor;font-size:14px}
+.stage-retry:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+.work-intro .stage-retry:not([hidden]){color:#9f1f50}
+.stage-turn:disabled{opacity:.5;cursor:not-allowed}
+/* Animate only the radius: the origin changes immediately and never drifts. */
+@property --identity-radius{syntax:'<percentage>';inherits:false;initial-value:0%}
+@supports (clip-path:circle(0% at 50% 50%)){
+ .hero-identity .identity-maker{--identity-radius:0%;clip-path:circle(var(--identity-radius) at var(--cut-x,50%) var(--cut-y,50%));transition:none}
+ html.iris-motion-ready .hero-identity .identity-maker{transition:--identity-radius 620ms cubic-bezier(.42,0,.22,1)}
+ .hero-identity[data-portrait=true] .identity-maker,html:not(.stage-ready) .hero-identity .identity-aperture:hover .identity-maker,html:not(.stage-ready) .hero-identity .identity-aperture:focus-visible .identity-maker{--identity-radius:150%;clip-path:circle(var(--identity-radius) at var(--cut-x,50%) var(--cut-y,50%))}
+ html.iris-motion-ready[data-motion=off] .hero-identity .identity-maker{transition:none}
+}
+@media(prefers-reduced-motion:reduce){.hero-identity .identity-maker{transition:none!important}}
