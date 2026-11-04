@@ -1,0 +1,29 @@
+/* A non-gating entry point into real project evidence. */
+.dossier-index{margin:8px 0 56px;padding:clamp(22px,3vw,36px);background:#173c35;color:#f6f0e8;position:relative;overflow:hidden;border-top:5px solid #ed6b99}
+.dossier-index::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(135deg,transparent 0 84%,#efbfc31b 84% 90%,transparent 90%),repeating-linear-gradient(90deg,transparent 0 79px,#f4f2e908 80px 81px)}
+.dossier-head,.dossier-grid{position:relative}
+.dossier-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:26px}
+.dossier-head>p{max-width:32ch;color:#d8e6df;font:15px/1.5 var(--display)}
+.dossier-kicker{color:#ffd2e1;font:12px/1.4 var(--mono);letter-spacing:.08em}
+.dossier-head h3{margin:10px 0 0;font:700 clamp(30px,3.4vw,48px)/1 var(--display);letter-spacing:-.035em}
+.dossier-head h3 em{color:#f589b0;font:italic 400 1.15em/1 var(--serif)}
+.dossier-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.dossier-card{display:flex;flex-direction:column;gap:12px;min-width:0;min-height:188px;padding:16px;background:#f1e5df;color:#201e1d;text-decoration:none;border:1px solid #f1e5df;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.dossier-card:hover,.dossier-card:focus-visible{transform:translateY(-4px);box-shadow:0 4px 0 #ed6b99;border-color:#ed6b99}
+.dossier-card:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.dossier-top,.dossier-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;font:12px/1.4 var(--mono);letter-spacing:.03em}
+.dossier-top{color:#6a544e}.dossier-top span:last-child{color:#a52d58;font-size:20px;line-height:1}
+.dossier-card strong{font:700 clamp(21px,2vw,28px)/1.05 var(--display);letter-spacing:-.03em;overflow-wrap:anywhere}
+.dossier-desc{font:14px/1.4 var(--display);color:#45403c}
+.dossier-foot{margin-top:auto;padding-top:10px;border-top:1px solid #c6b6ae;color:#6b2441}.dossier-foot span{font-size:18px}
+.proj[id^="project-"]{scroll-margin-top:24px}
+@media(max-width:980px){.dossier-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.dossier-card{min-height:168px}}
+@media(max-width:640px){.dossier-index{margin:4px 0 40px;padding:20px}.dossier-head{display:block;margin-bottom:20px}.dossier-head>p{margin-top:12px;font-size:14px}.dossier-card{min-height:164px;padding:13px;gap:9px}.dossier-card strong{font-size:21px}.dossier-desc{font-size:14px}.dossier-top,.dossier-foot{font-size:12px}}
+@media(max-width:360px){.dossier-grid{grid-template-columns:1fr}.dossier-card{min-height:132px}.dossier-head h3{font-size:30px}}
+@media(prefers-reduced-motion:reduce){.dossier-card{transition:none!important}.dossier-card:hover,.dossier-card:focus-visible{transform:none}}
+html[data-motion=off] .dossier-card:hover,html[data-motion=off] .dossier-card:focus-visible{transform:none}
+@media(max-width:360px){
+ .dossier-card{min-height:0;gap:6px;padding:11px 13px}
+ .dossier-card strong{font-size:20px}.dossier-foot{padding-top:6px}
+}
+.dossier-card[aria-current=location]{border-color:#a52d58;box-shadow:inset 0 -4px 0 #a52d58}

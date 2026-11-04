@@ -16,7 +16,7 @@
 <link href="./docs/font-display.css?v=eb0810f9098f" rel="stylesheet"/>
 <link href="./docs/attachment.css?v=8187c13100f7" rel="stylesheet"/>
 <link href="./docs/portrait-refined.css?v=26132e7a6c1b" rel="stylesheet"/>
-<link href="./docs/experience.css?v=e169fd329108" rel="stylesheet"/><link href="./docs/hero3d.css?v=141c09ba0275" rel="stylesheet"/><link href="./docs/atmosphere.css?v=cd2ba91652e1" rel="stylesheet"/><link href="./docs/interaction-polish.css?v=d3b37377f1c8" rel="stylesheet"/><script>try{document.documentElement.dataset.motion=(matchMedia('(prefers-reduced-motion: reduce)').matches||localStorage.getItem('kh-motion')==='off')?'off':'on';}catch(e){document.documentElement.dataset.motion=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on';}</script><script>setTimeout(function(){if(window.__portfolioEngineReady)return;document.documentElement.classList.add('engine-fallback');document.body.classList.remove('lock','has-cursor');document.body.classList.add('ready');var l=document.getElementById('loader');if(l)l.remove();document.querySelectorAll('.ch').forEach(function(n){n.textContent=n.dataset.ch||n.textContent;});document.querySelectorAll('.proj-body').forEach(function(n){n.inert=false;});var d=document.getElementById('digest');if(d)d.textContent='unavailable in this context';},1200);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.mobile-nav a[href^="#"]');if(a)a.closest('.mobile-nav').open=false;});</script><link href="./docs/impact.css?v=acd9d28503f5" rel="stylesheet"/><link href="./docs/studio.css?v=46dd8db5d200" rel="stylesheet"/><link href="./docs/checkpoint.css?v=511e7588f133" rel="stylesheet"/><link href="./docs/arena.css?v=7d15fd6c2c19" rel="stylesheet"/></head>
+<link href="./docs/experience.css?v=e169fd329108" rel="stylesheet"/><link href="./docs/hero3d.css?v=141c09ba0275" rel="stylesheet"/><link href="./docs/atmosphere.css?v=cd2ba91652e1" rel="stylesheet"/><link href="./docs/interaction-polish.css?v=d3b37377f1c8" rel="stylesheet"/><script>try{document.documentElement.dataset.motion=(matchMedia('(prefers-reduced-motion: reduce)').matches||localStorage.getItem('kh-motion')==='off')?'off':'on';}catch(e){document.documentElement.dataset.motion=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on';}</script><script>setTimeout(function(){if(window.__portfolioEngineReady)return;document.documentElement.classList.add('engine-fallback');document.body.classList.remove('lock','has-cursor');document.body.classList.add('ready');var l=document.getElementById('loader');if(l)l.remove();document.querySelectorAll('.ch').forEach(function(n){n.textContent=n.dataset.ch||n.textContent;});document.querySelectorAll('.proj-body').forEach(function(n){n.inert=false;});var d=document.getElementById('digest');if(d)d.textContent='unavailable in this context';},1200);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.mobile-nav a[href^="#"]');if(a)a.closest('.mobile-nav').open=false;});</script><link href="./docs/impact.css?v=acd9d28503f5" rel="stylesheet"/><link href="./docs/studio.css?v=46dd8db5d200" rel="stylesheet"/><link href="./docs/checkpoint.css?v=511e7588f133" rel="stylesheet"/><link href="./docs/arena.css?v=7d15fd6c2c19" rel="stylesheet"/><link href="./docs/dossier.css?v=58d4732cee4d" rel="stylesheet"/></head>
 <body class="play-mode">
 <a class="skip" href="#main">Skip to content</a>
 <canvas aria-hidden="true" id="gl"></canvas>
@@ -110,8 +110,16 @@
 <button class="stage-retry" type="button" hidden>Retry 3D</button>
 <p class="stage-status">Character study</p>
 </figure></div>
+<nav aria-label="Jump to a featured project" class="dossier-index">
+<div class="dossier-head"><div><p class="dossier-kicker">○ △ □ &nbsp; / &nbsp; SELECT A DOSSIER</p><h3>Choose a <em>starting point.</em></h3></div><p>Four ways into the work. Every project includes its source and limits.</p></div>
+<div class="dossier-grid">
+<a class="dossier-card" href="#project-jittest"><span class="dossier-top"><span>01 / VERIFICATION</span><span aria-hidden="true">○</span></span><strong>jittest</strong><span class="dossier-desc">Compare revisions. Verify the receipt.</span><span class="dossier-foot">Published · PyPI v0.4.1 <span aria-hidden="true">↘</span></span></a>
+<a class="dossier-card" href="#project-axiom-grid"><span class="dossier-top"><span>02 / DESKTOP AGENT</span><span aria-hidden="true">△</span></span><strong>Axiom-Grid</strong><span class="dossier-desc">Local-first tools with a human approval gate.</span><span class="dossier-foot">Technical preview <span aria-hidden="true">↘</span></span></a>
+<a class="dossier-card" href="#project-accessdoc"><span class="dossier-top"><span>03 / ACCESSIBILITY</span><span aria-hidden="true">□</span></span><strong>AccessDoc</strong><span class="dossier-desc">Turn scan findings into evidence.</span><span class="dossier-foot">Open-source beta <span aria-hidden="true">↘</span></span></a>
+<a class="dossier-card" href="#project-xray"><span class="dossier-top"><span>04 / CIVIC TECH</span><span aria-hidden="true">○</span></span><strong>Project X-Ray</strong><span class="dossier-desc">Keep infrastructure claims linked to sources.</span><span class="dossier-foot">Synthetic preview <span aria-hidden="true">↘</span></span></a>
+</div></nav>
 <div class="projs">
-<article class="proj open" data-kind="Verification" data-status="v0.4.1 published on PyPI">
+<article class="proj open" id="project-jittest" data-kind="Verification" data-status="v0.4.1 published on PyPI">
 <h3 class="proj-heading"><button disabled="" aria-controls="pb1" aria-expanded="true" class="proj-head" data-cursor="OPEN">
 <span class="p-idx mono">01</span>
 <span class="p-name">jittest</span>
@@ -156,7 +164,7 @@ jittest verify-receipt bug_flask_01_evidence.json \
 </div>
 </div></div></div>
 </article>
-<article class="proj" data-kind="Desktop agent" data-status="Technical preview · ghost-typing production NO-GO">
+<article class="proj" id="project-axiom-grid" data-kind="Desktop agent" data-status="Technical preview · ghost-typing production NO-GO">
 <h3 class="proj-heading"><button disabled="" aria-controls="pb2" aria-expanded="true" class="proj-head" data-cursor="OPEN">
 <span class="p-idx mono">02</span>
 <span class="p-name">Axiom-Grid</span>
@@ -192,7 +200,7 @@ jittest verify-receipt bug_flask_01_evidence.json \
 </div>
 </div></div></div>
 </article>
-<article class="proj" data-kind="Accessibility" data-status="Open-source beta">
+<article class="proj" id="project-accessdoc" data-kind="Accessibility" data-status="Open-source beta">
 <h3 class="proj-heading"><button disabled="" aria-controls="pb3" aria-expanded="true" class="proj-head" data-cursor="OPEN">
 <span class="p-idx mono">03</span>
 <span class="p-name">AccessDoc</span>
@@ -224,7 +232,7 @@ python3 cli.py verify dist/bundle.zip   # 0 = intact, 1 = tampered</code>
 </div>
 </div></div></div>
 </article>
-<article class="proj" data-kind="Civic tech" data-status="Synthetic-preview release candidate">
+<article class="proj" id="project-xray" data-kind="Civic tech" data-status="Synthetic-preview release candidate">
 <h3 class="proj-heading"><button disabled="" aria-controls="pb4" aria-expanded="true" class="proj-head" data-cursor="OPEN">
 <span class="p-idx mono">04</span>
 <span class="p-name">Project X-Ray</span>
@@ -496,5 +504,5 @@ python3 -m app.validate out_demo/evidence.json \
 <span>Static site · no analytics trackers · sources visible · E highlights evidence</span>
 </footer>
 <script src="./docs/motion-controller.js?v=d4365d7502b9"></script><script src="./docs/motion-engine.js?v=f34bc5707a60"></script>
-<audio data-src="./docs/assets/pink-soldiers.mp3.b64" hidden="" id="portfolio-audio" loop="" preload="none"></audio><script src="./docs/experience.js?v=533d8b0c9b1d"></script><script defer="" src="./docs/hero3d.js?v=49c4b9f16251"></script><script defer="" src="./docs/atmosphere.js?v=7cbd9f85a584"></script><script defer="" src="./docs/interaction-polish.js?v=7e41d8bd41a6"></script></body>
+<audio data-src="./docs/assets/pink-soldiers.mp3.b64" hidden="" id="portfolio-audio" loop="" preload="none"></audio><script src="./docs/experience.js?v=533d8b0c9b1d"></script><script src="./docs/dossier.js?v=cea69c9c90bb"></script><script defer="" src="./docs/hero3d.js?v=49c4b9f16251"></script><script defer="" src="./docs/atmosphere.js?v=7cbd9f85a584"></script><script defer="" src="./docs/interaction-polish.js?v=7e41d8bd41a6"></script></body>
 </html>
