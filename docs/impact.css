@@ -1,0 +1,31 @@
+/* Art direction: a verification dossier, with work as the first destination. */
+.hero{padding-top:28px;padding-bottom:28px}
+.hero>.hero-stage,.hero>.h-top{max-width:1280px}
+.hero>.h-top{font-size:14px;letter-spacing:.08em}
+.hero-stage{grid-template-columns:minmax(0,1fr) minmax(320px,42%);gap:clamp(30px,5vw,80px);margin:25px 0 48px;align-items:center}
+.hero-intro{min-width:0;display:flex;flex-direction:column;align-items:flex-start}
+.intro-kicker{display:flex;gap:20px;color:#c0b8b2;font-size:14px}
+.hero .name{font-size:clamp(27px,3vw,44px);line-height:1.05;letter-spacing:.01em;margin:22px 0 26px;font-weight:700;align-self:flex-start}
+.hero .name .row{display:inline;white-space:normal;padding:0}.hero .name .row:nth-child(2){padding-left:.24em}
+.impact-statement{font:700 clamp(68px,7.9vw,116px)/.92 var(--display);letter-spacing:-.045em;color:#f2eee6}
+.impact-statement em{font:italic 400 1.14em/.9 var(--serif);color:#f05a94;letter-spacing:-.025em}
+.impact-copy{font:18px/1.55 var(--display);color:#d2cbc3;max-width:36ch;margin-top:26px}
+.impact-actions{display:flex;flex-wrap:wrap;gap:12px 26px;align-items:center;margin-top:24px}
+.impact-actions a{min-height:48px;display:inline-flex;align-items:center;gap:18px;font:14px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.03em}
+.impact-primary{background:#f05a94;color:#1a1016;padding:0 19px;border:1px solid #f05a94}
+.impact-primary:hover{background:#ffc4d8;border-color:#ffc4d8}
+.impact-secondary{border-bottom:1px solid #a19a93}.impact-secondary:hover{color:#f5a6c5;border-color:#f05a94}
+.impact-actions a:focus-visible{outline:2px solid #fff;outline-offset:4px}
+.hero .h-bot{display:none}
+.hero .experience-dock{margin-top:12px}
+.hero-identity{width:100%;max-width:470px;justify-self:end}
+.hero-identity .identity-aperture{border-radius:180px 180px 4px 4px;border-color:#cc749c8c;background:radial-gradient(ellipse at 50% 30%,#4b283d 0,#19171b 70%);box-shadow:0 25px 100px #e0427b1b}
+.hero-identity .identity-grid{opacity:.16}
+.identity-topline{font-size:14px}
+.hero-identity .identity-prompt{top:auto;bottom:12px;left:12px}
+.hero::before{background:linear-gradient(90deg,#0d0d0ce0,#0d0d0c99 42%,#0d0d0c22 85%)}
+@media(max-width:980px) and (min-width:641px){.hero-stage{grid-template-columns:minmax(0,1fr) 300px;gap:26px}.impact-statement{font-size:clamp(58px,7.6vw,76px)}.impact-copy{font-size:16px}.hero .name{font-size:29px}}
+@media(max-width:640px){.hero{padding-top:20px}.hero>.h-top{display:flex;justify-content:space-between}.hero>.h-top>span:first-child{flex:auto}.hero>.h-top .arrival-signature{display:none}.hero-stage{grid-template-columns:minmax(0,1fr);gap:26px;margin:24px 0 48px}.intro-kicker{font-size:14px;line-height:1.4;gap:12px}.hero .name{font-size:26px;margin:16px 0 21px}.impact-statement{font-size:clamp(58px,15.4vw,86px)}.impact-copy{font-size:16px;line-height:1.45;margin-top:16px;max-width:34ch}.impact-actions{gap:8px 18px;margin-top:18px}.impact-actions a{min-height:44px;font-size:14px}.hero-identity{width:min(100%,300px);justify-self:center}.hero .experience-dock{margin-top:16px}.hero::before{background:linear-gradient(180deg,#0d0d0cdb,#0d0d0c88 60%,#0d0d0c22)}}
+
+.work-intro-copy{font:18px/1.5 var(--display);max-width:48ch;color:#37342f}
+@media(max-width:640px){.work-intro-copy{font-size:16px;line-height:1.5}}
