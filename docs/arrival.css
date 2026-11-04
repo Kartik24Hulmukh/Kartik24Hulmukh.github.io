@@ -1,0 +1,20 @@
+/* Keep the work and the identity interaction visible without gating the page. */
+@media (min-width:981px){
+ .hero-identity{max-width:420px}
+ .hero-stage{gap:clamp(38px,5vw,72px)}
+}
+@media (max-width:640px){
+ /* This repeats the player line immediately below on small screens. */
+ .hero>.h-top{display:none}
+ .hero-stage{margin-top:10px;gap:22px}
+ .hero-identity{width:min(100%,280px)}
+ .hero .name{margin-top:18px;margin-bottom:16px}
+}
+/* A responsive reveal should acknowledge the pointer quickly and reverse cleanly. */
+@supports (clip-path:circle(0% at 50% 50%)){
+ html.iris-motion-ready .hero-identity .identity-maker{transition-duration:460ms}
+}
+@media (prefers-reduced-motion:reduce){
+ html.iris-motion-ready .hero-identity .identity-maker{transition:none}
+}
+html.iris-motion-ready[data-motion=off] .hero-identity .identity-maker{transition:none}
