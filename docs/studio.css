@@ -1,0 +1,31 @@
+/* Evidence desk: a tangible interaction, not a simulated test. */
+.proof-tour{margin:26px 0 32px;background:#171719;color:#f4f0e8;padding:clamp(20px,3vw,30px);border-top:3px solid #e8508d;position:relative;overflow:hidden}
+.proof-tour::before{content:'○  △  □';position:absolute;right:24px;top:20px;color:#f05a94;font:14px/1 var(--mono);letter-spacing:.2em}
+.proof-tour-heading{display:block;padding-right:0}
+.proof-tour-kicker{font:12px/1.4 var(--mono);letter-spacing:.08em;color:#e7a7bf}
+.proof-tour h4{font:700 clamp(30px,3vw,42px)/1 var(--display);letter-spacing:-.035em;margin:10px 0 0}
+.proof-tour h4 em{font:italic 400 1.15em/1 var(--serif);color:#f05a94}
+.proof-tour-note{display:block;margin-top:10px;font:13px/1.5 var(--mono);text-transform:uppercase;color:#d2c9c6}
+.proof-tour-intro{font:16px/1.5 var(--display);color:#d5cdc8;margin:18px 0 16px;max-width:44ch}
+.proof-tour-steps{border-top:1px solid #ffffff36}
+.proof-tour details{border-bottom:1px solid #ffffff36}
+.proof-tour summary{list-style:none;display:grid;grid-template-columns:36px 1fr 20px;align-items:center;gap:12px;min-height:50px;cursor:pointer;font:600 16px/1.4 var(--display)}
+.proof-tour summary::-webkit-details-marker{display:none}
+.proof-tour summary:hover{color:#ffb9d1}.proof-tour summary:focus-visible{outline:2px solid #f8b9d0;outline-offset:2px}
+.proof-step-number{font:13px/1 var(--mono);color:#e7a7bf}
+.proof-plus{width:14px;height:14px;position:relative}.proof-plus:before,.proof-plus:after{content:'';position:absolute;background:#f05a94}.proof-plus:before{width:14px;height:1px;top:6px;left:0}.proof-plus:after{width:1px;height:14px;top:0;left:6px}.proof-tour details[open] .proof-plus:after{display:none}
+.proof-detail{padding:0 28px 18px 48px;color:#e1dad4;font:15px/1.55 var(--display)}.proof-detail a{color:#ffaccb;text-decoration:underline;text-underline-offset:3px}.proof-detail a:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.proof-rail li a{display:inline-flex;align-items:center;min-height:44px;color:inherit;text-decoration:none}.proof-rail li a:hover,.proof-rail li a:focus-visible{color:#ffb9d1}.proof-rail li a:focus-visible{outline:2px solid #f05a94;outline-offset:3px}
+.hero-identity::before{content:'';position:absolute;z-index:-2;inset:5% -15% 0;background:radial-gradient(ellipse,#ef418a32,transparent 66%);pointer-events:none}
+@media(max-width:640px){.proof-tour{padding:20px}.proof-tour-heading{padding-right:0}.proof-tour::before{top:18px;right:20px}.proof-tour-note{display:none}.proof-tour h4{font-size:34px}.proof-detail{padding-left:0;font-size:16px}.work-intro{grid-template-columns:minmax(0,1fr) 110px;gap:16px}.work-intro .full-stage{width:110px;max-width:110px}.work-intro .stage-topline span:first-child{max-width:none}.work-intro .full-stage figcaption{display:block}.work-intro .full-stage figcaption>span{display:block;max-width:none}}
+@media(max-width:360px){.work-intro{grid-template-columns:1fr}.work-intro .full-stage{width:180px;max-width:180px}.work-intro .full-stage figcaption{display:flex}}
+
+.pb-text .proof-tour .proof-tour-intro,.pb-text .proof-tour .proof-detail p{color:#e1dad4;margin:0}.pb-text .proof-tour .proof-tour-intro{margin:18px 0 16px}.proof-rail li a{gap:8px}.proof-rail::before,.proof-rail::after{top:50%}.proof-rail{width:min(100%,460px)}
+@media(max-width:640px){.proof-tour-note{display:block;font-size:13px}.proof-rail{gap:0;font-size:12px}.proof-rail li a{gap:5px}}
+
+/* A calmer reveal: the mask gives way to a clearly labelled maker portrait. */
+.hero-identity .identity-maker{background:radial-gradient(ellipse at 50% 45%,#47303d 0,#211c22 50%,#121214 100%)}
+.hero-identity .identity-maker .portrait-baseline{width:84%!important;left:8%;filter:drop-shadow(0 12px 18px #0009)}
+.maker-label{position:absolute;top:18%;left:17%;z-index:3;color:#f5cad9;font:12px/1.4 var(--mono);letter-spacing:.1em}
+.proof-rail{bottom:-44px}
+@media(max-width:640px){.proof-rail{bottom:-48px}.maker-label{font-size:12px}}
