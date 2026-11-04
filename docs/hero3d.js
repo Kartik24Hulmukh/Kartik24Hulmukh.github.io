@@ -20,10 +20,10 @@
  function live(rec,value){rec.painted=value;rec.node.dataset.live=String(value);}
  function showFailure(rec){rec.failed=true;live(rec,false);text(rec,'Static preview · choose Retry 3D');if(rec.retry){rec.retry.hidden=false;if(rec.turn)rec.turn.disabled=true;}if(rec.enable){rec.enable.textContent='Retry 3D';rec.enable.setAttribute('aria-pressed','false');}}
  function syncHero(){
-  if(disposed)return;portrait=!forcedMask&&(portraitPinned||hovered||focused);hero.dataset.portrait=String(portrait);
-  heroButton.setAttribute('aria-pressed',String(portraitPinned));heroButton.setAttribute('aria-label',portraitPinned?'Restore Front Man mask':"Reveal Kartik's portrait");
-  heroLabel.textContent=portrait?'Kartik Hulmukh':'Front Man';helper.textContent=portrait?(portraitPinned?(fine.matches?'Portrait pinned · click to restore':'Tap to restore mask'):(fine.matches?(focused&&!hovered?'Enter to keep · Escape to restore':'Click to keep · leave to restore'):'Tap to restore mask')):(fine.matches?'Hover or focus to meet Kartik':'Tap to meet Kartik');
-  if(portrait)text(records[0],'Portrait revealed');else text(records[0],records[0].painted?'Live 3D mask':'Character study');schedule();
+  if(disposed)return;portrait=!forcedMask&&(portraitPinned||hovered||focused);hero.dataset.portrait=String(portrait);hero.dataset.peek=String(motion()&&portrait&&hovered&&!portraitPinned&&!focused);
+  heroButton.setAttribute('aria-pressed',String(portraitPinned));heroButton.setAttribute('aria-label',portraitPinned?'Restore Front Man mask':"Reveal Kartik's illustrated portrait");
+  heroLabel.textContent=portrait?'Kartik Hulmukh':'Front Man';helper.textContent=portrait?(portraitPinned?(fine.matches?'Portrait pinned · click to restore':'Tap to restore mask'):(fine.matches?(focused&&!hovered?'Enter to keep · Escape to restore':(motion()?'Move to reveal · click to open':'Hover to reveal · click to open')):'Tap to restore mask')):(fine.matches?'Hover or focus to meet Kartik':'Tap to meet Kartik');
+  if(portrait)text(records[0],hero.dataset.peek==='true'?'Reveal lens · click to open':'Portrait revealed');else text(records[0],records[0].painted?'Live 3D mask':'Character study');schedule();
  }
  function bytes(str){var raw=atob(str),out=new Uint8Array(raw.length);for(var i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i);return out;}
  async function decode(data){
@@ -47,7 +47,7 @@
   on(canvas,'webglcontextlost',function(e){e.preventDefault();lost=true;cancelLoad();records.forEach(function(r){live(r,false);text(r,'Static preview · 3D temporarily unavailable');});});
   on(canvas,'webglcontextrestored',function(){if(disposed)return;lost=false;lastSize='';records.forEach(function(r){r.failed=false;});schedule();});
  }
- function eligible(rec){return rec.visible&&!(rec.node===hero&&portrait)&&(auto()||rec.userEnabled);}
+ function eligible(rec){return rec.visible&&!(rec.node===hero&&portrait&&hero.dataset.peek!=='true')&&(auto()||rec.userEnabled);}
  function valid(rec,ticket){return !disposed&&!suspended&&!document.hidden&&!lost&&ticket===epoch&&active===rec&&eligible(rec);}
  function cancelLoad(){epoch++;if(abort){abort.abort();abort=null;stats.aborts++;}clearTimeout(timer);timer=0;records.forEach(function(r){if(r.loading&&r.retry&&r.turn&&r.turn.disabled){r.retry.hidden=false;text(r,'Static preview · choose Retry 3D');}r.loading=false;});}
  function attach(rec){
@@ -99,6 +99,7 @@
  on(heroButton,'pointermove',function(e){
   pointerX=e.clientX;pointerY=e.clientY;
   if(fine.matches&&e.pointerType!=='touch'&&!hovered&&!forcedMask){hovered=true;syncHero();}
+  if(hero.dataset.peek==='true'&&e.pointerType!=='touch'){var lens=heroButton.getBoundingClientRect();if(lens.width&&lens.height){hero.style.setProperty('--cut-x',(clamp((e.clientX-lens.left)/lens.width,0,1)*100).toFixed(1)+'%');hero.style.setProperty('--cut-y',(clamp((e.clientY-lens.top)/lens.height,0,1)*100).toFixed(1)+'%');}}
   if(!motion()||!fine.matches||e.pointerType==='touch'){resetIdentityDepth();return;}
   var r=heroButton.getBoundingClientRect(),x=clamp((e.clientX-r.left)/r.width*2-1,-1,1),y=clamp((e.clientY-r.top)/r.height*2-1,-1,1);
   hero.style.setProperty('--identity-x',(x*3).toFixed(2)+'px');hero.style.setProperty('--identity-y',(y*2).toFixed(2)+'px');hero.style.setProperty('--identity-rx',(-y*2).toFixed(2)+'deg');hero.style.setProperty('--identity-ry',(x*3).toFixed(2)+'deg');
@@ -127,7 +128,7 @@
  },{passive:true});on(window,'resize',schedule,{passive:true});
  if('IntersectionObserver'in window){observer=new IntersectionObserver(schedule,{threshold:0});records.forEach(function(r){observer.observe(r.viewport);});}
  if('ResizeObserver'in window){resize=new ResizeObserver(schedule);records.forEach(function(r){resize.observe(r.viewport);});resize.observe(document.getElementById('main'));}
- if(M)unsubscribe=M.onChange(function(){if(disposed)return;resetIdentityDepth();cancelLoad();if(document.hidden)return;records.forEach(function(r){r.x=r.y=0;});schedule();});
+ if(M)unsubscribe=M.onChange(function(){if(disposed)return;resetIdentityDepth();syncHero();cancelLoad();if(document.hidden)return;records.forEach(function(r){r.x=r.y=0;});schedule();});
  on(document,'visibilitychange',function(){if(document.hidden){hovered=false;focused=false;resetIdentityDepth();syncHero();if(frame)cancelAnimationFrame(frame);frame=0;cancelLoad();records.forEach(function(r){live(r,false);});}else schedule();});
  on(window,'pagehide',function(e){resetIdentityDepth();suspended=true;if(frame)cancelAnimationFrame(frame);frame=0;cancelLoad();records.forEach(function(r){live(r,false);});if(!e.persisted)dispose();});
  on(window,'pageshow',function(e){if(disposed)return;suspended=false;if(e.persisted){hovered=false;focused=false;portraitPinned=false;forcedMask=false;syncHero();}schedule();});
