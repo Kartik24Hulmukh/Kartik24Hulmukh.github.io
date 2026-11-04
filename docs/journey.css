@@ -1,0 +1,19 @@
+/* A small, optional route index; native links still own scrolling and history. */
+.journey-map[hidden]{display:none!important}
+.journey-map{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:180;color:#f6efe9;font:14px/1.4 var(--display)}
+.journey-map details{position:relative}
+.journey-map summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;min-width:44px;min-height:44px;padding:9px 13px;color:#fff;background:#183e36;border:1px solid #b9d4c4;box-shadow:4px 4px 0 #ea6495;font:12px/1.2 var(--mono);letter-spacing:.04em;text-transform:uppercase}
+.journey-map summary::-webkit-details-marker{display:none}
+.journey-map summary:focus-visible,.journey-map a:focus-visible,.journey-map button:focus-visible{outline:3px solid #f577a5;outline-offset:3px}
+.journey-symbols{color:#ffc7dc;white-space:nowrap;font-size:15px}
+.journey-panel{position:absolute;right:0;bottom:calc(100% + 12px);width:min(296px,calc(100vw - 32px));max-height:min(470px,calc(100vh - 96px));max-height:min(470px,calc(100dvh - 96px));overflow-y:auto;overscroll-behavior:contain;background:#112d28;border:1px solid #c1dfd0;box-shadow:6px 6px 0 #e76898,0 14px 40px #0008;padding:16px}
+.journey-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-bottom:10px;border-bottom:1px solid #a8c8b56b}
+.journey-head p{margin:0;color:#f7eae5;font:12px/1.4 var(--mono);text-transform:uppercase;letter-spacing:.06em}
+.journey-hide{border:0;background:transparent;color:#e6f2eb;min-height:44px;padding:0 4px;cursor:pointer;font:12px/1.2 var(--mono);text-decoration:underline;text-underline-offset:4px}
+.journey-links{display:grid;margin:8px 0 0;padding:0;list-style:none}
+.journey-links a{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:44px;padding:5px 8px;color:#edf4ef;text-decoration:none;border-bottom:1px solid #b6d0bf35;font:15px/1.3 var(--display)}
+.journey-links a:hover,.journey-links a:focus-visible{background:#285247;color:#fff}
+.journey-links a[aria-current=location]{background:#f4dedc;color:#172b27;font-weight:700}
+.journey-links a span{color:#ffd0e0;font:12px/1.2 var(--mono)}
+.journey-links a[aria-current=location] span{color:#922a51}
+@media(max-width:640px){.journey-map{right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom))}.journey-map summary{padding:8px 11px}.journey-panel{width:min(280px,calc(100vw - 24px))}}
