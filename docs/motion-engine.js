@@ -14,9 +14,6 @@
   function $(s, c) { return (c || document).querySelector(s); }
   function $$(s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); }
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
-  // Let native anchor navigation happen after the in-flow menu closes.
-  var mobileNav = document.querySelector('.mobile-nav');
-  if (mobileNav) mobileNav.addEventListener('click', function (event) { if (event.target.closest('a[href^="#"]')) mobileNav.open = false; });
 
   /* ---------- 1. page digest (computed before any DOM animation) ---------- */
   var mainEl = $('#main');
@@ -305,6 +302,7 @@
   else if (fineQuery.addListener) fineQuery.addListener(pointerChanged);
 
   window.__portfolioEngineReady = true;
+  document.documentElement.classList.remove('engine-fallback');
   /* ---------- runtime experience preferences ---------- */
   Motion.onChange(function(state){
     RM = !state.active;

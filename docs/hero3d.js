@@ -8,7 +8,7 @@
  var dataCache=new Map(),meshCache=new Map(),resize=null,observer=null,unsubscribe=null,lastSize='',degraded=false;
  var hero=document.getElementById('hero-identity'),heroButton=document.getElementById('portrait-reveal'),heroLabel=document.getElementById('identity-label');
  var helper=document.getElementById('identity-help');
- var portraitPinned=false,hovered=false,focused=false,forcedMask=false,portrait=false,pointerX=-1,pointerY=-1;
+ var portraitPinned=false,hovered=false,focused=false,forcedMask=false,portrait=false,pointerFocus=false,pointerX=-1,pointerY=-1;
  var stats={rendererCreations:0,renders:0,loads:0,aborts:0,handoffs:0,frames:0,drawCalls:0,triangles:0,maxRenderMs:0};
  var records=Array.from(document.querySelectorAll('.character-stage')).map(function(node){return {id:node.id,node:node,character:node.dataset.character,full:node.dataset.framing==='full',viewport:node.querySelector('.stage-visual,.identity-aperture'),surface:node.querySelector('.stage-surface'),status:node.querySelector('.stage-status'),enable:node.querySelector('.stage-enable'),turn:node.querySelector('.stage-turn'),retry:node.querySelector('.stage-retry'),visible:false,userEnabled:false,loading:false,failed:false,painted:false,progress:.5,paintKey:'',x:0,y:0,turned:false,quarter:0,angle:0};});
  if(!records.length)return;
@@ -91,7 +91,11 @@
  function schedule(){if(disposed||suspended||document.hidden||frame)return;frame=requestAnimationFrame(tick);}
  function enable(rec){if(disposed)return;rec.userEnabled=true;rec.failed=false;if(rec.retry)rec.retry.hidden=true;if(rec.enable){rec.enable.setAttribute('aria-pressed','true');rec.enable.textContent='Enable 3D';}schedule();}
  function resetIdentityDepth(){['--identity-x','--identity-y','--identity-rx','--identity-ry'].forEach(function(k){hero.style.removeProperty(k);});}
- function setRevealOrigin(e){var r=heroButton.getBoundingClientRect();if(!r.width||!r.height)return;hero.style.setProperty('--cut-x',(clamp((e.clientX-r.left)/r.width,0,1)*100).toFixed(1)+'%');hero.style.setProperty('--cut-y',(clamp((e.clientY-r.top)/r.height,0,1)*100).toFixed(1)+'%');}
+ function irisClosed(){var maker=hero.querySelector('.identity-maker'),radius=maker?parseFloat(getComputedStyle(maker).getPropertyValue('--identity-radius')):0;return !Number.isFinite(radius)||radius<.15;}
+ function setRevealOrigin(e){if(!irisClosed())return;var r=heroButton.getBoundingClientRect();if(!r.width||!r.height)return;hero.style.setProperty('--cut-x',(clamp((e.clientX-r.left)/r.width,0,1)*100).toFixed(1)+'%');hero.style.setProperty('--cut-y',(clamp((e.clientY-r.top)/r.height,0,1)*100).toFixed(1)+'%');}
+ on(heroButton,'pointerdown',function(e){if(e.pointerType==='touch'&&!portraitPinned){setRevealOrigin(e);pointerFocus=true;}});
+ on(heroButton,'pointerup',function(){setTimeout(function(){pointerFocus=false;},0);});
+ on(heroButton,'pointercancel',function(){pointerFocus=false;});
  on(heroButton,'pointermove',function(e){
   pointerX=e.clientX;pointerY=e.clientY;
   if(fine.matches&&e.pointerType!=='touch'&&!hovered&&!forcedMask){hovered=true;syncHero();}
@@ -102,9 +106,9 @@
  on(heroButton,'pointerleave',resetIdentityDepth);
  on(heroButton,'pointerenter',function(e){if(e.pointerType==='touch'||!fine.matches)return;pointerX=e.clientX;pointerY=e.clientY;setRevealOrigin(e);hovered=true;forcedMask=false;syncHero();});
  on(heroButton,'pointerleave',function(){hovered=false;syncHero();});
- on(heroButton,'focus',function(){if(!hovered){hero.style.setProperty('--cut-x','50%');hero.style.setProperty('--cut-y','50%');}focused=true;forcedMask=false;syncHero();});
+ on(heroButton,'focus',function(){if(!hovered&&!pointerFocus&&irisClosed()){hero.style.setProperty('--cut-x','50%');hero.style.setProperty('--cut-y','50%');}focused=true;forcedMask=false;syncHero();});
  on(heroButton,'blur',function(){focused=false;syncHero();});
- on(heroButton,'click',function(e){if(e.detail>0&&!portraitPinned&&!hovered)setRevealOrigin(e);portraitPinned=!portraitPinned;forcedMask=!portraitPinned;syncHero();});
+ on(heroButton,'click',function(e){if(e.detail>0&&!portraitPinned&&!hovered)setRevealOrigin(e);pointerFocus=false;portraitPinned=!portraitPinned;forcedMask=!portraitPinned;syncHero();});
  on(document,'keydown',function(e){if(e.key==='Escape'&&portrait&&!e.defaultPrevented){portraitPinned=false;forcedMask=true;syncHero();}});
  records.forEach(function(rec){
   if(rec.enable)on(rec.enable,'click',function(){enable(rec);});

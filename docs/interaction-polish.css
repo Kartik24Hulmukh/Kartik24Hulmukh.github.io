@@ -142,3 +142,30 @@ html:not(.js) .clock{visibility:hidden}
  html.iris-motion-ready[data-motion=off] .hero-identity .identity-maker{transition:none}
 }
 @media(prefers-reduced-motion:reduce){.hero-identity .identity-maker{transition:none!important}}
+
+/* A quieter reading field and a direct route to the work, without a fixed header. */
+.hero{isolation:isolate}
+.hero::before{background:linear-gradient(90deg,#0d0d0cdb 0%,#0d0d0c99 42%,#0d0d0c22 85%)}
+@media(min-width:981px){
+ .hero-desktop-brief{max-width:40ch;font:16px/1.5 var(--display);letter-spacing:0}
+ .hero-desktop-brief a{display:inline-flex;align-items:center;gap:14px;min-height:44px;color:#f7f2ed;font:14px/1.4 var(--mono);text-transform:uppercase;text-decoration:underline;text-decoration-color:#f05a94;text-underline-offset:5px}
+ .hero-desktop-brief a:hover{color:#ff9bc1}
+ .hero-desktop-brief a:focus-visible{outline:2px solid #f05a94;outline-offset:3px}
+ .hero .h-bot .scroll-cue{visibility:hidden}
+}
+@media(max-width:640px){
+ .hero::before{background:linear-gradient(180deg,#0d0d0cd9 0%,#0d0d0ca6 48%,#0d0d0c3d 100%)}
+ .hero-mobile-intro .hero-specialty{font-size:16px;line-height:1.5}
+}
+
+/* Resilient static identity and honest controls if an enhancement fails. */
+.identity-fallback{display:block}
+html.stage-ready .identity-fallback{display:none}
+html:not(.stage-ready) .identity-aperture,html:not(.stage-ready) .identity-caption,html:not(.stage-ready) .stage-controls{display:none!important}
+html.engine-fallback [data-copy]{display:none!important}
+.proj-heading{margin:0;font:inherit}
+
+/* In the static fallback, Front Man comes first and the maker stays optional. */
+.identity-static{grid-template-columns:1fr}
+.identity-fallback-maker summary{display:flex;align-items:center;min-height:44px;color:#ece8df;cursor:pointer;font:14px/1.4 var(--mono)}
+.identity-fallback-maker summary:focus-visible{outline:2px solid #f05a94;outline-offset:3px}
