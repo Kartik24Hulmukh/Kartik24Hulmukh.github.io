@@ -1,0 +1,16 @@
+/* Section menus occupy document space instead of covering the reader. */
+.waypoint{margin:0 0 24px;max-width:100%;color:#f7efe9}
+.waypoint details{background:#173b33;border:1px solid #85b9a1}
+.waypoint summary{display:flex;align-items:center;gap:12px;min-height:48px;padding:10px 14px;cursor:pointer;list-style:none;color:#f8f1eb;font:12px/1.4 var(--mono);letter-spacing:.04em;text-transform:uppercase}
+.waypoint summary::-webkit-details-marker{display:none}
+.waypoint-shapes{color:#ffc1d8;font-size:15px;white-space:nowrap}
+.waypoint-current{margin-left:auto;color:#c8e3d5;text-align:right}
+.waypoint-chevron{color:#ff9cc0;font-size:16px}
+.waypoint summary:focus-visible,.waypoint a:focus-visible{outline:3px solid #ef5e95;outline-offset:3px}
+.waypoint-links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;margin:0;padding:1px;list-style:none;background:#85b9a1}
+.waypoint-links a{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:48px;padding:8px 12px;background:#173b33;color:#f6f1eb;text-decoration:none;font:14px/1.4 var(--display)}
+.waypoint-links a:hover,.waypoint-links a:focus-visible{background:#28594b;color:#fff}
+.waypoint-links a[aria-current=location]{background:#f1dcd9;color:#192c27;font-weight:700}
+.waypoint-links a span{color:#ffbfd7;font:12px/1.2 var(--mono)}
+.waypoint-links a[aria-current=location] span{color:#82274b}
+@media(max-width:640px){.waypoint{margin-bottom:20px}.waypoint summary{gap:8px}.waypoint-links{grid-template-columns:repeat(2,minmax(0,1fr))}.waypoint-links a{padding-inline:10px}}

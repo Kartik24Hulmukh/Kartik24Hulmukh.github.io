@@ -1,5 +1,7 @@
 # Section index — design and verification
 
+> Historical note: the floating index described below was superseded by the in-flow section menus in `WAYPOINT_VALIDATION.md` after a mobile overlap was found.
+
 ## Intent
 
 The original header is in the document flow, avoiding a large sticky bar that can obscure content. The page is long, however, and the header disappears when a reader scrolls. The optional section index gives readers direct links to the existing eight sections and indicates the current section. It appears only after the hero and can be hidden until reload. It does not trap scrolling or create a separate route; links use the page's native fragments and browser history. The original header and its mobile menu remain available.
