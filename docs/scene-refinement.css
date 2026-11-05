@@ -41,3 +41,17 @@
  .impact-actions .impact-primary{min-width:156px;padding-inline:14px}
 }
 @media(max-width:360px){.impact-actions a{gap:8px}}
+
+/* In-flow project wayfinding: no sticky layer over long case studies. */
+#dossier-index{scroll-margin-top:24px}
+.project-route{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0 26px;border-top:1px solid #234c3e55}
+.project-route a{min-height:48px;display:inline-flex;align-items:center;color:#20483a;text-decoration:none;font-family:inherit}
+.project-route a:focus-visible{outline:3px solid #b3285b;outline-offset:4px}
+.project-return{font-size:13px;font-weight:700;letter-spacing:.02em}
+.project-next{gap:12px;padding:10px 14px;border:1px solid #265344;background:#f6ded9;transition:background-color .18s,border-color .18s}
+.project-next span{font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.project-next strong{font-size:15px}
+.project-route a:hover{color:#842345}
+.project-next:hover{background:#ffcadb;border-color:#a52d58}
+@media(max-width:480px){.project-route{align-items:stretch;flex-direction:column-reverse;gap:4px}.project-next{justify-content:space-between}.project-return{min-height:44px}}
+@media(prefers-reduced-motion:reduce){.project-next{transition:none}}

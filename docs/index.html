@@ -16,7 +16,7 @@
 <link href="./font-display.css?v=eb0810f9098f" rel="stylesheet"/>
 <link href="./attachment.css?v=8187c13100f7" rel="stylesheet"/>
 <link href="./portrait-refined.css?v=26132e7a6c1b" rel="stylesheet"/>
-<link href="./experience.css?v=e169fd329108" rel="stylesheet"/><link href="./hero3d.css?v=141c09ba0275" rel="stylesheet"/><link href="./atmosphere.css?v=cd2ba91652e1" rel="stylesheet"/><link href="./interaction-polish.css?v=d3b37377f1c8" rel="stylesheet"/><script>try{document.documentElement.dataset.motion=(matchMedia('(prefers-reduced-motion: reduce)').matches||localStorage.getItem('kh-motion')==='off')?'off':'on';}catch(e){document.documentElement.dataset.motion=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on';}</script><script>setTimeout(function(){if(window.__portfolioEngineReady)return;document.documentElement.classList.add('engine-fallback');document.body.classList.remove('lock','has-cursor');document.body.classList.add('ready');var l=document.getElementById('loader');if(l)l.remove();document.querySelectorAll('.ch').forEach(function(n){n.textContent=n.dataset.ch||n.textContent;});document.querySelectorAll('.proj-body').forEach(function(n){n.inert=false;});var d=document.getElementById('digest');if(d)d.textContent='unavailable in this context';},1200);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.mobile-nav a[href^="#"]');if(a)a.closest('.mobile-nav').open=false;});</script><link href="./impact.css?v=acd9d28503f5" rel="stylesheet"/><link href="./studio.css?v=46dd8db5d200" rel="stylesheet"/><link href="./checkpoint.css?v=511e7588f133" rel="stylesheet"/><link href="./arena.css?v=7d15fd6c2c19" rel="stylesheet"/><link href="./dossier.css?v=58d4732cee4d" rel="stylesheet"/><link href="./arrival.css?v=ae5133aa1538" rel="stylesheet"/><link href="./portal.css?v=fc4cb9432422" rel="stylesheet"/><link href="./waypoints.css?v=c58eeb4e56f9" rel="stylesheet"/><link href="./scene-refinement.css?v=6ab6dd77f5fa" rel="stylesheet"/></head>
+<link href="./experience.css?v=e169fd329108" rel="stylesheet"/><link href="./hero3d.css?v=141c09ba0275" rel="stylesheet"/><link href="./atmosphere.css?v=cd2ba91652e1" rel="stylesheet"/><link href="./interaction-polish.css?v=d3b37377f1c8" rel="stylesheet"/><script>try{document.documentElement.dataset.motion=(matchMedia('(prefers-reduced-motion: reduce)').matches||localStorage.getItem('kh-motion')==='off')?'off':'on';}catch(e){document.documentElement.dataset.motion=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on';}</script><script>setTimeout(function(){if(window.__portfolioEngineReady)return;document.documentElement.classList.add('engine-fallback');document.body.classList.remove('lock','has-cursor');document.body.classList.add('ready');var l=document.getElementById('loader');if(l)l.remove();document.querySelectorAll('.ch').forEach(function(n){n.textContent=n.dataset.ch||n.textContent;});document.querySelectorAll('.proj-body').forEach(function(n){n.inert=false;});var d=document.getElementById('digest');if(d)d.textContent='unavailable in this context';},1200);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.mobile-nav a[href^="#"]');if(a)a.closest('.mobile-nav').open=false;});</script><link href="./impact.css?v=acd9d28503f5" rel="stylesheet"/><link href="./studio.css?v=46dd8db5d200" rel="stylesheet"/><link href="./checkpoint.css?v=511e7588f133" rel="stylesheet"/><link href="./arena.css?v=7d15fd6c2c19" rel="stylesheet"/><link href="./dossier.css?v=58d4732cee4d" rel="stylesheet"/><link href="./arrival.css?v=ae5133aa1538" rel="stylesheet"/><link href="./portal.css?v=fc4cb9432422" rel="stylesheet"/><link href="./waypoints.css?v=c58eeb4e56f9" rel="stylesheet"/><link href="./scene-refinement.css?v=13710ec0c59e" rel="stylesheet"/></head>
 <body class="play-mode">
 <a class="skip" href="#main">Skip to content</a>
 <canvas aria-hidden="true" id="gl"></canvas>
@@ -111,7 +111,7 @@
 <p class="stage-status">Character study</p>
 </figure></div>
 <nav aria-label="Work section index" class="waypoint"><details><summary><span class="waypoint-shapes" aria-hidden="true">○ △ □</span><span>Section index</span><span class="waypoint-current">01 / Work</span><span class="waypoint-chevron" aria-hidden="true">↕</span></summary><ol class="waypoint-links"><li><a href="#top">Introduction <span>00</span></a></li><li><a href="#work" aria-current="location">Work <span>01</span></a></li><li><a href="#manifesto">Position <span>02</span></a></li><li><a href="#numbers">Sources <span>03</span></a></li><li><a href="#bounds">Boundaries <span>04</span></a></li><li><a href="#process">Process <span>05</span></a></li><li><a href="#ledger">Ledger <span>06</span></a></li><li><a href="#contact">Contact <span>07</span></a></li></ol></details></nav>
-<nav aria-label="Jump to a featured project" class="dossier-index">
+<nav aria-label="Jump to a featured project" class="dossier-index" id="dossier-index">
 <div class="dossier-head"><div><p class="dossier-kicker">○ △ □ &nbsp; / &nbsp; SELECT A DOSSIER</p><h3>Choose a <em>starting point.</em></h3></div><p>Four ways into the work. Every project includes its source and limits.</p></div>
 <div class="dossier-grid">
 <a class="dossier-card" href="#project-jittest"><span class="dossier-top"><span>01 / VERIFICATION</span><span aria-hidden="true">○</span></span><strong>jittest</strong><span class="dossier-desc">Compare revisions. Verify the receipt.</span><span class="dossier-foot">Published · PyPI v0.4.1 <span aria-hidden="true">↘</span></span></a>
@@ -163,7 +163,9 @@ jittest verify-receipt bug_flask_01_evidence.json \
 <div class="r-foot">Run it instead of believing this page.</div>
 <a class="src" href="https://github.com/Kartik24Hulmukh/jittest#try-it-in-60-seconds--no-keys-no-setup" rel="noopener" target="_blank">src ↗ jittest README · quickstart</a>
 </div>
-</div></div></div>
+</div>
+<nav class="project-route" aria-label="After jittest"><a class="project-return" href="#dossier-index">↑ Project index</a><a class="project-next" href="#project-axiom-grid"><span>Next project <span aria-hidden="true">↗</span></span><strong>Axiom-Grid</strong></a></nav>
+</div></div>
 </article>
 <article class="proj" id="project-axiom-grid" data-kind="Desktop agent" data-status="Technical preview · ghost-typing production NO-GO">
 <h3 class="proj-heading"><button disabled="" aria-controls="pb2" aria-expanded="true" class="proj-head" data-cursor="OPEN">
@@ -199,7 +201,9 @@ jittest verify-receipt bug_flask_01_evidence.json \
 <div class="r-foot">Refusing to ship is also a result.</div>
 <a class="src" href="https://github.com/Kartik24Hulmukh/Axiom-Grid/pull/33" rel="noopener" target="_blank">src ↗ Axiom-Grid PR #33</a>
 </div>
-</div></div></div>
+</div>
+<nav class="project-route" aria-label="After Axiom-Grid"><a class="project-return" href="#dossier-index">↑ Project index</a><a class="project-next" href="#project-accessdoc"><span>Next project <span aria-hidden="true">↗</span></span><strong>AccessDoc</strong></a></nav>
+</div></div>
 </article>
 <article class="proj" id="project-accessdoc" data-kind="Accessibility" data-status="Open-source beta">
 <h3 class="proj-heading"><button disabled="" aria-controls="pb3" aria-expanded="true" class="proj-head" data-cursor="OPEN">
@@ -231,7 +235,9 @@ python3 cli.py verify dist/bundle.zip   # 0 = intact, 1 = tampered</code>
 <div class="r-foot">Findings, not verdicts.</div>
 <a class="src" href="https://github.com/Kartik24Hulmukh/AccessDoc" rel="noopener" target="_blank">src ↗ AccessDoc README</a>
 </div>
-</div></div></div>
+</div>
+<nav class="project-route" aria-label="After AccessDoc"><a class="project-return" href="#dossier-index">↑ Project index</a><a class="project-next" href="#project-xray"><span>Next project <span aria-hidden="true">↗</span></span><strong>Project X-Ray</strong></a></nav>
+</div></div>
 </article>
 <article class="proj" id="project-xray" data-kind="Civic tech" data-status="Synthetic-preview release candidate">
 <h3 class="proj-heading"><button disabled="" aria-controls="pb4" aria-expanded="true" class="proj-head" data-cursor="OPEN">
@@ -261,9 +267,11 @@ python3 cli.py verify dist/bundle.zip   # 0 = intact, 1 = tampered</code>
 <div class="r-foot">Evidence for people, not verdicts about them.</div>
 <a class="src" href="https://github.com/Kartik24Hulmukh/project-xray" rel="noopener" target="_blank">src ↗ project-xray</a>
 </div>
-</div></div></div>
+</div>
+<nav class="project-route" aria-label="After Project X-Ray"><a class="project-return" href="#dossier-index">↑ Project index</a><a class="project-next" href="#project-simultaneity"><span>Next project <span aria-hidden="true">↗</span></span><strong>Simultaneity Index</strong></a></nav>
+</div></div>
 </article>
-<article class="proj" data-kind="Market intelligence" data-status="Active development · v1.6.x">
+<article class="proj" id="project-simultaneity" data-kind="Market intelligence" data-status="Active development · v1.6.x">
 <h3 class="proj-heading"><button disabled="" aria-controls="pb6" aria-expanded="true" class="proj-head" data-cursor="OPEN">
 <span class="p-idx mono">05</span>
 <span class="p-name">Simultaneity Index</span>
@@ -287,9 +295,11 @@ python3 cli.py verify dist/bundle.zip   # 0 = intact, 1 = tampered</code>
 <div class="r-foot">Proof integrity is not issuer authentication.</div>
 <a class="src" href="https://github.com/Kartik24Hulmukh/frontier-oss-ideas/pull/39" rel="noopener" target="_blank">src ↗ frontier-oss-ideas PR #39</a>
 </div>
-</div></div></div>
+</div>
+<nav class="project-route" aria-label="After Simultaneity Index"><a class="project-return" href="#dossier-index">↑ Project index</a><a class="project-next" href="#project-ledgermatch"><span>Next project <span aria-hidden="true">↗</span></span><strong>LedgerMatch</strong></a></nav>
+</div></div>
 </article>
-<article class="proj" data-kind="Finance" data-status="Release candidate">
+<article class="proj" id="project-ledgermatch" data-kind="Finance" data-status="Release candidate">
 <h3 class="proj-heading"><button disabled="" aria-controls="pb7" aria-expanded="true" class="proj-head" data-cursor="OPEN">
 <span class="p-idx mono">06</span>
 <span class="p-name">LedgerMatch</span>
@@ -318,9 +328,11 @@ python3 -m app.validate out_demo/evidence.json \
 <div class="r-foot">Ambiguity is preserved, not resolved.</div>
 <a class="src" href="https://github.com/Kartik24Hulmukh/Ledgermatch" rel="noopener" target="_blank">src ↗ Ledgermatch</a>
 </div>
-</div></div></div>
+</div>
+<nav class="project-route" aria-label="After LedgerMatch"><a class="project-return" href="#dossier-index">↑ Project index</a><a class="project-next" href="#project-rozgar"><span>Next project <span aria-hidden="true">↗</span></span><strong>RGIT Rozgar</strong></a></nav>
+</div></div>
 </article>
-<article class="proj" data-kind="Product" data-status="Campus platform">
+<article class="proj" id="project-rozgar" data-kind="Product" data-status="Campus platform">
 <h3 class="proj-heading"><button disabled="" aria-controls="pb8" aria-expanded="true" class="proj-head" data-cursor="OPEN">
 <span class="p-idx mono">07</span>
 <span class="p-name">RGIT Rozgar</span>
@@ -343,7 +355,9 @@ python3 -m app.validate out_demo/evidence.json \
 <div class="r-foot">Software for people nearby.</div>
 <a class="src" href="https://github.com/Kartik24Hulmukh/unified-experience" rel="noopener" target="_blank">src ↗ unified-experience</a>
 </div>
-</div></div></div>
+</div>
+<nav class="project-route" aria-label="After RGIT Rozgar"><a class="project-return" href="#dossier-index">↑ Project index</a><a class="project-next" href="#contact"><span>Continue <span aria-hidden="true">↗</span></span><strong>Get in touch</strong></a></nav>
+</div></div>
 </article>
 </div>
 <a class="work-contact-link" href="#contact">Interested in working together? Contact Kartik ↗</a>
