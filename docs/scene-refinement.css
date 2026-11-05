@@ -1,0 +1,43 @@
+/* A cinematic checkpoint: graphic tension without concealing the reference field. */
+.hero-intro::before{border-left-color:#a9d3be99;border-top-color:#a9d3be77;background:linear-gradient(135deg,#1c534044,transparent 60%)}
+.player-line{padding:8px 12px 8px 8px;background:linear-gradient(90deg,#173e35e8,#173e3594 74%,transparent);border:1px solid #7ebba666}
+.player-number{background:#a1cfb5;color:#102f27;box-shadow:4px 4px 0 #305e50}
+.player-label{color:#f2eee7}
+.player-symbols{color:#ff9abb}
+.hero-identity .identity-aperture{background:linear-gradient(135deg,#eed3d0 0 22%,#b7708e 22% 25%,#3f6e61 25% 66%,#203c35 66% 100%);box-shadow:7px 7px 0 #e2558c,14px 14px 0 #2b6656,0 22px 72px #0009}
+.hero-identity .identity-grid{opacity:.55;background:linear-gradient(#d8f3df18 1px,transparent 1px),linear-gradient(90deg,#d8f3df18 1px,transparent 1px);background-size:42px 42px}
+.hero-identity .identity-topline{color:#f2e4e1;border-color:#f092b1a0}
+.hero-identity .identity-prompt{background:#102b26ed;border-left-color:#ff87b1}
+.hero .impact-primary{transition:background-color .18s,border-color .18s,box-shadow .18s}
+.hero .impact-primary:hover,.hero .impact-primary:focus-visible{background:#ffc2d6;border-color:#ffc2d6;box-shadow:4px 4px 0 #448d72}
+/* The portrait opens from the centre like two doors, while the live mask stays underneath.
+   Opacity remains a fallback and a gentle accompanying fade; the button never moves. */
+@supports (clip-path:inset(0 50% 0 50%)){
+ html.stage-ready .hero-identity .identity-maker{clip-path:inset(0 50% 0 50%);transition:opacity 360ms ease-out,clip-path 520ms cubic-bezier(.22,1,.36,1)}
+ html.stage-ready .hero-identity[data-portrait=true] .identity-maker{clip-path:inset(0 0 0 0)}
+ html.stage-ready .hero-identity .identity-maker::before,html.stage-ready .hero-identity .identity-maker::after{transition:transform 520ms cubic-bezier(.22,1,.36,1);border-color:#ffd5e4}
+ html[data-motion=off].stage-ready .hero-identity .identity-maker,html[data-motion=off].stage-ready .hero-identity .identity-maker::before,html[data-motion=off].stage-ready .hero-identity .identity-maker::after{transition:none}
+ @media(prefers-reduced-motion:reduce){html.stage-ready .hero-identity .identity-maker,html.stage-ready .hero-identity .identity-maker::before,html.stage-ready .hero-identity .identity-maker::after{transition:none!important}}
+}
+/* The character rooms share the checkpoint's geometry; 3D and static posters both remain readable. */
+.full-stage .stage-visual{background:linear-gradient(0deg,#163e33 0 13%,transparent 13%),linear-gradient(135deg,transparent 0 69%,#ef83a3 69% 76%,#9a466d 76% 80%,transparent 80%),linear-gradient(145deg,#e8c9c2 0 27%,#c17891 27% 29%,#a9d0b9 29% 62%,#578f7b 62% 100%);box-shadow:inset 0 0 0 1px #17392eb3,6px 6px 0 #d75b89}
+.full-stage .stage-ring{border-color:#235c4bba}
+/* Hover feedback must not move the link out from under the pointer. */
+.dossier-card{transition:background-color .2s ease,box-shadow .2s ease,border-color .2s ease}
+.dossier-card:hover,.dossier-card:focus-visible{transform:none;background:#fff4ee;box-shadow:inset 0 -5px 0 #e85a90;border-color:#e85a90}
+.dossier-card[aria-current=location]{box-shadow:inset 0 -5px 0 #a52d58}
+@media(max-width:640px){
+ .player-line{padding:6px 8px 6px 6px;gap:10px}
+ .player-number{min-height:46px}
+ .hero-identity{width:min(100%,260px)}
+ .hero-identity .identity-aperture{box-shadow:5px 5px 0 #e2558c,10px 10px 0 #2b6656,0 20px 60px #0008}
+ .full-stage .stage-visual{box-shadow:inset 0 0 0 1px #17392eb3,4px 4px 0 #d75b89}
+}
+@media(prefers-reduced-motion:reduce){.hero .impact-primary,.dossier-card{transition:none!important}}
+@media(max-width:360px){
+ .player-number{min-width:54px;font-size:20px}
+ .player-symbols{font-size:13px;letter-spacing:0}
+ .impact-actions{gap:8px 12px}
+ .impact-actions .impact-primary{min-width:156px;padding-inline:14px}
+}
+@media(max-width:360px){.impact-actions a{gap:8px}}
