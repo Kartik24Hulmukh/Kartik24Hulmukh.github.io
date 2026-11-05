@@ -21,7 +21,7 @@
  function showFailure(rec){rec.failed=true;live(rec,false);text(rec,'Static preview · choose Retry 3D');if(rec.retry){rec.retry.hidden=false;if(rec.turn)rec.turn.disabled=true;}if(rec.enable){rec.enable.textContent='Retry 3D';rec.enable.setAttribute('aria-pressed','false');}}
  function syncHero(){
   if(disposed)return;portrait=!forcedMask&&(portraitPinned||hovered||focused);hero.dataset.portrait=String(portrait);hero.dataset.peek='false';
-  heroButton.setAttribute('aria-pressed',String(portraitPinned));heroButton.setAttribute('aria-label',portraitPinned?'Restore Front Man mask':"Reveal Kartik's illustrated portrait");
+  heroButton.setAttribute('aria-pressed',String(portraitPinned));
   heroLabel.textContent=portrait?'Kartik Hulmukh':'Front Man';helper.textContent=portrait?(portraitPinned?(fine.matches?'Portrait pinned · click to restore':'Tap to restore mask'):(fine.matches?(focused&&!hovered?'Enter to keep · Escape to restore':'Click to keep · leave to restore'):'Tap to restore mask')):(fine.matches?'Hover or focus to meet Kartik':'Tap to meet Kartik');
   if(portrait)text(records[0],'Portrait revealed');else text(records[0],records[0].painted?'Live 3D mask':'Character study');schedule();
  }
@@ -47,7 +47,9 @@
   on(canvas,'webglcontextlost',function(e){e.preventDefault();lost=true;cancelLoad();records.forEach(function(r){live(r,false);text(r,'Static preview · 3D temporarily unavailable');});});
   on(canvas,'webglcontextrestored',function(){if(disposed)return;lost=false;lastSize='';records.forEach(function(r){r.failed=false;});schedule();});
  }
- function eligible(rec){return rec.visible&&!(rec.node===hero&&portrait)&&(auto()||rec.userEnabled);}
+ // Keep the rendered mask under the portrait during both halves of the fade.
+ // Replacing it with the poster mid-transition makes the reveal visibly jump.
+ function eligible(rec){return rec.visible&&(auto()||rec.userEnabled);}
  function valid(rec,ticket){return !disposed&&!suspended&&!document.hidden&&!lost&&ticket===epoch&&active===rec&&eligible(rec);}
  function cancelLoad(){epoch++;if(abort){abort.abort();abort=null;stats.aborts++;}clearTimeout(timer);timer=0;records.forEach(function(r){if(r.loading&&r.retry&&r.turn&&r.turn.disabled){r.retry.hidden=false;text(r,'Static preview · choose Retry 3D');}r.loading=false;});}
  function attach(rec){
@@ -65,7 +67,7 @@
   group.rotation.set(pitch,rec.angle,0);var start=performance.now();renderer.render(scene,camera);var ms=performance.now()-start;
   stats.renders++;stats.maxRenderMs=Math.max(stats.maxRenderMs,ms);stats.drawCalls=renderer.info.render.calls;stats.triangles=renderer.info.render.triangles;
   if(stats.renders>8&&ms>28&&!degraded){degraded=true;lastSize='';}
-  live(rec,true);text(rec,rec.full&&rec.quarter&&Math.abs(rec.dragAngle)<.01?((motion()?'Live':'Static')+' 3D · '+(rec.quarter*90)+'° view'):rec.full&&rec.viewport.clientWidth<220?(motion()?'Live 3D':'Static 3D view'):(motion()?(rec.full?(fine.matches?'Live 3D · drag or scroll to turn':'Live 3D · swipe to turn'):'Live 3D mask'):'Static 3D view · motion is paused'));
+  live(rec,true);text(rec,rec.node===hero&&portrait?'Portrait revealed':rec.full&&rec.quarter&&Math.abs(rec.dragAngle)<.01?((motion()?'Live':'Static')+' 3D · '+(rec.quarter*90)+'° view'):rec.full&&rec.viewport.clientWidth<220?(motion()?'Live 3D':'Static 3D view'):(motion()?(rec.full?(fine.matches?'Live 3D · drag or scroll to turn':'Live 3D · swipe to turn'):'Live 3D mask'):'Static 3D view · motion is paused'));
   if(rec.retry)rec.retry.hidden=true;if(rec.turn)rec.turn.disabled=false;if(rec.enable){rec.enable.textContent='3D enabled';rec.enable.setAttribute('aria-pressed','true');}
  }
  async function load(rec){
