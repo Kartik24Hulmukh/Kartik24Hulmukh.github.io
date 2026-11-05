@@ -5,7 +5,7 @@ for(const route of ['/','/docs/']){
  for(const v of [{width:320,height:700},{width:390,height:844},{width:768,height:800},{width:1440,height:900}]){
   const c=await b.newContext({viewport:v,reducedMotion:'reduce'}),p=await c.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto(base+route);await p.waitForTimeout(1300);const map=p.locator('#journey-map'),sum=map.locator('summary');
   check(`${route} ${v.width} index absent on arrival`,!(await map.isVisible()));
-  await p.evaluate(()=>document.querySelector('#process').scrollIntoView({block:'start'}));await p.waitForTimeout(300);check(`${route} ${v.width} index appears after scrolling`,await map.isVisible());
+  await p.evaluate(()=>document.querySelector('#process').scrollIntoView({block:'start'}));await map.waitFor({state:'visible',timeout:10000}).catch(()=>{});check(`${route} ${v.width} index appears after scrolling`,await map.isVisible());
   await sum.click();let panel=map.locator('.journey-panel'),bounds=await panel.boundingBox();check(`${route} ${v.width} panel fits viewport`,bounds.x>=0&&bounds.x+bounds.width<=v.width+1&&bounds.y>=0&&bounds.y+bounds.height<=v.height+1,bounds);
   check(`${route} ${v.width} current section`,await map.locator('a[href="#process"]').getAttribute('aria-current')==='location');check(`${route} ${v.width} no overflow`,await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));check(`${route} ${v.width} no exceptions`,errors.length===0,errors);await c.close();
  }

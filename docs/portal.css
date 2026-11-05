@@ -1,0 +1,22 @@
+/* Arrival: a checkpoint rather than a fullscreen gate. The contour field remains visible. */
+.hero-intro{position:relative;z-index:0}
+.hero-intro::before{content:'';position:absolute;z-index:-1;pointer-events:none;left:-14px;top:-12px;bottom:-12px;width:clamp(180px,45%,320px);border-left:1px solid #91bda760;border-top:1px solid #91bda738;background:linear-gradient(135deg,#234c3e27,transparent 45%)}
+.player-line{border-bottom:1px solid #90b7a75c;padding-bottom:12px}
+.player-number{box-shadow:5px 5px 0 #21463c}
+.hero .name{color:#f6eee9}
+@media(min-width:981px){.hero .name{font-size:clamp(76px,7.8vw,112px);letter-spacing:-.025em}}
+.hero-identity::after{content:'';position:absolute;z-index:-1;pointer-events:none;inset:4% -7% 18%;border:1px solid #77bfa05c;transform:rotate(3deg);background:linear-gradient(135deg,#244c3e33,transparent 38% 70%,#e75b9426)}
+.hero-identity .identity-topline{border-bottom:1px solid #f5c0d05c;padding-bottom:6px}
+.hero-identity .identity-aperture{border-color:#f78bb2;box-shadow:8px 8px 0 #d4507e,16px 16px 0 #244e42,0 22px 72px #0008}
+/* The mask fades to the full maker as two illuminated edges part. */
+@supports (opacity:1){
+ html.stage-ready .hero-identity .identity-maker{clip-path:none;opacity:0;transition:opacity 360ms ease-out}
+ html.stage-ready .hero-identity[data-portrait=true] .identity-maker{opacity:1}
+ html.stage-ready .hero-identity .identity-maker::before,html.stage-ready .hero-identity .identity-maker::after{content:'';display:block;position:absolute;top:0;bottom:0;width:50%;z-index:4;pointer-events:none;background:transparent;transition:transform 520ms cubic-bezier(.22,1,.36,1)}
+ html.stage-ready .hero-identity .identity-maker::before{left:0;border-left:2px solid #ffd5e4;box-shadow:none;transform:translateX(100%)}
+ html.stage-ready .hero-identity .identity-maker::after{right:0;border-right:2px solid #ffd5e4;box-shadow:none;transform:translateX(-100%)}
+ html.stage-ready .hero-identity[data-portrait=true] .identity-maker::before,html.stage-ready .hero-identity[data-portrait=true] .identity-maker::after{transform:translateX(0)}
+ html[data-motion=off].stage-ready .hero-identity .identity-maker,html[data-motion=off].stage-ready .hero-identity .identity-maker::before,html[data-motion=off].stage-ready .hero-identity .identity-maker::after{transition:none}
+ @media(prefers-reduced-motion:reduce){html.stage-ready .hero-identity .identity-maker,html.stage-ready .hero-identity .identity-maker::before,html.stage-ready .hero-identity .identity-maker::after{transition:none!important}}
+}
+@media(max-width:640px){.hero-intro::before{left:-8px;top:-8px;bottom:-8px;width:65%}.player-line{padding-bottom:9px}.hero-identity::after{inset:3% -5% 20%}.hero-identity .identity-aperture{box-shadow:6px 6px 0 #d4507e,12px 12px 0 #244e42,0 20px 60px #0008}}
