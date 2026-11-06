@@ -55,3 +55,6 @@
 .project-next:hover{background:#ffcadb;border-color:#a52d58}
 @media(max-width:480px){.project-route{align-items:stretch;flex-direction:column-reverse;gap:4px}.project-next{justify-content:space-between}.project-return{min-height:44px}}
 @media(prefers-reduced-motion:reduce){.project-next{transition:none}}
+/* A live 3D control remains visibly actionable, not greyed out. */
+.hero-identity .stage-enable[aria-pressed=true]{color:#f05a94}
+.hero-identity .stage-enable:hover,.hero-identity .stage-enable:focus-visible{color:#ffd1e1;border-bottom-color:#f05a94}

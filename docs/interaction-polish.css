@@ -103,7 +103,6 @@ html:not(.js) .contact-guard .stage-status{display:none}
 .hero-identity[data-portrait=true] .identity-prompt{opacity:0}
 .hero-identity .identity-halo{opacity:.65}
 .hero-identity .identity-aperture::after{display:none}
-.hero-identity .stage-enable[aria-pressed=true]{display:none}
 .project-quick-meta{font-size:14px!important;font-weight:600;color:#625c55}
 .project-quick-links{margin:8px 0 20px}
 .work-contact-link{display:inline-flex;align-items:center;min-height:44px;margin-top:32px;color:#9f1f50;border-bottom:1px solid currentColor;font:14px/1.5 var(--mono)}
